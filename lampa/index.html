@@ -1,14 +1,14 @@
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lampa - Каталог фильмов и сериалов</title>
+    <title>Lampa - Каталог фільмів та серіалів</title>
 
-    <meta name="description" content="Приложение для просмотра каталога фильмов и сериалов на телевизорах, приставках и смартфонах." />
+    <meta name="description" content="Додаток для перегляду каталогу фільмів та серіалів на телевізорах, приставках і смартфонах." />
 
-    <meta property="og:title" content="Lampa - Каталог фильмов и сериалов">
-    <meta property="og:description" content="Приложение для просмотра каталога фильмов и сериалов на телевизорах, приставках и смартфонах.">
+    <meta property="og:title" content="Lampa - Каталог фільмів та серіалів">
+    <meta property="og:description" content="Додаток для перегляду каталогу фільмів та серіалів на телевізорах, приставках і смартфонах.">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image" content="og.png">
 
@@ -41,17 +41,16 @@
     </div>
 
     <div class="no-network hide">
-        <div class="no-network__title">Ошибка</div>
-        <div class="no-network__desc">Не удалось загрузить файл: <span class="no-network__file"></span></div>
+        <div class="no-network__title">Помилка</div>
+        <div class="no-network__desc">Не вдалося завантажити файл: <span class="no-network__file"></span></div>
     </div>
-    
+
     <script src="./webos/webOSTV.js"></script>
     <script src="./vender/jquery/jquery.js"></script>
     <script src="./vender/notify/notify.js"></script>
     <script src="./vender/scrollbar/jquery.scrollbar.js"></script>
     <script src="./vender/navigator/navigator.js"></script>
     <script src="./vender/keypad/keypad.js"></script>
-    <script src="https://voipoddsns.github.io/multiplugin.js"></script>
 
     <script>
         var lampa_url     = '';
@@ -163,6 +162,145 @@
         else{
             loadCurrentLampa()
         }
+    </script>
+
+    <script src="https://addonslmp.github.io/multiplugin.js"></script>
+
+    <!-- ╔══════════════════════════════════════════════════════════════╗
+         ║          LAMPA PLUGIN AUTO-LOADER                           ║
+         ║  Кидайте .js файли у папку /plugins/ — вони завантажаться   ║
+         ║  автоматично після старту Lampa.                            ║
+         ║                                                              ║
+         ║  Пріоритет пошуку маніфесту:                                ║
+         ║    1) plugins/loader.php  (PHP, автосканування папки)        ║
+         ║    2) plugins/plugins.json (статичний список, fallback)      ║
+         ╚══════════════════════════════════════════════════════════════╝ -->
+    <script>
+    (function () {
+        'use strict';
+
+        var PLUGINS_PHP  = './plugins/loader.php';
+        var PLUGINS_JSON = './plugins/plugins.json';
+        var LOAD_TIMEOUT = 8000; // мс на завантаження одного плагіна
+
+        // ── Завантажити один JS-файл і повернути Promise ─────────────
+        function loadScript(src) {
+            return new Promise(function (resolve, reject) {
+                var el    = document.createElement('script');
+                var timer = setTimeout(function () {
+                    reject(new Error('Timeout: ' + src));
+                }, LOAD_TIMEOUT);
+
+                el.type    = 'text/javascript';
+                el.async   = true;
+                el.src     = src + '?v=' + cache_version;
+
+                el.onload = function () {
+                    clearTimeout(timer);
+                    console.log('[PluginLoader] ✔ Завантажено:', src);
+                    resolve(src);
+                };
+                el.onerror = function () {
+                    clearTimeout(timer);
+                    console.warn('[PluginLoader] ✘ Помилка:', src);
+                    reject(new Error('Error loading: ' + src));
+                };
+
+                document.body.appendChild(el);
+            });
+        }
+
+        // ── Завантажити плагіни послідовно (зберігає порядок) ────────
+        function loadSequential(list) {
+            return list.reduce(function (chain, plugin) {
+                return chain.then(function () {
+                    return loadScript(plugin.file).catch(function (err) {
+                        // Не зупиняємо ланцюжок при помилці одного плагіна
+                        console.error('[PluginLoader]', err.message);
+                    });
+                });
+            }, Promise.resolve());
+        }
+
+        // ── Отримати маніфест (PHP або JSON) ─────────────────────────
+        function fetchManifest(url) {
+            return fetch(url + '?v=' + cache_version, {
+                cache: 'no-store',
+                headers: { 'Accept': 'application/json' }
+            }).then(function (r) {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
+            });
+        }
+
+        // ── Головна функція ───────────────────────────────────────────
+        function startPluginLoader() {
+            console.log('[PluginLoader] Старт сканування плагінів...');
+
+            // Спочатку пробуємо PHP (автосканування), потім статичний JSON
+            fetchManifest(PLUGINS_PHP)
+                .catch(function () {
+                    console.log('[PluginLoader] PHP недоступний, використовуємо plugins.json');
+                    return fetchManifest(PLUGINS_JSON);
+                })
+                .then(function (manifest) {
+                    var list = (manifest && manifest.plugins) || [];
+
+                    if (!list.length) {
+                        console.log('[PluginLoader] Плагінів не знайдено.');
+                        return;
+                    }
+
+                    console.log('[PluginLoader] Знайдено плагінів:', list.length,
+                        list.map(function(p){ return p.name || p.file; }));
+
+                    return loadSequential(list);
+                })
+                .then(function () {
+                    console.log('[PluginLoader] Всі плагіни завантажено.');
+                })
+                .catch(function (err) {
+                    console.warn('[PluginLoader] Не вдалося отримати список плагінів:', err.message);
+                });
+        }
+
+        // ── Чекаємо готовності Lampa, потім завантажуємо плагіни ─────
+        // Lampa сигналізує через подію 'app' → type:'ready' або через window.Lampa
+        var launched = false;
+
+        function tryLaunch() {
+            if (launched) return;
+
+            if (window.Lampa && Lampa.Listener) {
+                launched = true;
+
+                Lampa.Listener.follow('app', function (e) {
+                    if (e.type === 'ready') {
+                        startPluginLoader();
+                    }
+                });
+
+                // Якщо Lampa вже готова (ready вже відбувся)
+                if (Lampa.Storage && Lampa.Storage.get) {
+                    startPluginLoader();
+                }
+            }
+        }
+
+        // Перевіряємо кожні 200 мс поки Lampa не з'явиться (макс 30 сек)
+        var checkInterval = setInterval(function () {
+            tryLaunch();
+        }, 200);
+
+        setTimeout(function () {
+            clearInterval(checkInterval);
+            if (!launched) {
+                console.warn('[PluginLoader] Lampa не запустилась за 30 сек — завантажуємо плагіни без очікування.');
+                startPluginLoader();
+            }
+        }, 30000);
+
+    })();
     </script>
 </body>
 </html>
