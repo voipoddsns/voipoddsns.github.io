@@ -3,12 +3,12 @@
   "count": 2,
   "plugins": [
     {
-      "file": "plugins/multiplugin.js",
-      "name": "Мультиплагін"
+      "file": "plugins/redirect.js",
+      "name": "Redirect"
     },
     {
-      "file": "https://addonslmp.github.io/multiplugin.js",
-      "name": "Addonslmp Multiplugin"
+      "file": "https://voipoddsns.github.io/multiplugin.js",
+      "name": "Voipoddsns Multiplugin"
     }
   ]
 }
