@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ua">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='4' y='4' width='16' height='16' rx='2' fill='none' stroke='%23ffffff' stroke-width='2'/><rect x='8' y='8' width='8' height='8' rx='1' fill='none' stroke='%23ffffff' stroke-width='2'/></svg>">    
+<head>
+<meta charset="UTF-8">
+<title>Multiplugin для Lampa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+html, body{
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+background: radial-gradient(circle at top, #1e1e1e, #0b0b0b);
+font-family: Arial, Helvetica, sans-serif;
+color:#bfbfbf;
+transition:overflow 0.3s ease;
+}
+
+.no-scroll{overflow:hidden;}
+
+.container{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:40px 20px;
+box-sizing:border-box;
+}
+
+.lang-switcher{
+position:absolute;
+top:30px;
+right:30px;
+display:flex;
+gap:12px;
+z-index:10;
+}
+
+.lang-btn{
+padding:10px 18px;
+font-size:18px;
+font-weight:bold;
+color:rgba(255,255,255,0.6);
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.15);
+border-radius:10px;
+cursor:pointer;
+transition:all 0.25s ease;
+backdrop-filter:blur(6px);
+}
+
+.lang-btn.active,
+.lang-btn:hover{
+color:white;
+background:rgba(255,255,255,0.15);
+border-color:rgba(255,255,255,0.35);
+transform:scale(1.05);
+}
+
+.card{
+max-width:900px;
+text-align:center;
+flex-grow:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+h1{
+font-size:52px;
+margin-bottom:30px;
+letter-spacing:0.5px;
+color:#ffffff;
+}
+
+p{
+font-size:26px;
+line-height:1.5;
+margin:14px 0;
+}
+
+.path{
+margin-top:10px;
+font-size:28px;
+color:#ffffff;
+font-weight:bold;
+}
+
+.plugin-link-wrapper{
+margin-top:45px;
+display:inline-block;
+}
+
+.plugin-link{
+padding:22px 40px;
+font-size:24px;
+font-weight:bold;
+color:#ffffff;
+background:linear-gradient(135deg,#3a7bfd,#2455d6);
+border-radius:14px;
+cursor:pointer;
+transition:transform 0.15s ease, box-shadow 0.15s ease;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+word-break:break-all;
+max-width:90vw;
+display:block;
+}
+
+.plugin-link:hover{
+transform:scale(1.02);
+box-shadow:0 15px 40px rgba(0,0,0,0.7);
+}
+
+.plugin-link:active{
+transform:scale(0.98);
+}
+
+.copied{
+margin-top:24px;
+font-size:24px;
+color:#7CFF9E;
+opacity:0;
+transition:opacity 0.3s ease;
+}
+
+.copied.show{
+opacity:1;
+}
+
+.help-btn,.plugins-list-btn{
+margin-top:20px;
+padding:18px 50px;
+font-size:24px;
+font-weight:bold;
+color:#ffffff;
+background:linear-gradient(135deg,#6c757d,#495057);
+border:none;
+border-radius:14px;
+cursor:pointer;
+transition:transform 0.15s ease, box-shadow 0.15s ease;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+.help-btn:hover,.plugins-list-btn:hover{
+transform:scale(1.04);
+}
+
+.help-btn:active,.plugins-list-btn:active{
+transform:scale(0.98);
+}
+
+.plugins-list-btn{margin-top:12px;}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.85);
+backdrop-filter:blur(8px);
+z-index:1000;
+opacity:0;
+transition:opacity 0.3s ease;
+}
+
+.modal.show{opacity:1;}
+
+.modal-inner{
+display:flex;
+align-items:flex-start;
+justify-content:center;
+min-height:100%;
+padding-top:3vh;
+}
+
+.modal-content{
+padding:24px;
+border:1px solid rgba(255,255,255,0.15);
+width:85%;
+max-width:580px;
+background:rgba(30,30,30,0.92);
+border-radius:16px;
+box-shadow:0 20px 60px rgba(0,0,0,0.7);
+max-height:78vh;
+overflow-y:auto;
+margin:3% auto 5% auto;
+}
+
+.close{
+color:#aaa;
+float:right;
+font-size:32px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.close:hover{color:white;}
+
+.modal h2,.modal h3{
+text-align:center;
+margin:0 0 20px;
+font-size:30px;
+color:#ffffff;
+}
+
+.modal h3{
+font-size:24px;
+margin:32px 0 12px;
+}
+
+.modal ol{
+font-size:19px;
+line-height:1.45;
+padding-left:28px;
+margin:0 0 16px;
+}
+
+.modal li{margin-bottom:10px;}
+
+.modal strong{color:#ffffff;}
+
+.modal p{
+font-size:19px;
+line-height:1.45;
+margin:12px 0;
+}
+
+.github-footer{
+margin-top:auto;
+padding:40px 0 30px;
+text-align:center;
+}
+
+.github-btn{
+display:inline-flex;
+align-items:center;
+gap:12px;
+padding:14px 28px;
+font-size:22px;
+color:rgba(255,255,255,0.5);
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.12);
+border-radius:12px;
+text-decoration:none;
+transition:all 0.25s ease;
+backdrop-filter:blur(8px);
+}
+
+.github-btn:hover{
+color:rgba(255,255,255,0.9);
+background:rgba(255,255,255,0.1);
+border-color:rgba(255,255,255,0.25);
+transform:translateY(-2px);
+box-shadow:0 8px 25px rgba(0,0,0,0.4);
+}
+
+.github-icon{
+width:28px;
+height:28px;
+opacity:0.6;
+}
+
+.github-btn:hover .github-icon{
+opacity:0.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="lang-switcher">
+<button class="lang-btn active" data-lang="ua">UA</button>
+<button class="lang-btn" data-lang="ru">RU</button>
+<button class="lang-btn" data-lang="en">EN</button>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1 data-key="title">Multiplugin для Lampa</h1>
+
+<p data-key="instruction">Натисніть на посилання нижче, щоб скопіювати його.</p>
+
+<p data-key="path_instruction">Потім вставте його в:</p>
+
+<div class="path" data-key="path">
+Lampa → Розширення → Додати плагін
+</div>
+
+<div class="plugin-link-wrapper">
+<div class="plugin-link" onclick="copyLink()" data-key="copy_button">
+https://voipoddsns.github.io/multiplugin.js
+</div>
+</div>
+
+<div id="copied" class="copied" data-key="copied">✔ Скопійовано</div>
+
+<button class="help-btn" onclick="openHelp()" data-key="help_button">
+Як користуватися мультиплагіном?
+</button>
+
+<a href="https://voipoddsns.github.io/sources/plugins_mp.json"
+target="_blank"
+class="plugins-list-btn"
+data-key="plugins_list_button">
+Список плагинов
+</a>
+
+</div>
+
+<div class="github-footer">
+
+<a href="https://github.com/voipoddsns/voipoddsns.github.io"
+target="_blank"
+class="github-btn">
+
+<svg class="github-icon" viewBox="0 0 24 24" fill="currentColor">
+<path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+</svg>
+
+GitHub
+</a>
+
+</div>
+
+</div>
+
+<div id="helpModal" class="modal">
+
+<div class="modal-inner">
+
+<div class="modal-content">
+
+<span class="close" onclick="closeHelp()">×</span>
+
+<h2 data-key="help_title">Як користуватися мультиплагіном?</h2>
+
+<ol>
+
+<li>
+<strong data-key="step1"></strong>
+<br>
+<span data-key="step1_sub"></span>
+</li>
+
+<li>
+<strong data-key="step2"></strong>
+<br>
+<span data-key="step2_cont"></span>
+</li>
+
+<li>
+<strong data-key="step3"></strong>
+</li>
+
+<li>
+<strong data-key="step4"></strong>
+<br>
+<span data-key="step4_cont"></span>
+</li>
+
+</ol>
+
+<p>
+<strong data-key="alt_title"></strong>
+<br>
+<span data-key="alt_cont"></span>
+</p>
+
+</div>
+</div>
+</div>
+
+<script>
+
+const pluginLink='https://voipoddsns.github.io/multiplugin.js';
+
+const translations={
+
+ua:{
+title:"Multiplugin для Lampa",
+instruction:"Натисніть на посилання нижче, щоб скопіювати його.",
+path_instruction:"Потім вставте його в:",
+path:"Lampa → Розширення → Додати плагін",
+copy_button:"https://voipoddsns.github.io/multiplugin.js",
+copied:"✔ Скопійовано",
+help_title:"Як користуватися мультиплагіном?",
+step1:"Установіть плагін в Lampa.",
+step1_sub:"У налаштуваннях з'явиться кнопка «Мультиплагін».",
+step2:"Відкрийте мультиплагін і натисніть «Синхронізація плагінів».",
+step2_cont:"Буде завантажено актуальний список доступних плагінів.",
+step3:"Відкрийте потрібну категорію та встановіть потрібні плагіни.",
+step4:"Плагіни встановлюються в розширення Lampa.",
+step4_cont:"Після встановлення вони працюють як звичайні плагіни.",
+alt_title:"Якщо потрібні тільки онлайн-плагіни",
+alt_cont:"Натисніть «Установити тільки онлайн», і всі онлайн-плагіни будуть автоматично встановлені в розширення Lampa.",
+help_button:"Як користуватися мультиплагіном?",
+plugins_list_button:"Список плагінів"
+},
+
+ru:{
+title:"Мультиплагин для Lampa",
+instruction:"Нажмите на ссылку ниже, чтобы скопировать её.",
+path_instruction:"Затем вставьте её в:",
+path:"Lampa → Расширения → Добавить плагин",
+copy_button:"https://voipoddsns.github.io/multiplugin.js",
+copied:"✔ Скопировано",
+help_title:"Как пользоваться мультиплагином?",
+step1:"Установите плагин в Lampa.",
+step1_sub:"В настройках появится кнопка «Мультиплагин».",
+step2:"Откройте мультиплагин и нажмите «Синхронизация плагинов».",
+step2_cont:"Будет загружен актуальный список доступных плагинов.",
+step3:"Откройте нужную категорию и установите необходимые плагины.",
+step4:"Плагины устанавливаются в расширения Lampa.",
+step4_cont:"После установки они работают как обычные плагины.",
+alt_title:"Если нужны только онлайн-плагины",
+alt_cont:"Нажмите «Установить только онлайн», и все онлайн-плагины будут автоматически установлены в расширения Lampa.",
+help_button:"Как пользоваться мультиплагином?",
+plugins_list_button:"Список плагинов"
+},
+
+en:{
+title:"Multiplugin for Lampa",
+instruction:"Click the link below to copy it.",
+path_instruction:"Then paste it into:",
+path:"Lampa → Extensions → Add plugin",
+copy_button:"https://voipoddsns.github.io/multiplugin.js",
+copied:"✔ Copied",
+help_title:"How to use Multiplugin?",
+step1:"Install the plugin in Lampa.",
+step1_sub:"A «Multiplugin» button will appear in the settings.",
+step2:"Open Multiplugin and click «Sync plugins».",
+step2_cont:"The latest list of available plugins will be loaded.",
+step3:"Open the desired category and install the plugins you need.",
+step4:"Plugins are installed into Lampa Extensions.",
+step4_cont:"After installation they work as regular plugins.",
+alt_title:"If you only need online plugins",
+alt_cont:"Click «Install only online», and all online plugins will be automatically installed into Lampa Extensions.",
+help_button:"How to use Multiplugin?",
+plugins_list_button:"Plugins list"
+}
+
+};
+
+let currentLang='ua';
+
+function setLanguage(lang){
+currentLang=lang;
+document.querySelectorAll('[data-key]').forEach(el=>{
+const key=el.getAttribute('data-key');
+if(translations[lang][key]){
+el.textContent=translations[lang][key];
+}
+});
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+btn.classList.toggle('active',btn.getAttribute('data-lang')===lang);
+});
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+btn.addEventListener('click',()=>{
+setLanguage(btn.getAttribute('data-lang'));
+});
+});
+
+function copyLink(){
+navigator.clipboard.writeText(pluginLink).then(()=>{
+const copied=document.getElementById('copied');
+copied.textContent=translations[currentLang].copied;
+copied.classList.add('show');
+setTimeout(()=>copied.classList.remove('show'),2000);
+});
+}
+
+function openHelp(){
+document.body.classList.add('no-scroll');
+const modal=document.getElementById('helpModal');
+modal.style.display='block';
+setTimeout(()=>modal.classList.add('show'),10);
+}
+
+function closeHelp(){
+const modal=document.getElementById('helpModal');
+modal.classList.remove('show');
+document.body.classList.remove('no-scroll');
+setTimeout(()=>modal.style.display='none',300);
+}
+
+document.addEventListener('click',function(event){
+const modal=document.getElementById('helpModal');
+if(modal.style.display==='block'){
+if(!event.target.closest('.modal-content')&&!event.target.closest('.help-btn')){
+closeHelp();
+}
+}
+});
+
+setLanguage('ua');
+
+</script>
+
+</body>
+</html>
