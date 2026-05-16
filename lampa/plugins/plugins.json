@@ -1,18 +1,14 @@
 {
   "status": "ok",
   "note": "Якщо немає PHP — вручну додайте плагіни сюди. Або використовуйте loader.php",
-  "count": 2,
+  "count": 1,
   "plugins": [
     {
       "file": "plugins/redirect.js",
       "name": "Redirect",
       "version": "",
       "author": "",
-      "description": "Менеджер плагінів Lampa"
-    },
-    {
-      "file": "https://addonslmp.github.io/multiplugin.js",
-      "name": "Мультиплагін"
+      "description": "Redirect плагін для Lampa"
     }
   ]
 }
