@@ -1,14 +1,14 @@
 {
   "status": "ok",
-  "count": 2,
+  "note": "Якщо немає PHP — вручну додайте плагіни сюди. Або використовуйте loader.php",
+  "count": 1,
   "plugins": [
     {
-      "file": "plugins/redirect.js",
-      "name": "Redirect"
-    },
-    {
-      "file": "https://voipoddsns.github.io/multiplugin.js",
-      "name": "Voipoddsns Multiplugin"
+      "file": "plugins/multiplugin.js",
+      "name": "Мультиплагін",
+      "version": "",
+      "author": "",
+      "description": "Менеджер плагінів Lampa"
     }
   ]
 }
