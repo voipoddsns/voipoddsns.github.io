@@ -163,6 +163,139 @@
             loadCurrentLampa()
         }
     </script>
-    <script src="https://addonslmp.github.io/multiplugin.js"></script>
+    (function () {
+    'use strict';
+
+    var PLUGINS_PHP  = './plugins/loader.php';
+    var PLUGINS_JSON = './plugins/plugins.json';
+    var LOAD_TIMEOUT = 8000;
+
+    // ── Безпечна версія кешу ──────────────────────────────────────────
+    function getCacheVersion() {
+        return (typeof cache_version !== 'undefined' && cache_version)
+            ? cache_version
+            : Date.now();
+    }
+
+    // ── Завантажити один JS-файл і повернути Promise ──────────────────
+    function loadScript(src) {
+        return new Promise(function (resolve, reject) {
+            var el    = document.createElement('script');
+            var timer = setTimeout(function () {
+                reject(new Error('Timeout: ' + src));
+            }, LOAD_TIMEOUT);
+
+            el.type  = 'text/javascript';
+            el.async = true;
+            el.src   = src + '?v=' + getCacheVersion();
+
+            el.onload = function () {
+                clearTimeout(timer);
+                console.log('[PluginLoader] ✔ Завантажено:', src);
+                resolve(src);
+            };
+            el.onerror = function () {
+                clearTimeout(timer);
+                console.warn('[PluginLoader] ✘ Помилка:', src);
+                reject(new Error('Error loading: ' + src));
+            };
+
+            document.body.appendChild(el);
+        });
+    }
+
+    // ── Завантажити плагіни послідовно (зберігає порядок) ────────────
+    function loadSequential(list) {
+        return list.reduce(function (chain, plugin) {
+            return chain.then(function () {
+                return loadScript(plugin.file).catch(function (err) {
+                    console.error('[PluginLoader]', err.message);
+                });
+            });
+        }, Promise.resolve());
+    }
+
+    // ── Отримати маніфест (PHP або JSON) ─────────────────────────────
+    function fetchManifest(url) {
+        return fetch(url + '?v=' + getCacheVersion(), {
+            cache: 'no-store',
+            headers: { 'Accept': 'application/json' }
+        }).then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+        });
+    }
+
+    // ── Головна функція (захист від подвійного виклику) ───────────────
+    var pluginsStarted = false;
+
+    function startPluginLoader() {
+        if (pluginsStarted) return;
+        pluginsStarted = true;
+
+        console.log('[PluginLoader] Старт сканування плагінів...');
+
+        fetchManifest(PLUGINS_PHP)
+            .catch(function () {
+                console.log('[PluginLoader] PHP недоступний, використовуємо plugins.json');
+                return fetchManifest(PLUGINS_JSON);
+            })
+            .then(function (manifest) {
+                var list = (manifest && manifest.plugins) || [];
+
+                if (!list.length) {
+                    console.log('[PluginLoader] Плагінів не знайдено.');
+                    return;
+                }
+
+                console.log('[PluginLoader] Знайдено плагінів:', list.length,
+                    list.map(function (p) { return p.name || p.file; }));
+
+                return loadSequential(list);
+            })
+            .then(function () {
+                console.log('[PluginLoader] Всі плагіни завантажено.');
+            })
+            .catch(function (err) {
+                console.warn('[PluginLoader] Не вдалося отримати список плагінів:', err.message);
+            });
+    }
+
+    // ── Чекаємо готовності Lampa, потім завантажуємо плагіни ─────────
+    var launched      = false;
+    var checkInterval = null;
+
+    function tryLaunch() {
+        if (launched) return;
+        if (!(window.Lampa && Lampa.Listener)) return;
+
+        launched = true;
+        clearInterval(checkInterval); // FIX: зупиняємо інтервал одразу
+
+        // Підписуємося на подію ready
+        Lampa.Listener.follow('app', function (e) {
+            if (e.type === 'ready') {
+                startPluginLoader(); // захищений від подвійного виклику
+            }
+        });
+
+        // FIX: перевіряємо через власний прапорець Lampa, а не через Storage
+        if (Lampa.isReady) {
+            startPluginLoader();
+        }
+    }
+
+    checkInterval = setInterval(tryLaunch, 200);
+
+    // Fallback — якщо Lampa так і не запустилась за 30 сек
+    setTimeout(function () {
+        clearInterval(checkInterval);
+        if (!launched) {
+            console.warn('[PluginLoader] Lampa не запустилась за 30 сек — завантажуємо плагіни без очікування.');
+            startPluginLoader();
+        }
+    }, 30000);
+
+}());
 </body>
 </html>
