@@ -1,14 +1,6 @@
 {
   "status": "ok",
-  "note": "Якщо немає PHP — вручну додайте плагіни сюди. Або використовуйте loader.php",
-  "count": 1,
-  "plugins": [
-    {
-      "file": "plugins/redirect.js",
-      "name": "Redirect",
-      "version": "",
-      "author": "",
-      "description": "Redirect плагін для Lampa"
-    }
-  ]
+  "note": "Зовнішні плагіни підключаються через <script> в index.html. Тут лише локальні .js файли з цієї папки.",
+  "count": 0,
+  "plugins": []
 }
