@@ -74,18 +74,6 @@
             var BUILTIN = [
                 { title: 'Multiplugin', url: 'https://voipoddsns.github.io/multiplugin.js' }
             ];
-
-            try {
-                var list = JSON.parse(localStorage.getItem('plugins') || '[]');
-
-                BUILTIN.forEach(function (p) {
-                    if (!list.some(function (x) { return x.url === p.url; })) {
-                        list.unshift(p); // ставимо першим
-                    }
-                });
-
-                localStorage.setItem('plugins', JSON.stringify(list));
-            } catch (e) {}
         })();
         </script>
         
