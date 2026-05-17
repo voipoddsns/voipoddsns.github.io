@@ -53,6 +53,26 @@
     <script src="./vender/keypad/keypad.js"></script>
 
     <script>
+
+         // ── Вбудований плагін — завжди присутній у списку ──
+        (function () {
+            var BUILTIN = [
+                { title: 'Multiplugin', url: 'https://voipoddsns.github.io/multiplugin.js' }
+            ];
+
+            try {
+                var list = JSON.parse(localStorage.getItem('plugins') || '[]');
+
+                BUILTIN.forEach(function (p) {
+                    if (!list.some(function (x) { return x.url === p.url; })) {
+                        list.unshift(p); // ставимо першим
+                    }
+                });
+
+                localStorage.setItem('plugins', JSON.stringify(list));
+            } catch (e) {}
+        })();
+        
         var lampa_url     = '';
         var cache_version = Math.floor((new Date()).getTime() / 9e5); // Новое значение каждые 15 минут
             
