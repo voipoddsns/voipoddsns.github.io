@@ -87,7 +87,7 @@
         },
     });
 
-    var syncUrl = "https://addonslmp.github.io/sources/plugins_mp.json";
+    var syncUrl = "https://voipoddsns.github.io/sources/plugins_mp.json";
     var STORAGE_KEY = "multi_plugins_list";
     var INFO_KEY = "multi_last_update";
     var INSTALLED_KEY = "multi_installed_plugins";
