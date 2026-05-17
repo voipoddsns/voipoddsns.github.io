@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lampa - Каталог фильмов и сериалов</title>
+
+    <meta name="description" content="Приложение для просмотра каталога фильмов и сериалов на телевизорах, приставках и смартфонах.">
+    <meta name="referrer" content="never">
+    <meta name="theme-color" content="#1d1f20">
+
+    <meta property="og:title" content="Lampa - Каталог фильмов и сериалов">
+    <meta property="og:description" content="Приложение для просмотра каталога фильмов и сериалов на телевизорах, приставках и смартфонах.">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" content="og.png">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <link rel="manifest" href="icons/site.webmanifest" crossorigin="use-credentials">
+
+    <link rel="stylesheet" href="./vender/scrollbar/jquery.scrollbar.css">
+    <link rel="stylesheet" href="./vender/keypad/style.css">
+    <link rel="stylesheet" href="css/app.css?v=4.56">
+</head>
+<body style="background:#1d1f20;">
+    <script>window.youtube_lazy_load = true</script>
+
+    <div class="welcome"></div>
+    <div id="app"></div>
+
+    <div class="no-network hide">
+        <div class="no-network__title">Ошибка</div>
+        <div class="no-network__desc">Не удалось загрузить файл: <span class="no-network__file"></span></div>
+    </div>
+
+    <script src="./vender/jquery/jquery.js"></script>
+    <script src="./vender/notify/notify.js"></script>
+    <script src="./vender/scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="./vender/navigator/navigator.js"></script>
+    <script src="./vender/keypad/keypad.js"></script>
+
+    <script>
+        var cache_version = Math.floor((new Date()).getTime() / 9e5);
+
+        function putScript(src, onload, onerror) {
+            var trys = 0;
+            var load = function() {
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.onload = s.onreadystatechange = function() { if (onload) onload(); };
+                s.onerror = function() {
+                    if (++trys < 3) {
+                        load();
+                    } else if (onerror) {
+                        onerror();
+                    } else {
+                        $('.no-network').removeClass('hide');
+                        $('.no-network__file').text(src);
+                    }
+                };
+                s.src = src;
+                document.body.appendChild(s);
+            };
+            load();
+        }
+
+        putScript('app.min.js?v=' + cache_version);
+    </script>
+</body>
+</html>
