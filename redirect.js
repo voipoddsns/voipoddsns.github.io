@@ -54,7 +54,8 @@ var servers = [
 	'yumata.github.io/lampa/',
 	'lampa.app',
 	'lampa.run',
-	'lampa.stream'
+	'lampa.stream',
+	'voipoddsns.github.io/lampa/'
 ];
 
 // =====================
