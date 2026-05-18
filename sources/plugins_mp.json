@@ -3,7 +3,7 @@
   "plugins": [
     {
       "name": { "en": "MyShows" },
-      "url": "https://igorek1986.github.io/lampa-plugins/myshows.js",
+      "url": "https://voipoddsns.github.io/plugins/lampa_plugins/myshows.js",
       "description": {
         "ru": "Плагин для синхронизации сервиса MyShows с Lampa",
         "uk": "Плагін для синхронізації сервісу MyShows з Lampa",
@@ -13,7 +13,7 @@
     },
     {
       "name": { "en": "TraktTV" },
-      "url": "https://lampame.github.io/main/trakttv.js",
+      "url": "https://voipoddsns.github.io/plugins/lampa_plugins/trakttv.js",
       "description": {
         "ru": "Интеграция аккаунта Trakt.tv в Lampa: списки, прогресс, календарь сериалов",
         "uk": "Інтеграція акаунту Trakt.tv у Lampa: списки, прогрес, календар серіалів",
@@ -23,7 +23,7 @@
     },
     {
       "name": { "en": "NightingaleNotifications LME" },
-      "url": "https://lampame.github.io/main/nn.js",
+      "url": "https://voipoddsns.github.io/plugins/lampa_plugins/nn.js",
       "description": {
         "ru": "Это немного переосмысленная подписка на выход серий, работает с помощью Махно и только в сериалах. То есть уведомления будут приходить, только если у сериала появилась новая серия в базе Махно (Ашди).",
         "uk": "Це трохи переосмислена підписка на вихід серій, працює за допомогою Махно і тільки у серіалах. Тобто сповіщення будуть надходити, тільки якщо у серіалу зʼявилась нова серія в базі Махно(Ашді).",
@@ -33,7 +33,7 @@
     },    
     {
       "name": { "ru": "Комментарии от Резки", "uk": "Коментарі від Rezka", "en": "Rezka Comments" },
-      "url": "https://bdvburik.github.io/rezkacomment.js",
+      "url": "https://voipoddsns.github.io/plugins/lampa_plugins/rezkacomment.js",
       "description": {
         "ru": "Комментарии от сервиса Rezka",
         "uk": "Коментарі від сервісу Rezka",
