@@ -16350,7 +16350,7 @@
 
   function translate$1(str) {
     if (Arrays.isObject(str)) {
-      var code = Lampa.Storage.get('language', 'ru');
+      var code = Lampa.Storage.get('language', 'uk');
       if (str[code]) return str[code];else if (str.ru) return str.ru;else return str[Arrays.getKeys(str)[0]];
     }
     return str;
@@ -37882,7 +37882,7 @@
             }
           }
         });
-        var lang = Storage.get('keyboard_default_lang', Storage.get('language', 'ru'));
+        var lang = Storage.get('keyboard_default_lang', Storage.get('language', 'uk'));
         _keyBord.setOptions({
           layoutName: lang == 'ru' ? 'default' : Arrays.getKeys(layout).indexOf(lang) >= 0 ? lang : layout.en ? 'en' : 'default'
         });
@@ -37897,7 +37897,7 @@
       if (SpeechRecognition) {
         recognition = new SpeechRecognition();
         recognition.continuous = false;
-        recognition.lang = _lang_codes[Storage.get('language', 'ru')] || 'en-US';
+        recognition.lang = _lang_codes[Storage.get('language', 'uk')] || 'uk-UA';
         console.log('Speech', 'lang:', recognition.lang);
         recognition.addEventListener("start", function () {
           console.log('Speech', 'start');
@@ -38363,7 +38363,7 @@
     }, Platform.is('browser') || Platform.desktop() ? 'mouse' : Platform.screen('mobile') ? 'touch' : 'controll');
 
     //язык и комбинации для поиска
-    var langcode = Storage.get('language', 'ru');
+    var langcode = Storage.get('language', 'uk');
     var langname = Lang.codes()[langcode];
     var selector = {
       'df': '#{settings_param_torrent_lang_orig}',
@@ -42038,7 +42038,7 @@
    */
   function translate(name, custom_code) {
     name = name + '';
-    var code = custom_code || Storage.get('language', 'ru');
+    var code = custom_code || Storage.get('language', 'uk');
     var result = '';
     if (!langs[code]) code = lang_default;
     if (name.indexOf('#{') >= 0) {
@@ -42098,7 +42098,7 @@
     return Arrays.clone(keys);
   }
   function selected(check_codes) {
-    return check_codes.indexOf(Storage.get('language', 'ru')) >= 0 ? true : false;
+    return check_codes.indexOf(Storage.get('language', 'uk')) >= 0 ? true : false;
   }
   var Lang = {
     translate: translate,
@@ -44103,8 +44103,8 @@
       return n.id == id;
     })) return;
     var codes = Arrays.getKeys(Lang.codes());
-    network.silent(TMDB$1.api(id + '?append_to_response=translations,credits&language=' + Storage.get('language', 'ru') + '&api_key=' + TMDB$1.key()), function (movie) {
-      network.silent(TMDB$1.api(id + '/images?include_image_language=' + codes.join(',') + '&language=' + Storage.get('language', 'ru') + '&api_key=' + TMDB$1.key()), function (images) {
+    network.silent(TMDB$1.api(id + '?append_to_response=translations,credits&language=' + Storage.get('language', 'uk') + '&api_key=' + TMDB$1.key()), function (movie) {
+      network.silent(TMDB$1.api(id + '/images?include_image_language=' + codes.join(',') + '&language=' + Storage.get('language', 'uk') + '&api_key=' + TMDB$1.key()), function (images) {
         var card = Arrays.clone(movie);
         console.log('Premiere', 'card loaded', card);
         delete card.translations;
@@ -45569,7 +45569,7 @@
           }, function () {
             Controller.toggle('settings_component');
           });
-        }).find('.settings-param__value').text(Lang.translate(Lang.codes()[Storage.get('language', 'ru')]));
+        }).find('.settings-param__value').text(Lang.translate(Lang.codes()[Storage.get('language', 'uk')]));
       }
       if (e.name == 'main' && Platform.is('apple_tv')) {
         var append = e.body.find('.appletv-setting');
