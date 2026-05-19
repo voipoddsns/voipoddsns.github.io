@@ -43735,7 +43735,7 @@
     $('body').append(html);
     Controller.add('language', {
       toggle: function toggle() {
-        var focus = html.find('[data-code="' + Storage.get('language', 'ru') + '"]');
+        var focus = html.find('[data-code="' + Storage.get('language', 'uk') + '"]');
         Controller.collectionSet(scroll.render());
         Controller.collectionFocus(focus[0], scroll.render());
       },
