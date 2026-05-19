@@ -46700,7 +46700,7 @@
    * Загрузка языка
    */
   function loadLang() {
-    var code = window.localStorage.getItem('language') || 'ru';
+    var code = window.localStorage.getItem('language') || 'uk';
     LoadingProgress.step(1);
     if (['ru', 'en'].indexOf(code) >= 0) loadTask();else {
       LoadingProgress.status('Loading language');
