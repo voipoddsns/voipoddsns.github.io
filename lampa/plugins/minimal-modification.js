@@ -1,20 +1,22 @@
 // =============================================
 //  minimal-modification.js
-//  Минимальный модификатор + локализация меню "Плагины"
+//  Минимальный модификатор + исправление названия "Плагины"
 // =============================================
 
 (function () {
     'use strict';
 
-    // ==================== Локализация меню "Плагины" ====================
+    // ==================== Улучшенная локализация ====================
     Lampa.Lang.add({
-        // Основное название в боковом меню / настройках
+        // Основные ключи для пункта "Плагины"
         settings_plugins: {
             ru: "Плагины",
             uk: "Плагіни",
             en: "Plugins",
             pl: "Wtyczki",
-            zh: "插件"
+            es: "Complementos",
+            fr: "Plugins",
+            de: "Plugins"
         },
         extensions: {
             ru: "Расширения",
@@ -22,16 +24,25 @@
             en: "Extensions",
             pl: "Rozszerzenia"
         },
-        // Если используется другой ключ
         menu_plugins: {
             ru: "Плагины",
             uk: "Плагіни",
             en: "Plugins"
         },
-        plugin: {
-            ru: "Плагин",
-            uk: "Плагін",
-            en: "Plugin"
+        plugins: {
+            ru: "Плагины",
+            uk: "Плагіни",
+            en: "Plugins"
+        },
+        // Оригинальные переводы из bylampa
+        extensions_worked: {
+            ru: "Доступен для загрузки"
+        },
+        title_error: {
+            ru: "Недоступен или ошибка в адресе"
+        },
+        torrent_parser_no_hash: {
+            ru: "Не удалось получить HASH. Перезагрузите TorrServer или смените адрес!"
         }
     });
 
@@ -42,6 +53,7 @@
     window.lampa_settings = window.lampa_settings || {};
     window.lampa_settings.torrents_use = true;
     window.lampa_settings.demo = false;
+    window.lampa_settings.read_only = false;
 
     // ==================== Применение настроек ====================
     const initTimer = setInterval(() => {
@@ -71,10 +83,10 @@
 
         Lampa.Storage.set('device_name', 'Lampa');
 
-        setTimeout(() => location.reload(), 600);
+        setTimeout(() => location.reload(), 700);
     }
 
-    // Фикс закладок
+    // ==================== Фикс закладок ====================
     Lampa.Storage.listener.follow('change', function (event) {
         if (event.name === 'activity' && Lampa.Activity?.active()?.component === 'bookmarks') {
             setTimeout(() => {
@@ -84,5 +96,5 @@
         }
     });
 
-    console.log('%cMinimal Modification + Localization загружен', 'color: #00ff88; font-weight: bold');
+    console.log('%cMinimal Modification + Plugins Localization загружен', 'color: #00ff88; font-weight: bold');
 })();
