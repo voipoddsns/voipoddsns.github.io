@@ -2,39 +2,26 @@
 //  minimal-modification.js
 //  Минимальный модификатор + исправление названия "Плагины"
 // =============================================
+// =============================================
+//  
+//  Минимальный модификатор + скрипты Bylampa
+// =============================================
 
 (function () {
     'use strict';
 
-    // ==================== Улучшенная локализация ====================
+    // ==================== Локализация ====================
     Lampa.Lang.add({
-        // Основные ключи для пункта "Плагины"
         settings_plugins: {
             ru: "Плагины",
             uk: "Плагіни",
-            en: "Plugins",
-            pl: "Wtyczki",
-            es: "Complementos",
-            fr: "Plugins",
-            de: "Plugins"
+            en: "Plugins"
         },
         extensions: {
             ru: "Расширения",
             uk: "Розширення",
-            en: "Extensions",
-            pl: "Rozszerzenia"
+            en: "Extensions"
         },
-        menu_plugins: {
-            ru: "Плагины",
-            uk: "Плагіни",
-            en: "Plugins"
-        },
-        plugins: {
-            ru: "Плагины",
-            uk: "Плагіни",
-            en: "Plugins"
-        },
-        // Оригинальные переводы из bylampa
         extensions_worked: {
             ru: "Доступен для загрузки"
         },
@@ -55,19 +42,42 @@
     window.lampa_settings.demo = false;
     window.lampa_settings.read_only = false;
 
-    // ==================== Применение настроек ====================
+    // ==================== Загрузка внешних скриптов Bylampa ====================
+    const scripts = [
+        'https://bylampa.github.io/notice.js',
+        'https://bylampa.github.io/addon.js',
+        'https://bylampa.github.io/bylampa_rating.js',
+        'https://bylampa.github.io/account.js'
+    ];
+
+    // Добавляем кеш-брейкер, чтобы всегда бралась свежая версия
+    scripts.forEach(url => {
+        Lampa.Utils.putScript(url + '?v=' + Date.now());
+    });
+
+    // ==================== Очистка дублирующегося account.js ====================
+    setTimeout(() => {
+        let plugins = Lampa.Storage.get('plugins') || [];
+        plugins = plugins.filter(p => 
+            p.url !== 'https://bylampa.github.io/account.js' && 
+            p.url !== 'https://github.com/bylampa/account.js'
+        );
+        Lampa.Storage.set('plugins', plugins);
+    }, 2000);
+
+    // ==================== Применение базовых настроек ====================
     const initTimer = setInterval(() => {
         if (typeof Lampa === 'undefined' || typeof Lampa.Storage === 'undefined') return;
 
         clearInterval(initTimer);
 
-        if (Lampa.Storage.get('minimal_set') !== true) {
-            applyMinimalSettings();
+        if (Lampa.Storage.get('mod_set') !== true) {
+            applySettings();
         }
-    }, 400);
+    }, 500);
 
-    function applyMinimalSettings() {
-        Lampa.Storage.set('minimal_set', true);
+    function applySettings() {
+        Lampa.Storage.set('mod_set', true);
 
         Lampa.Storage.set('protocol', 'http');
         Lampa.Storage.set('start_page', 'main');
@@ -83,7 +93,7 @@
 
         Lampa.Storage.set('device_name', 'Lampa');
 
-        setTimeout(() => location.reload(), 700);
+        setTimeout(() => location.reload(), 800);
     }
 
     // ==================== Фикс закладок ====================
@@ -92,9 +102,20 @@
             setTimeout(() => {
                 Lampa.Controller.move('down');
                 Lampa.Controller.move('up');
-            }, 150);
+            }, 100);
         }
     });
 
-    console.log('%cMinimal Modification + Plugins Localization загружен', 'color: #00ff88; font-weight: bold');
+    // ==================== Предупреждение https ====================
+    if (window.location.protocol === 'https:') {
+        $(document).ready(() => {
+            setTimeout(() => {
+                Lampa.Bell.push({
+                    text: 'Рекомендуется использовать протокол http'
+                });
+            }, 2500);
+        });
+    }
+
+    console.log('%cModification with Bylampa scripts загружен', 'color: #00ff88; font-weight: bold');
 })();
