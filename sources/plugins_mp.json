@@ -542,7 +542,7 @@
     },   
     {
       "name": { "uk": "🇺🇦 Free Bandera Онлайн" },
-      "url": "/plugins/lampa_plugins/main/bo.js",
+      "url": "/plugins/lampa_plugins/bo.js",
       "description": {
         "uk": "Спільнота t.me/mmssixxx",
         "en": "Community t.me/mmssixxx"
