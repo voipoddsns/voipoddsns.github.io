@@ -561,7 +561,7 @@
     }, 
     {
       "name": { "en": "GMTLOP Online" },
-      "url": "/plugins/lampa_plugins/p",
+      "url": "/plugins/lampa_plugins/p.js",
       "description": {
         "ru": "Онлайн GMTLOP",
         "uk": "Онлайн GMTLOP",
