@@ -646,7 +646,7 @@
     },
     {
       "name": { "en": "Online wtch.ch" },
-      "url": "./plugins/m.js",
+      "url": "./plugins/m_1.js",
       "description": {
         "uk": "Онлайн. Filmix 720p",
         "en": "Online. Filmix 720p"
@@ -694,7 +694,7 @@
     },
     {
       "name": { "en": "Skaz TV + Online 4k" },
-      "url": "./plugins/lampa_plugins/tv.js",
+      "url": "./plugins/lampa_plugins/tv_1.js",
       "description": {
         "ru": "Подписка by Skaz. Более 1800 каналов · SD, HD, FHD, 4K HDR. Онлайн 4k источники в Lampa. Управление через телеграм-бот @skaztv_bot",
         "uk": "Підписка від Skaz. Понад 1800 каналів · SD, HD, FHD, 4K HDR. Онлайн 4k джерела в Lampa. Управління через телеграм-бот @skaztv_bot",
@@ -1008,7 +1008,7 @@
     },    
     {
       "name": { "ru": "Редактор кнопок от BazarNet", "uk": "Редактор кнопок від BazarNet",  "en": "Button Editor by BazarNet" },
-      "url": "./plugins/lampa_plugins/buttons.js",
+      "url": "./plugins/lampa_plugins/buttons_1.js",
       "description": {
         "uk": "Плагін керування кнопками у повній картці Lampaua. Зробили його для тих, хто хоче мати чистий, зручний і повністю керований інтерфейс під себе.",
         "en": "A button control plugin for the full Lampaua card. We created it for those who want a clean, user-friendly, and fully customizable interface."
@@ -1017,7 +1017,7 @@
     },
     {
       "name": { "uk": "Likhtar | Мод від BazarNet",  "en": "Likhtar | Mod by BazarNet" },
-      "url": "./plugins/lampa_plugins/likhtar.js",
+      "url": "./plugins/lampa_plugins/likhtar_1.js",
       "description": {
         "uk": "Повна адаптація інтерфейсу під будь-який ваш пристрій! Неважливо, з чого ви дивитесь — ми оптимізували відображення для смартфонів, телевізорів та великих 4K-екранів.",
         "en": "The interface fully adapts to any device you use! No matter what you're viewing it on—we've optimized the display for smartphones, TVs, and large 4K screens."
@@ -1035,7 +1035,7 @@
     }, 
     {
       "name": { "uk": "UA Comments | Мод від BazarNet", "en": "UA Comments | Mod by BazarNet" },
-      "url": "./plugins/lampa_plugins/uacoments.js",
+      "url": "./plugins/lampa_plugins/uacoments_1.js",
       "description": {
         "uk": "Додали в картку фільму кнопку Коментарі (N), яка відкриває окреме pop-up вікно з повним переглядом коментарів.",
         "en": "We've added a Comments (N) button to the movie card, which opens a separate pop-up window displaying all comments."
