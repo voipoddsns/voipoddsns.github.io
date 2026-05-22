@@ -43,7 +43,7 @@
     },
     {
       "name": { "en": "Block Shots" },
-      "url": "./plugins/lampa_plugins/block_shots.js",
+      "url": "/plugins/lampa_plugins/block_shots.js",
       "description": {
         "ru": "Убирает сервис Shots из интерфейса.",
         "uk": "Прибирає сервіс Shots з інтерфейсу.",
