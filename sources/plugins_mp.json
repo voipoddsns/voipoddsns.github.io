@@ -93,7 +93,7 @@
     },
     {
       "name": { "en": "LGBT Unlock", "ru": "Разблокировка LGBT контента", "uk": "Розблокування LGBT контенту" },
-      "url": "/plugins/lampa_plugins/lgbt",
+      "url": "/plugins/lampa_plugins/lgbt.js",
       "description": {
         "ru": "Плагин разблокирует ЛГБТ-контент.",
         "uk": "Плагін розблоковує ЛГБТ-контент.",
@@ -467,7 +467,7 @@
     },    
     {
       "name": { "en": "Etor" },
-      "url": "/plugins/lampa_plugins/etor",
+      "url": "/plugins/lampa_plugins/etor.js",
       "description": {
         "ru": "Пункты TorrServer в меню настроек (актуально для Samsung)",
         "uk": "Пункти TorrServer в меню налаштувань (актуально для Samsung)",
@@ -477,7 +477,7 @@
     },
     {
       "name": { "ru": "Tracks", "uk": "Tracks", "en": "Tracks" },
-      "url": "/plugins/lampa_plugins/tracks",
+      "url": "/plugins/lampa_plugins/tracks.js",
       "description": {
         "ru": "Корректное отображение списка озвучек в торрентах",
         "uk": "Коректне відображення списку озвучок у торрентах",
@@ -551,7 +551,7 @@
     },   
     {
       "name": { "en": "BWA Online" },
-      "url": "/plugins/lampa_plugins/rc",
+      "url": "/plugins/lampa_plugins/rc.js",
       "description": {
         "ru": "Bwa - источник для онлайн просмотра фильмов и сериалов.",
         "uk": "Bwa - джерело для онлайн перегляду фільмів та серіалів.",
@@ -561,7 +561,7 @@
     }, 
     {
       "name": { "en": "GMTLOP Online" },
-      "url": "/plugins/lampa_plugins/p.js",
+      "url": "/plugins/lampa_plugins/p_1.js",
       "description": {
         "ru": "Онлайн GMTLOP",
         "uk": "Онлайн GMTLOP",
@@ -600,7 +600,7 @@
     },          
     {
       "name": { "en": "Z01 Online" },
-      "url": "/plugins/lampa_plugins/live",
+      "url": "/plugins/lampa_plugins/live.js",
       "description": {
         "uk": "Z01 Онлайн",
         "en": "Z01 Online"
@@ -618,7 +618,7 @@
     },	
     {
       "name": { "en": "MODS's" },
-      "url": "/plugins/lampa_plugins/modss",
+      "url": "/plugins/lampa_plugins/modss.js",
       "description": {
         "uk": "ТГ Бот: @modssmy_bot",
         "en": "TG Bot: @modssmy_bot"
@@ -637,7 +637,7 @@
     },
     {
       "name": { "en": "Online VOD" },
-      "url": "/plugins/lampa_plugins/vod",
+      "url": "/plugins/lampa_plugins/vod.js",
       "description": {
         "uk": "Онлайн VOD",
         "en": "Online VOD"
@@ -655,7 +655,7 @@
     }, 	  
     {
       "name": { "en": "IPTV by Lampa(CUB)", "ru": "IPTV от Lampa(CUB)", "uk": "IPTV від Lampa(CUB)" },
-      "url": "/plugins/lampa_plugins/iptv",
+      "url": "/plugins/lampa_plugins/iptv.js",
       "description": {
         "ru": "Плагин от разработчиков Lampa. Работает только с вашим плейлистом, указанным на https://cub.red/iptv/ или ссылкой из плагина IPTV.",
         "uk": "Плагін від розробників Lampa. Працює лише з вашим плейлистом, вказаним на https://cub.red/iptv/, або за посиланням із плагіна IPTV.",
