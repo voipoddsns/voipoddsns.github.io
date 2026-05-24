@@ -55,7 +55,7 @@ var servers = [
 	'lampa.app',
 	'lampa.run',
 	'lampa.stream',
-	'voipoddsns.github.io/lampa5/'
+	'voipoddsns.github.io/lampace/'
 ];
 
 // =====================
