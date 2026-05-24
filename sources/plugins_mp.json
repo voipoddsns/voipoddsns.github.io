@@ -3,7 +3,7 @@
   "plugins": [
     {
       "name": { "en": "MyShows" },
-      "url": "https://voipoddsns.github.iohttps://voipoddsns.github.io/plugins/lampa_plugins/myshows.js",
+      "url": "https://voipoddsns.github.io/plugins/lampa_plugins/myshows.js",
       "description": {
         "ru": "Плагин для синхронизации сервиса MyShows с Lampa",
         "uk": "Плагін для синхронізації сервісу MyShows з Lampa",
@@ -646,7 +646,7 @@
     },
     {
       "name": { "en": "Online wtch.ch" },
-      "url": "/plugins/m_1.js",
+      "url": "https://voipoddsns.github.io/plugins/lampa_plugins/m_1.js",
       "description": {
         "uk": "Онлайн. Filmix 720p",
         "en": "Online. Filmix 720p"
