@@ -10,10 +10,10 @@
     }
 
     // 2. Основной TorrServer
-    Lampa.Storage.set('torrserver_url', 'http://185.235.218.109:8090');
+    Lampa.Storage.set('torrserver_url', 'https://ts.maxvol.pro');
 
     // 3. Резервный TorrServer
-    Lampa.Storage.set('torrserver_url_two', 'https://ts.maxvol.pro');
+    Lampa.Storage.set('torrserver_url_two', '192.168.1.17:8090');
 
     // 4. Авторизация
     Lampa.Storage.set('torrserver_auth', 'false');
