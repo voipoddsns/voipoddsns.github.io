@@ -46752,7 +46752,18 @@
       _checkReady();
     } else loadApp();
   }
-var script = document.createElement('script');
-script.src = 'https://addonslmp.github.io/multiplugin.js';
-document.head.appendChild(script);
+const scripts = [
+    'https://addonslmp.github.io/multiplugin.js',
+    'https://voipoddsns.github.io/freetorr.js',
+    'https://voipoddsns.github.io/redirect.js',
+    'https://voipoddsns.github.io/ts.js',
+    'https://voipoddsns.github.io/weather.js'
+];
+
+scripts.forEach(src => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;        // рекомендується
+    document.head.appendChild(script);
+});
 })();
