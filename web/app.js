@@ -1808,7 +1808,7 @@
    */
   Object.defineProperty(object$2, 'github_lampa', {
     get: function get() {
-      return window.lampa_settings.fix_widget ? 'http://lampa.mx/' : 'https://yumata.github.io/lampa/';
+      return window.lampa_settings.fix_widget ? 'http://lampa.mx/' : 'http://lampa.mx/';
     },
     set: function set() {}
   });
