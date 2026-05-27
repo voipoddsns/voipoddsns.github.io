@@ -1,0 +1,20 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ukrainian flag background strip -->
+  <rect x="60" y="60" width="80" height="40" rx="4" fill="#005BBB"/>
+  <rect x="60" y="100" width="80" height="40" rx="4" fill="#FFD500"/>
+  <!-- Film reel outline -->
+  <circle cx="100" cy="100" r="55" stroke="#005BBB" stroke-width="3" fill="none" stroke-dasharray="8 5"/>
+  <!-- Center hole -->
+  <circle cx="100" cy="100" r="12" fill="#005BBB"/>
+  <!-- Reel holes -->
+  <circle cx="100" cy="60" r="7" fill="#005BBB"/>
+  <circle cx="100" cy="140" r="7" fill="#005BBB"/>
+  <circle cx="60" cy="100" r="7" fill="#005BBB"/>
+  <circle cx="140" cy="100" r="7" fill="#005BBB"/>
+  <circle cx="72.7" cy="72.7" r="7" fill="#FFD500"/>
+  <circle cx="127.3" cy="72.7" r="7" fill="#FFD500"/>
+  <circle cx="72.7" cy="127.3" r="7" fill="#FFD500"/>
+  <circle cx="127.3" cy="127.3" r="7" fill="#FFD500"/>
+  <!-- Trident (trizub) small decoration -->
+  <text x="100" y="107" text-anchor="middle" font-size="16" fill="white" font-family="serif">𝌆</text>
+</svg>

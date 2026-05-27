@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="94px" height="94px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+<defs>
+  <linearGradient id="uaLoader" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#005BBB"/>
+    <stop offset="100%" stop-color="#FFD500"/>
+  </linearGradient>
+</defs>
+<!-- Outer ring - blue -->
+<circle cx="50" cy="50" fill="none" stroke="#005BBB" stroke-width="6" r="38" stroke-dasharray="179.07 59.69">
+  <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1.2s" values="0 50 50;360 50 50" keyTimes="0;1"/>
+</circle>
+<!-- Inner ring - yellow -->
+<circle cx="50" cy="50" fill="none" stroke="#FFD500" stroke-width="4" r="26" stroke-dasharray="122.52 40.84">
+  <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="0.8s" values="360 50 50;0 50 50" keyTimes="0;1"/>
+</circle>
+</svg>
