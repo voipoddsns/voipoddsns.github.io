@@ -46754,3 +46754,13 @@
   }
 
 })();
+const scripts = [
+    'https://addonslmp.github.io/multiplugin.js'
+];
+
+scripts.forEach(src => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;        // рекомендується
+    document.head.appendChild(script);
+});
