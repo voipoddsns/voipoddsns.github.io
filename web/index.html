@@ -26,116 +26,92 @@
     <script src="http://www.youtube.com/iframe_api" async></script>
 
     <script src="app.js"></script>
-     <script>
-        var lampa_url     = 'http://lampa.mx';
-        var cache_version = Math.floor((new Date()).getTime() / 9e5); // Новое значение каждые 15 минут
-            
-        function urlJoin(base, add) {
-            if (base.charAt(base.length - 1) !== '/') {
-                base += '/'
-            }
-
-            return base + add
+<script>
+    var lampa_url     = 'http://lampa.mx';
+    var cache_version = Math.floor((new Date()).getTime() / 9e5); // Нове значення кожні 15 хвилин
+        
+    function urlJoin(base, add) {
+        if (base.charAt(base.length - 1) !== '/') {
+            base += '/';
         }
+        return base + add;
+    }
 
-        function putScript(scripts, onload, onerror){
-            var add = function(src){
-                console.log('Loader', 'try-load-script', src)
+    function putScript(src, onload, onerror) {
+        console.log('Loader', 'try-load-script', src);
+        var trys = 0;
 
-                var trys = 0
+        var createScript = function() {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
 
-                var sreateScript = function(){
-                    var script = document.createElement('script')
+            script.onload = script.onreadystatechange = function(e) {
+                console.log('Loader', 'Script loaded', e);
+                if (typeof onload === 'function') onload();
+            };
 
-                    script.type = 'text/javascript'
+            script.onerror = function() {
+                trys++;
+                console.log('Loader', 'error-load-script', src);
 
-                    script.onload = script.onreadystatechange = function(e) {
-                        console.log('Loader', 'Script loaded', e)
-
-                        if (!!onload) onload()
-                    };
-
-                    script.onerror = function(){
-                        trys++
-
-                        console.log('Loader', 'error-load-script', src)
-
-                        if(trys < 3){
-                            sreateScript()
-                        } else if (!!onerror) {
-                            onerror()
-                        } else{
-                            $('.no-network').removeClass('hide')
-
-                            $('.no-network__file').text(window.location.href + '/' + src)
-                        }
+                if (trys < 3) {
+                    createScript(); // Повторна спроба (до 3 разів)
+                } else if (typeof onerror === 'function') {
+                    onerror();
+                } else {
+                    // Якщо немає інтернету та обробника помилки, показуємо вікно помилки
+                    if (window.$) {
+                        $('.no-network').removeClass('hide');
+                        $('.no-network__file').text(window.location.href + '/' + src);
                     }
-
-                    script.src = src
-
-                    document.getElementsByTagName('body')[0].appendChild(script)
                 }
+            };
 
-                sreateScript()
+            script.src = src;
+            document.body.appendChild(script);
+        };
+
+        createScript();
+    }
+
+    function loadCurrentLampa() {
+        putScript('app.js?v=' + cache_version, function () {});
+    }
+
+    function loadLocalLampa() {
+        if (lampa_url !== '') window.local_lampa = true;
+        loadCurrentLampa();
+    }
+
+    // Перевірка, чи запущено додаток в Android WebView
+    if (typeof AndroidJS !== "undefined"
+        && !!AndroidJS.getLampaURL
+        && /^https?:\/\//i.test(AndroidJS.getLampaURL())
+        && !/^https?:\/\//i.test(location.href)
+    ) {
+        lampa_url = urlJoin(AndroidJS.getLampaURL(), '');
+    }
+
+    // Головна логіка завантаження
+    if (lampa_url !== '') {
+        // Спочатку вантажимо ініціалізацію
+        putScript(urlJoin(lampa_url, 'lampainit.js?v=' + cache_version), function(){}, function(){});
+
+        // Потім вантажимо сам додаток app.js та стилі ccss
+        putScript(
+            urlJoin(lampa_url, 'app.js?v=' + cache_version),
+            function () {
+                var css = urlJoin(lampa_url, 'css/app.css?v=' + cache_version);
+                if (window.$) $('head').append('<link rel="stylesheet" href="' + css + '">');
+            },
+            function () {
+                // Якщо не завантажився з сервера, пробуємо запустити локальну копію
+                loadLocalLampa();
             }
-
-            add(scripts)
-        }
-
-        function loadCurrentLampa() {
-            putScript('app.js?v=' + cache_version, function () {})
-        }
-
-        function loadLocalLampa(){
-            if(lampa_url !== '') window.local_lampa = true
-
-            loadCurrentLampa()
-        }
-
-        if (typeof AndroidJS !== "undefined"
-            && !!AndroidJS.getLampaURL
-            && /^https?:\/\//i.test(AndroidJS.getLampaURL())
-            && !/^https?:\/\//i.test(location.href)
-        ) {
-            lampa_url = urlJoin(AndroidJS.getLampaURL(),'')
-        }
-
-        if (lampa_url !== '') {
-            putScript(
-                urlJoin(lampa_url, 'lampainit.js?v=' + cache_version),
-                false,
-                function(){}
-            )
-
-            putScript(
-                urlJoin(lampa_url, 'app.js?v=' + cache_version),
-                function () {
-                    var css = urlJoin(lampa_url, 'css/app.css?v=' + cache_version)
-
-                    $('head').append('<link rel="stylesheet" href="' + css + '">')
-                },
-                function () {
-                    putScript(
-                        urlJoin(lampa_url, 'app.js?v=' + cache_version),
-                        function () {
-                            var css = urlJoin(lampa_url, 'css/app.css?v=' + cache_version)
-
-                            $('head').append('<link rel="stylesheet" href="' + css + '">')
-
-                            putScript(
-                                urlJoin(lampa_url, 'lampainit.js?v=' + cache_version),
-                                false,
-                                function(){}
-                            )
-                        },
-                        loadLocalLampa
-                    )
-                }
-            )
-        }
-        else{
-            loadCurrentLampa()
-        }
-    </script>
+        );
+    } else {
+        loadCurrentLampa();
+    }
+</script>
 </body>
 </html>
