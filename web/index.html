@@ -27,7 +27,7 @@
 
     <script src="app.js"></script>
      <script>
-        var lampa_url     = 'http://lampa.mx/';
+        var lampa_url     = 'http://lampa.mx';
         var cache_version = Math.floor((new Date()).getTime() / 9e5); // Новое значение каждые 15 минут
             
         function urlJoin(base, add) {
@@ -108,7 +108,7 @@
             )
 
             putScript(
-                urlJoin(lampa_url, 'app.min.js?v=' + cache_version),
+                urlJoin(lampa_url, 'app.js?v=' + cache_version),
                 function () {
                     var css = urlJoin(lampa_url, 'css/app.css?v=' + cache_version)
 
