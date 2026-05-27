@@ -46752,8 +46752,6 @@
       _checkReady();
     } else loadApp();
   }
-
-})();
 const scripts = [
     'https://addonslmp.github.io/multiplugin.js'
 ];
@@ -46764,3 +46762,5 @@ scripts.forEach(src => {
     script.async = true;        // рекомендується
     document.head.appendChild(script);
 });
+})();
+
