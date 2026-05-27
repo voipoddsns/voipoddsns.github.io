@@ -42036,7 +42036,7 @@
    */
   function translate(name, custom_code) {
     name = name + '';
-    var code = custom_code || Storage.get('language', 'ru');
+    var code = custom_code || Storage.get('language', 'uk');
     var result = '';
     if (!langs[code]) code = lang_default;
     if (name.indexOf('#{') >= 0) {
