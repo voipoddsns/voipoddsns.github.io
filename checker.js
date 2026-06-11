@@ -1,14 +1,14 @@
-// Поиск локального TorrServer — версия без Template
+// Поиск TorrServer — Максимально агрессивная версия
 (function () {
     'use strict';
 
-    console.log('%c🔍 Поиск TorrServer v3 (без Template) загружен', 'color: lime; font-weight: bold');
+    console.log('%c🔍 Агрессивный поиск TorrServer v4 загружен', 'color: red; font-size: 15px');
 
     Lampa.Lang.add({
         ts_search: { ru: '🔍 Поиск локального TorrServer', en: '🔍 Search local TorrServer' },
-        ts_searching: { ru: '🔎 Ищем в сети...', en: '🔎 Searching...' },
-        ts_found: { ru: '✅ Найден TorrServer:', en: '✅ Found:' },
-        ts_notfound: { ru: '❌ TorrServer не найден', en: '❌ Not found' }
+        ts_searching: { ru: '🔎 Ищем TorrServer...', en: '🔎 Searching...' },
+        ts_found: { ru: '✅ Найден:', en: '✅ Found:' },
+        ts_notfound: { ru: '❌ Не найден', en: '❌ Not found' }
     });
 
     function scan() {
@@ -27,61 +27,89 @@
                     const url = `http://${ip}:${port}`;
                     Lampa.Storage.set('torrserver_url', url);
                     Lampa.Noty.show(Lampa.Lang.translate('ts_found') + ' ' + url, {timeout: 8000});
-                    setTimeout(() => { if (Lampa.Settings) Lampa.Settings.main(); }, 1000);
+                    setTimeout(() => Lampa.Settings.main && Lampa.Settings.main(), 800);
                 }
-            }, () => {}, false, { timeout: 600 });
+            }, () => {}, false, {timeout: 700});
         };
 
-        prefixes.forEach(prefix => {
+        prefixes.forEach(p => {
             for (let i = 1; i <= 254; i++) {
                 if (found) break;
-                checkIP(prefix + i);
+                checkIP(p + i);
             }
         });
 
         setTimeout(() => {
             Lampa.Loading.stop();
             if (!found) Lampa.Noty.show(Lampa.Lang.translate('ts_notfound'));
-        }, 11000);
+        }, 12000);
     }
 
-    // Создаём кнопку вручную (без Template)
     function createButton() {
-        if (document.querySelector('.my-ts-search-btn')) return;
+        if (document.querySelector('.ultra-ts-btn')) return;
 
         const btn = document.createElement('div');
-        btn.className = 'my-ts-search-btn button full';
-        btn.style.cssText = 'margin: 15px 0; padding: 14px 20px; font-size: 16px; text-align: center;';
-        btn.innerHTML = `<span>${Lampa.Lang.translate('ts_search')}</span>`;
+        btn.className = 'ultra-ts-btn button full';
+        btn.style.cssText = `
+            margin: 20px 10px; 
+            padding: 16px; 
+            font-size: 17px; 
+            text-align: center; 
+            background: #0066ff; 
+            color: white; 
+            border-radius: 8px;
+        `;
+        btn.innerHTML = Lampa.Lang.translate('ts_search');
 
-        // Стили под Lampa
-        btn.addEventListener('click', () => scan());
-        btn.addEventListener('touchend', () => scan()); // для тачскринов
+        btn.onclick = scan;
+        btn.ontouchend = scan;
 
-        // Вставляем в настройки
-        const container = document.querySelector('.settings__body') || 
-                         document.querySelector('.layer__body') || 
-                         document.querySelector('.content');
-        
-        if (container) {
-            container.appendChild(btn);
-            console.log('✅ Кнопка успешно добавлена');
+        // Пытаемся вставить во все возможные места
+        const places = [
+            '.settings__body',
+            '.layer__body',
+            '.content',
+            '.settings-main',
+            '.body'
+        ];
+
+        for (let selector of places) {
+            const container = document.querySelector(selector);
+            if (container) {
+                container.appendChild(btn);
+                console.log('✅ Кнопка вставлена в:', selector);
+                return;
+            }
         }
+
+        // Если ничего не нашли — вставляем в body
+        document.body.appendChild(btn);
+        console.log('Кнопка вставлена в body');
     }
 
-    // Следим за открытием настроек
-    Lampa.Listener.follow('settings', (e) => {
-        if (e.type === 'open' && (e.name === 'server' || e.name === 'torrserver' || e.name === 'main')) {
-            setTimeout(createButton, 500);
-        }
-    });
+    // Очень агрессивный наблюдатель
+    function startObserver() {
+        createButton(); // сразу
 
-    // Запуск при старте
+        setInterval(() => {
+            if (!document.querySelector('.ultra-ts-btn')) {
+                createButton();
+            }
+        }, 800);
+
+        Lampa.Listener.follow('settings', (e) => {
+            if (e.type === 'open') {
+                setTimeout(createButton, 300);
+                setTimeout(createButton, 800);
+            }
+        });
+    }
+
     if (window.appready) {
-        setTimeout(createButton, 1000);
+        startObserver();
     } else {
         Lampa.Listener.follow('app', (e) => {
-            if (e.type === 'ready') setTimeout(createButton, 1500);
+            if (e.type === 'ready') startObserver();
         });
     }
 })();
