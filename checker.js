@@ -1,112 +1,112 @@
 (function () {
     'use strict';
 
-    if (window.local_torrserver_search) return;
-    window.local_torrserver_search = true;
-
     Lampa.Lang.add({
-        local_ts_search: {
-            ru: 'Поиск локального TorrServer',
-            en: 'Search local TorrServer',
-            uk: 'Пошук локального TorrServer'
-        },
-        local_ts_searching: {
-            ru: 'Идёт поиск в локальной сети...',
-            en: 'Searching in local network...',
-            uk: 'Пошук у локальній мережі...'
-        },
-        local_ts_found: {
-            ru: 'Найден TorrServer: ',
-            en: 'TorrServer found: ',
-            uk: 'Знайдено TorrServer: '
-        },
-        local_ts_not_found: {
-            ru: 'TorrServer не найден в локальной сети',
-            en: 'TorrServer not found in local network',
-            uk: 'TorrServer не знайдено в локальній мережі'
-        }
+        local_ts_search: { ru: '🔍 Поиск локального TorrServer', en: 'Search local TorrServer' },
+        local_ts_searching: { ru: 'Ищем TorrServer в сети...', en: 'Searching for TorrServer...' },
+        local_ts_found: { ru: '✅ Найден TorrServer:', en: '✅ TorrServer found:' },
+        local_ts_not_found: { ru: '❌ TorrServer не найден', en: '❌ TorrServer not found' },
+        local_ts_start: { ru: 'Начать поиск', en: 'Start search' }
     });
 
     function scanNetwork() {
         Lampa.Loading.start();
         Lampa.Noty.show(Lampa.Lang.translate('local_ts_searching'));
 
-        const baseIp = getLocalBaseIP();
-        const promises = [];
         const port = 8090;
+        let found = false;
+        const base = getBaseIP();
 
-        // Сканируем типичный диапазон (обычно 192.168.0.x или 192.168.1.x)
-        for (let i = 1; i <= 254; i++) {
-            const ip = `${baseIp}${i}`;
-            const url = `http://${ip}:${port}/echo`;
+        const checkIP = (ip) => {
+            return new Promise(resolve => {
+                Lampa.Network.silent(`http://${ip}:${port}/echo`, 
+                    (response) => {
+                        if (response && (response.echo || response.version || typeof response === 'string')) {
+                            found = true;
+                            const url = `http://${ip}:${port}`;
+                            Lampa.Storage.set('torrserver_url', url);
+                            Lampa.Noty.show(Lampa.Lang.translate('local_ts_found') + ' ' + url, { timeout: 6000 });
+                            resolve(true);
+                        } else {
+                            resolve(false);
+                        }
+                    },
+                    () => resolve(false),
+                    false, { timeout: 600 }
+                );
+            });
+        };
 
-            promises.push(
-                new Promise((resolve) => {
-                    Lampa.Network.silent(url, 
-                        (data) => {
-                            if (data && (data.echo || data.version || typeof data === 'string')) {
-                                resolve(ip);
-                            } else {
-                                resolve(null);
-                            }
-                        },
-                        () => resolve(null),
-                        false, { timeout: 800 }
-                    );
-                })
-            );
-        }
+        // Проверяем самые частые подсети
+        const ranges = [
+            base,
+            '10.116.200.',
+            '192.168.1.',
+            '192.168.0.',
+            '192.168.88.',
+            '10.0.0.',
+            '10.0.1.'
+        ];
 
-        Promise.all(promises).then(results => {
+        let promises = [];
+        ranges.forEach(prefix => {
+            for (let i = 1; i <= 254; i++) {
+                if (found) break;
+                promises.push(checkIP(prefix + i));
+            }
+        });
+
+        Promise.all(promises.slice(0, 400)).then(() => {  // лимит чтобы не висело вечно
             Lampa.Loading.stop();
-            const found = results.find(ip => ip !== null);
-
-            if (found) {
-                const fullUrl = `http://${found}:${port}`;
-                Lampa.Storage.set('torrserver_url', fullUrl);
-                Lampa.Noty.show(Lampa.Lang.translate('local_ts_found') + fullUrl, { timeout: 5000 });
-                
-                // Перезагружаем настройки TorrServer
-                if (Lampa.Settings && Lampa.Settings.main) {
-                    Lampa.Settings.main();
-                }
-            } else {
+            if (!found) {
                 Lampa.Noty.show(Lampa.Lang.translate('local_ts_not_found'));
+            } else {
+                // Переоткрываем настройки TorrServer
+                setTimeout(() => Lampa.Settings.main(), 800);
             }
         });
     }
 
-    function getLocalBaseIP() {
-        // Простой способ получить базовый IP (работает в большинстве случаев)
-        const current = window.location.hostname;
-        if (current.match(/^\d+\.\d+\.\d+\.\d+$/)) {
-            return current.replace(/\.\d+$/, '.');
-        }
-        return '10.116.200.'; // fallback
+    function getBaseIP() {
+        try {
+            const host = window.location.hostname;
+            if (/^\d+\.\d+\.\d+\.\d+$/.test(host)) {
+                return host.replace(/\.\d+$/, '.') ;
+            }
+        } catch(e) {}
+        return '192.168.1.';
     }
 
-    function addToSettings() {
-        Lampa.SettingsApi.addComponent({
-            component: 'local_torrserver_search',
+    // Добавляем кнопку в главное меню настроек
+    function addButton() {
+        if (document.querySelector('.local-ts-btn')) return;
+
+        const btn = Lampa.Template.js('button', {
             name: Lampa.Lang.translate('local_ts_search'),
-            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-            onCreate: function (tab) {
-                const button = Lampa.Template.js('button', {
-                    name: Lampa.Lang.translate('local_ts_search'),
-                    class: 'full'
-                });
+            class: 'local-ts-btn'
+        });
 
-                button.on('hover:enter', scanNetwork);
-                tab.append(button);
+        btn.on('hover:enter', scanNetwork);
+
+        // Вставляем в раздел "TorrServer" или в основные настройки
+        Lampa.Listener.follow('settings', function(e) {
+            if (e.type === 'open' && e.name === 'server') {
+                setTimeout(() => {
+                    const tab = document.querySelector('.settings__body');
+                    if (tab) tab.append(btn);
+                }, 300);
             }
         });
     }
 
+    // Запуск
     if (window.appready) {
-        addToSettings();
+        addButton();
     } else {
-        Lampa.Listener.follow('app', function (e) {
-            if (e.type === 'ready') addToSettings();
+        Lampa.Listener.follow('app', (e) => {
+            if (e.type === 'ready') addButton();
         });
     }
+
+    console.log('✅ Плагин "Поиск локального TorrServer" загружен');
 })();
