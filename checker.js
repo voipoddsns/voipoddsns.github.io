@@ -3,14 +3,22 @@
 
     var PLUGIN_NAME = 'TorrServer Auto Discovery';
 
+    console.log('=== TORRSERVER DISCOVERY LOADED ===');
+
     function log() {
-        console.log.apply(console, ['[' + PLUGIN_NAME + ']'].concat([].slice.call(arguments)));
+        console.log.apply(
+            console,
+            ['[' + PLUGIN_NAME + ']'].concat([].slice.call(arguments))
+        );
     }
 
     function notify(text) {
-        if (window.Lampa && Lampa.Noty) {
-            Lampa.Noty.show(text);
-        }
+        try {
+            if (window.Lampa && Lampa.Noty) {
+                Lampa.Noty.show(text);
+            }
+        } catch (e) {}
+
         log(text);
     }
 
@@ -46,6 +54,7 @@
     }
 
     async function checkServer(ip) {
+
         const urls = [
             'http://' + ip + ':8090/settings',
             'http://' + ip + ':8090/server/settings',
@@ -53,9 +62,12 @@
         ];
 
         for (const url of urls) {
+
             log('CHECK:', url);
 
-            if (await checkUrl(url)) {
+            const found = await checkUrl(url);
+
+            if (found) {
                 log('FOUND:', ip);
                 return true;
             }
@@ -65,9 +77,10 @@
     }
 
     async function scanSubnet(base) {
+
         notify('Сканирование: ' + base + '0/24');
 
-        const batchSize = 30;
+        const batchSize = 20;
 
         for (let start = 1; start <= 254; start += batchSize) {
 
@@ -101,6 +114,7 @@
     }
 
     async function findTorrServer() {
+
         notify('Поиск TorrServer...');
 
         const subnets = [
@@ -122,20 +136,22 @@
                 const address = 'http://' + ip + ':8090';
 
                 try {
+
                     Lampa.Storage.set('torrserver_url', address);
                     Lampa.Storage.set('torrserver_use_link', true);
 
-                    if (Lampa.Settings && Lampa.Settings.update) {
-                        Lampa.Settings.update();
-                    }
+                    log('Saved:', address);
+
+                    console.log(
+                        'torrserver_url =',
+                        Lampa.Storage.get('torrserver_url')
+                    );
                 }
                 catch (e) {
                     console.error(e);
                 }
 
                 notify('Найден TorrServer: ' + address);
-
-                log('Saved address:', address);
 
                 return;
             }
@@ -145,21 +161,27 @@
     }
 
     function addSettingsButton() {
-        if (!window.Lampa) return;
+
+        if (!window.Lampa || !Lampa.SettingsApi) {
+            return;
+        }
 
         try {
+
             Lampa.SettingsApi.addParam({
-                component: 'server',
+                component: 'more',
                 param: {
                     name: 'torrserver_auto_find',
-                    type: 'trigger'
+                    type: 'button'
                 },
                 field: {
-                    name: 'Найти TorrServer в сети',
-                    description: 'Автоматический поиск TorrServer'
+                    name: 'Найти TorrServer',
+                    description: 'Автоматический поиск TorrServer в сети'
                 },
                 onChange: function () {
+
                     notify('Запущен поиск TorrServer');
+
                     findTorrServer();
                 }
             });
@@ -172,18 +194,31 @@
     }
 
     function startPlugin() {
+
+        console.log('=== START PLUGIN ===');
+
         notify('TorrServer Discovery загружен');
+
         addSettingsButton();
+
+        setTimeout(function () {
+
+            notify('Автозапуск поиска TorrServer');
+
+            findTorrServer();
+
+        }, 5000);
     }
 
-    if (window.appready) {
-        startPlugin();
-    }
-    else {
-        Lampa.Listener.follow('app', function (event) {
-            if (event.type === 'ready') {
-                startPlugin();
-            }
-        });
-    }
+    setTimeout(function () {
+
+        if (window.Lampa) {
+            startPlugin();
+        }
+        else {
+            console.error('Lampa not found');
+        }
+
+    }, 3000);
+
 })();
