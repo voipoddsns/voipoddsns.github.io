@@ -1,224 +1,112 @@
 (function () {
     'use strict';
 
-    var PLUGIN_NAME = 'TorrServer Auto Discovery';
+    if (window.local_torrserver_search) return;
+    window.local_torrserver_search = true;
 
-    console.log('=== TORRSERVER DISCOVERY LOADED ===');
+    Lampa.Lang.add({
+        local_ts_search: {
+            ru: 'Поиск локального TorrServer',
+            en: 'Search local TorrServer',
+            uk: 'Пошук локального TorrServer'
+        },
+        local_ts_searching: {
+            ru: 'Идёт поиск в локальной сети...',
+            en: 'Searching in local network...',
+            uk: 'Пошук у локальній мережі...'
+        },
+        local_ts_found: {
+            ru: 'Найден TorrServer: ',
+            en: 'TorrServer found: ',
+            uk: 'Знайдено TorrServer: '
+        },
+        local_ts_not_found: {
+            ru: 'TorrServer не найден в локальной сети',
+            en: 'TorrServer not found in local network',
+            uk: 'TorrServer не знайдено в локальній мережі'
+        }
+    });
 
-    function log() {
-        console.log.apply(
-            console,
-            ['[' + PLUGIN_NAME + ']'].concat([].slice.call(arguments))
-        );
-    }
+    function scanNetwork() {
+        Lampa.Loading.start();
+        Lampa.Noty.show(Lampa.Lang.translate('local_ts_searching'));
 
-    function notify(text) {
-        try {
-            if (window.Lampa && Lampa.Noty) {
-                Lampa.Noty.show(text);
-            }
-        } catch (e) {}
+        const baseIp = getLocalBaseIP();
+        const promises = [];
+        const port = 8090;
 
-        log(text);
-    }
+        // Сканируем типичный диапазон (обычно 192.168.0.x или 192.168.1.x)
+        for (let i = 1; i <= 254; i++) {
+            const ip = `${baseIp}${i}`;
+            const url = `http://${ip}:${port}/echo`;
 
-    async function checkUrl(url) {
-        try {
-            const controller = new AbortController();
-
-            const timer = setTimeout(function () {
-                controller.abort();
-            }, 1500);
-
-            const response = await fetch(url, {
-                method: 'GET',
-                signal: controller.signal
-            });
-
-            clearTimeout(timer);
-
-            if (!response.ok) return false;
-
-            const text = await response.text();
-
-            return (
-                text.indexOf('CacheSize') !== -1 ||
-                text.indexOf('Torrent') !== -1 ||
-                text.indexOf('torrent') !== -1 ||
-                text.indexOf('version') !== -1
+            promises.push(
+                new Promise((resolve) => {
+                    Lampa.Network.silent(url, 
+                        (data) => {
+                            if (data && (data.echo || data.version || typeof data === 'string')) {
+                                resolve(ip);
+                            } else {
+                                resolve(null);
+                            }
+                        },
+                        () => resolve(null),
+                        false, { timeout: 800 }
+                    );
+                })
             );
         }
-        catch (e) {
-            return false;
-        }
-    }
 
-    async function checkServer(ip) {
-
-        const urls = [
-            'http://' + ip + ':8090/settings',
-            'http://' + ip + ':8090/server/settings',
-            'http://' + ip + ':8090/echo'
-        ];
-
-        for (const url of urls) {
-
-            log('CHECK:', url);
-
-            const found = await checkUrl(url);
+        Promise.all(promises).then(results => {
+            Lampa.Loading.stop();
+            const found = results.find(ip => ip !== null);
 
             if (found) {
-                log('FOUND:', ip);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    async function scanSubnet(base) {
-
-        notify('Сканирование: ' + base + '0/24');
-
-        const batchSize = 20;
-
-        for (let start = 1; start <= 254; start += batchSize) {
-
-            const batch = [];
-
-            for (
-                let i = start;
-                i < start + batchSize && i <= 254;
-                i++
-            ) {
-                const ip = base + i;
-
-                batch.push(
-                    checkServer(ip).then(found => ({
-                        ip: ip,
-                        found: found
-                    }))
-                );
-            }
-
-            const results = await Promise.all(batch);
-
-            const server = results.find(r => r.found);
-
-            if (server) {
-                return server.ip;
-            }
-        }
-
-        return null;
-    }
-
-    async function findTorrServer() {
-
-        notify('Поиск TorrServer...');
-
-        const subnets = [
-            '10.116.200.',
-            '192.168.0.',
-            '192.168.1.',
-            '192.168.31.',
-            '10.0.0.',
-            '10.0.1.',
-            '172.16.0.'
-        ];
-
-        for (const subnet of subnets) {
-
-            const ip = await scanSubnet(subnet);
-
-            if (ip) {
-
-                const address = 'http://' + ip + ':8090';
-
-                try {
-
-                    Lampa.Storage.set('torrserver_url', address);
-                    Lampa.Storage.set('torrserver_use_link', true);
-
-                    log('Saved:', address);
-
-                    console.log(
-                        'torrserver_url =',
-                        Lampa.Storage.get('torrserver_url')
-                    );
+                const fullUrl = `http://${found}:${port}`;
+                Lampa.Storage.set('torrserver_url', fullUrl);
+                Lampa.Noty.show(Lampa.Lang.translate('local_ts_found') + fullUrl, { timeout: 5000 });
+                
+                // Перезагружаем настройки TorrServer
+                if (Lampa.Settings && Lampa.Settings.main) {
+                    Lampa.Settings.main();
                 }
-                catch (e) {
-                    console.error(e);
-                }
-
-                notify('Найден TorrServer: ' + address);
-
-                return;
+            } else {
+                Lampa.Noty.show(Lampa.Lang.translate('local_ts_not_found'));
             }
-        }
-
-        notify('TorrServer не найден');
+        });
     }
 
-    function addSettingsButton() {
-
-        if (!window.Lampa || !Lampa.SettingsApi) {
-            return;
+    function getLocalBaseIP() {
+        // Простой способ получить базовый IP (работает в большинстве случаев)
+        const current = window.location.hostname;
+        if (current.match(/^\d+\.\d+\.\d+\.\d+$/)) {
+            return current.replace(/\.\d+$/, '.');
         }
-
-        try {
-
-            Lampa.SettingsApi.addParam({
-                component: 'more',
-                param: {
-                    name: 'torrserver_auto_find',
-                    type: 'button'
-                },
-                field: {
-                    name: 'Найти TorrServer',
-                    description: 'Автоматический поиск TorrServer в сети'
-                },
-                onChange: function () {
-
-                    notify('Запущен поиск TorrServer');
-
-                    findTorrServer();
-                }
-            });
-
-            log('Кнопка добавлена');
-        }
-        catch (e) {
-            console.error(e);
-        }
+        return '10.116.200.'; // fallback
     }
 
-    function startPlugin() {
+    function addToSettings() {
+        Lampa.SettingsApi.addComponent({
+            component: 'local_torrserver_search',
+            name: Lampa.Lang.translate('local_ts_search'),
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+            onCreate: function (tab) {
+                const button = Lampa.Template.js('button', {
+                    name: Lampa.Lang.translate('local_ts_search'),
+                    class: 'full'
+                });
 
-        console.log('=== START PLUGIN ===');
-
-        notify('TorrServer Discovery загружен');
-
-        addSettingsButton();
-
-        setTimeout(function () {
-
-            notify('Автозапуск поиска TorrServer');
-
-            findTorrServer();
-
-        }, 5000);
+                button.on('hover:enter', scanNetwork);
+                tab.append(button);
+            }
+        });
     }
 
-    setTimeout(function () {
-
-        if (window.Lampa) {
-            startPlugin();
-        }
-        else {
-            console.error('Lampa not found');
-        }
-
-    }, 3000);
-
+    if (window.appready) {
+        addToSettings();
+    } else {
+        Lampa.Listener.follow('app', function (e) {
+            if (e.type === 'ready') addToSettings();
+        });
+    }
 })();
