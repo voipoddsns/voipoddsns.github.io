@@ -1,83 +1,78 @@
-// Checker for TorrServer by @vlados
-(function() {
+// Улучшенный Поиск TorrServer v2
+(function () {
     'use strict';
 
-    if (window.checker_ts) return;
-    window.checker_ts = true;
+    console.log('%c🔍 Улучшенный поиск TorrServer загружен', 'color: lime; font-size: 14px');
 
     Lampa.Lang.add({
-        ts_checker: {
-            ru: '🔍 Поиск локального TorrServer',
-            uk: '🔍 Пошук локального TorrServer',
-            en: '🔍 Search local TorrServer'
-        },
-        ts_checker_search: {
-            ru: 'Идёт поиск TorrServer...',
-            uk: 'Йде пошук TorrServer...',
-            en: 'Searching for TorrServer...'
-        },
-        ts_checker_found: {
-            ru: '✅ TorrServer найден:',
-            uk: '✅ TorrServer знайдено:',
-            en: '✅ TorrServer found:'
-        },
-        ts_checker_notfound: {
-            ru: '❌ TorrServer не найден в сети',
-            uk: '❌ TorrServer не знайдено в мережі',
-            en: '❌ TorrServer not found'
-        }
+        ts_search: { ru: '🔍 Поиск локального TorrServer', en: '🔍 Search local TorrServer' },
+        ts_searching: { ru: '🔎 Ищем TorrServer в сети...', en: '🔎 Searching...' },
+        ts_found: { ru: '✅ Найден TorrServer:', en: '✅ Found:' },
+        ts_notfound: { ru: '❌ TorrServer не найден', en: '❌ Not found' }
     });
 
-    function startScan() {
+    function scan() {
         Lampa.Loading.start();
-        Lampa.Noty.show(Lampa.Lang.translate('ts_checker_search'));
+        Lampa.Noty.show(Lampa.Lang.translate('ts_searching'));
 
-        var port = 8090;
-        var found = false;
-        var ranges = ['10.116.200.', '192.168.1.', '192.168.0.', '192.168.88.', '10.0.0.', '10.0.1.'];
+        const port = 8090;
+        let found = false;
+        const prefixes = [
+            '192.168.1.', '192.168.0.', '192.168.88.', 
+            '192.168.31.', '10.0.0.', '10.0.1.', '172.16.'
+        ];
 
-        function check(ip) {
+        const checkIP = (ip) => {
             if (found) return;
-            Lampa.Network.silent('http://' + ip + ':' + port + '/echo', function(data) {
-                if (data && (data.echo || data.version)) {
+            Lampa.Network.silent(`http://${ip}:${port}/echo`, (data) => {
+                if (data && (data.echo || data.version || typeof data === 'string')) {
                     found = true;
-                    var url = 'http://' + ip + ':' + port;
+                    const url = `http://${ip}:${port}`;
                     Lampa.Storage.set('torrserver_url', url);
-                    Lampa.Noty.show(Lampa.Lang.translate('ts_checker_found') + ' ' + url, {timeout: 8000});
-                    setTimeout(function(){ Lampa.Settings.main(); }, 1200);
+                    Lampa.Noty.show(Lampa.Lang.translate('ts_found') + ' ' + url, {timeout: 8000});
+                    setTimeout(() => Lampa.Settings.main(), 1000);
                 }
-            }, null, false, {timeout: 600});
-        }
+            }, () => {}, false, {timeout: 500});
+        };
 
-        ranges.forEach(function(base) {
-            for (var i = 1; i <= 254; i++) {
+        prefixes.forEach(prefix => {
+            for (let i = 1; i <= 254; i++) {
                 if (found) break;
-                check(base + i);
+                checkIP(prefix + i);
             }
         });
 
-        setTimeout(function() {
+        setTimeout(() => {
             Lampa.Loading.stop();
-            if (!found) Lampa.Noty.show(Lampa.Lang.translate('ts_checker_notfound'));
-        }, 12000);
+            if (!found) Lampa.Noty.show(Lampa.Lang.translate('ts_notfound'));
+        }, 10000);
     }
 
-    // Добавление кнопки
-    Lampa.Listener.follow('settings', function(e) {
-        if (e.type == 'open' && (e.name == 'server' || e.name == 'torrserver')) {
-            setTimeout(function() {
-                if ($('.ts-checker-btn').length) return;
+    // Жёсткая вставка кнопки
+    function addBtn() {
+        setTimeout(() => {
+            if ($('.my-ts-search-btn').length > 0) return;
 
-                var btn = Lampa.Template.js('button', {
-                    name: Lampa.Lang.translate('ts_checker'),
-                    class: 'ts-checker-btn full'
-                });
+            const btn = Lampa.Template.js('button', {
+                name: Lampa.Lang.translate('ts_search'),
+                class: 'my-ts-search-btn full'
+            });
 
-                btn.on('hover:enter', startScan);
-                $('.settings__body').append(btn);
-            }, 400);
+            btn.on('hover:enter', scan);
+            $('.settings__body, .layer__body').append(btn);
+            console.log('Кнопка поиска добавлена');
+        }, 600);
+    }
+
+    Lampa.Listener.follow('settings', (e) => {
+        if (e.type === 'open' && ['server', 'torrserver', 'main'].includes(e.name)) {
+            addBtn();
         }
     });
 
-    console.log('%c[Checker] TorrServer Search Plugin loaded', 'color: #00ff00');
+    // Дополнительный запуск
+    if (window.appready) addBtn();
+    else Lampa.Listener.follow('app', (e) => {
+        if (e.type === 'ready') addBtn();
+    });
 })();
