@@ -4,12 +4,14 @@
     if (window.SkipIntroPlugin) return;
     window.SkipIntroPlugin = true;
 
+    const STORAGE_KEY = 'skip_intro_db';
+    const SETTINGS_KEY = 'skip_intro_settings';
+
     const plugin = {
         name: 'Skip Intro',
         version: '1.0.0',
         author: 'ChatGPT',
 
-        // Налаштування за замовчуванням
         settings: {
             enabled: true,
             autoSkipIntro: false,
@@ -21,198 +23,171 @@
             nextEpisodeDelay: 5
         },
 
-        // Стан плагіна
         state: {
             player: null,
             introShown: false,
             creditsShown: false,
             duration: 0,
-            currentCard: null,
-            skipButton: null,
-            nextButton: null
+            cardId: null,
+            season: null,
+            episode: null,
+            introBtn: null,
+            creditsBtn: null,
+            countdownTimer: null
         },
 
-        // --- ІНІЦІАЛІЗАЦІЯ ---
+        // ---------- ІНІЦІАЛІЗАЦІЯ ----------
         init() {
-            console.log('[SkipIntro] Plugin loaded');
+            console.log('[SkipIntro] Plugin loaded v' + this.version);
+
             this.loadSettings();
             this.injectStyles();
-            this.registerSettings();
+
+            if (window.Lampa) {
+                this.addSettingsMenu();
+                this.listenLampaPlayer();
+            }
+
+            if (window.Lampa && Lampa.Noty) {
+                Lampa.Noty.show('Skip Intro завантажено');
+            }
+
             this.observePlayer();
         },
 
-        // --- РОБОТА З НАЛАШТУВАННЯМИ ТА БАЗОЮ ---
+        // ---------- НАЛАШТУВАННЯ (LocalStorage) ----------
         loadSettings() {
             try {
-                const saved = Lampa.Storage.get('skip_intro_settings', '{}');
-                Object.assign(this.settings, JSON.parse(saved));
-            } catch (e) { console.error('[SkipIntro] Settings load error', e); }
+                const raw = localStorage.getItem(SETTINGS_KEY);
+                if (raw) Object.assign(this.settings, JSON.parse(raw));
+            } catch (e) {
+                console.error('[SkipIntro] settings load error', e);
+            }
         },
 
         saveSettings() {
-            Lampa.Storage.set('skip_intro_settings', JSON.stringify(this.settings));
-        },
-
-        getIntroDb() {
             try {
-                return JSON.parse(Lampa.Storage.get('skip_intro_db', '{}'));
-            } catch (e) { return {}; }
+                localStorage.setItem(SETTINGS_KEY, JSON.stringify(this.settings));
+            } catch (e) {
+                console.error('[SkipIntro] settings save error', e);
+            }
         },
 
-        saveIntroDb(db) {
-            Lampa.Storage.set('skip_intro_db', JSON.stringify(db));
+        // ---------- БАЗА ЗАПАМ'ЯТОВУВАННЯ ----------
+        loadDB() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            } catch (e) {
+                return {};
+            }
         },
 
-        // Генерація ключа для бази даних на основі ID, сезону та озвучки
-        getDbKey() {
-            if (!this.state.currentCard) return null;
-            const c = this.state.currentCard;
-            const voice = c.voice ? '_' + c.voice : '';
-            return `${c.id}_s${c.season}_e${c.episode}${voice}`;
+        saveDB(db) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+            } catch (e) {
+                console.error('[SkipIntro] db save error', e);
+            }
         },
 
-        // --- РЕЄСТРАЦІЯ В МЕНЮ LAMPA ---
-        registerSettings() {
-            Lampa.SettingsApi.addComponent({
-                component: 'skip_intro',
-                name: 'Skip Intro',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 4L19 12L5 20V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-            });
-
-            Lampa.SettingsApi.addParam('skip_intro', {
-                name: 'enabled',
-                type: 'toggle',
-                values: 'Увімкнути плагін',
-                default: this.settings.enabled
-            });
-
-            Lampa.SettingsApi.addParam('skip_intro', {
-                name: 'showIntroButton',
-                type: 'toggle',
-                values: 'Показувати кнопку "Пропустити"',
-                default: this.settings.showIntroButton
-            });
-
-            Lampa.SettingsApi.addParam('skip_intro', {
-                name: 'autoSkipIntro',
-                type: 'toggle',
-                values: 'Автоматично пропускати інтро',
-                default: this.settings.autoSkipIntro
-            });
-
-            Lampa.SettingsApi.addParam('skip_intro', {
-                name: 'rememberIntro',
-                type: 'toggle',
-                values: 'Запам\'ятовувати час інтро',
-                default: this.settings.rememberIntro
-            });
-
-            Lampa.SettingsApi.addParam('skip_intro', {
-                name: 'introSeconds',
-                type: 'select',
-                values: ['30', '45', '60', '90', '120'],
-                default: this.settings.introSeconds.toString(),
-                title: 'Час інтро за замовчуванням (сек)'
-            });
-
-            Lampa.SettingsApi.addParam('skip_intro', {
-                name: 'creditsSeconds',
-                type: 'select',
-                values: ['15', '20', '30', '45', '60'],
-                default: this.settings.creditsSeconds.toString(),
-                title: 'Час появи кнопки титрів (сек до кінця)'
-            });
-
-            Lampa.SettingsApi.addParam('skip_intro', {
-                name: 'autoNextEpisode',
-                type: 'toggle',
-                values: 'Автонаступна серія',
-                default: this.settings.autoNextEpisode
-            });
-
-            Lampa.SettingsApi.addParam('skip_intro', {
-                name: 'nextEpisodeDelay',
-                type: 'select',
-                values: ['3', '5', '10'],
-                default: this.settings.nextEpisodeDelay.toString(),
-                title: 'Затримка перед наступною серією (сек)'
-            });
+        getDBKey() {
+            // ключ: серіал + сезон (озвучку можна додати окремо)
+            const id = this.state.cardId || 'unknown';
+            const season = this.state.season != null ? this.state.season : '0';
+            return id + '_s' + season;
         },
 
-        // --- СТИЛІ NETFLIX ---
-        injectStyles() {
-            const css = `
-                .skip-intro-btn, .skip-credits-btn {
-                    position: absolute;
-                    bottom: 15%;
-                    right: 5%;
-                    background: rgba(0, 0, 0, 0.7);
-                    border: 1px solid rgba(255, 255, 255, 0.5);
-                    color: white;
-                    padding: 10px 24px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    cursor: pointer;
-                    z-index: 1000;
-                    transition: all 0.2s ease;
-                    opacity: 0;
-                    transform: translateY(10px);
-                    animation: fadeInUp 0.3s forwards;
-                    border-radius: 4px;
-                }
-                .skip-intro-btn:hover, .skip-credits-btn:hover,
-                .skip-intro-btn:focus, .skip-credits-btn:focus {
-                    background: rgba(255, 255, 255, 0.9);
-                    color: black;
-                    outline: none;
-                }
-                .skip-credits-btn {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                }
-                .skip-credits-countdown {
-                    width: 24px;
-                    height: 24px;
-                    border-radius: 50%;
-                    border: 2px solid white;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 12px;
-                }
-                @keyframes fadeInUp {
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `;
-            const style = document.createElement('style');
-            style.textContent = css;
-            document.head.appendChild(style);
+        rememberIntroTime(seconds) {
+            if (!this.settings.rememberIntro) return;
+            const db = this.loadDB();
+            db[this.getDBKey()] = {
+                intro: Math.round(seconds),
+                updated: Date.now()
+            };
+            this.saveDB(db);
+            console.log('[SkipIntro] Запам\'ятовано інтро:', seconds, 'для', this.getDBKey());
         },
 
-        // --- СЛІДКУВАННЯ ЗА ПЛЕЄРОМ ---
+        getRememberedIntro() {
+            if (!this.settings.rememberIntro) return null;
+            const db = this.loadDB();
+            const rec = db[this.getDBKey()];
+            return rec ? rec.intro : null;
+        },
+
+        exportDB() {
+            return JSON.stringify(this.loadDB(), null, 2);
+        },
+
+        importDB(json) {
+            try {
+                const data = JSON.parse(json);
+                this.saveDB(data);
+                if (window.Lampa && Lampa.Noty) Lampa.Noty.show('Базу імпортовано');
+            } catch (e) {
+                if (window.Lampa && Lampa.Noty) Lampa.Noty.show('Помилка імпорту');
+            }
+        },
+
+        // ---------- ВИЗНАЧЕННЯ СЕРІАЛУ ----------
+        detectCard() {
+            try {
+                if (window.Lampa && Lampa.Player && Lampa.Player.playdata) {
+                    const data = Lampa.Player.playdata();
+                    if (data) {
+                        this.state.cardId = data.card ? (data.card.id || data.card.imdb_id || data.card.original_title) : null;
+                        this.state.season = data.season != null ? data.season : null;
+                        this.state.episode = data.episode != null ? data.episode : null;
+                    }
+                }
+                // запасний варіант — Activity
+                if (!this.state.cardId && window.Lampa && Lampa.Activity) {
+                    const act = Lampa.Activity.active();
+                    if (act && act.card) {
+                        this.state.cardId = act.card.id || act.card.imdb_id || act.card.original_title;
+                    }
+                }
+            } catch (e) {
+                console.error('[SkipIntro] detectCard error', e);
+            }
+            console.log('[SkipIntro] card:', this.state.cardId, 's', this.state.season, 'e', this.state.episode);
+        },
+
+        // ---------- СЛУХАЧ ПЛЕЄРА LAMPA ----------
+        listenLampaPlayer() {
+            const self = this;
+            try {
+                if (Lampa.Player && Lampa.Player.listener) {
+                    Lampa.Player.listener.follow('start', function () {
+                        self.detectCard();
+                        self.resetState();
+                    });
+                }
+            } catch (e) {
+                console.error('[SkipIntro] listenLampaPlayer error', e);
+            }
+        },
+
+        resetState() {
+            this.state.introShown = false;
+            this.state.creditsShown = false;
+            this.removeIntroButton();
+            this.removeCreditsButton();
+            if (this.state.countdownTimer) {
+                clearInterval(this.state.countdownTimer);
+                this.state.countdownTimer = null;
+            }
+        },
+
+        // ---------- ВІДСТЕЖЕННЯ HTML5 ПЛЕЄРА ----------
         observePlayer() {
             const self = this;
 
-            // Отримуємо дані про поточний фільм/серіал з Lampa
-            document.addEventListener('lampa-player-play', function () {
-                try {
-                    const activity = Lampa.Activity.active();
-                    if (activity && activity.movie) {
-                        self.state.currentCard = {
-                            id: activity.movie.id,
-                            season: activity.movie.season ? activity.movie.season.number : 0,
-                            episode: activity.movie.episode ? activity.movie.episode.number : 0,
-                            voice: activity.movie.voice ? activity.movie.voice.id : ''
-                        };
-                    }
-                } catch (e) { console.error('[SkipIntro] Activity error', e); }
-            }, true);
-
-            // Слідкуємо за створенням відео-елемента
             document.addEventListener('play', function (e) {
-                self.state.player = e.target;
-                self.attachPlayer(self.state.player);
+                if (e.target && e.target.tagName === 'VIDEO') {
+                    self.state.player = e.target;
+                    self.attachPlayer(self.state.player);
+                }
             }, true);
         },
 
@@ -220,166 +195,393 @@
             if (!player || player.__skipIntroAttached) return;
             player.__skipIntroAttached = true;
 
+            const self = this;
+
             player.addEventListener('loadedmetadata', () => {
-                this.state.duration = player.duration || 0;
-                this.state.introShown = false;
-                this.state.creditsShown = false;
-                this.removeButtons();
+                self.state.duration = player.duration || 0;
+                self.resetState();
+                self.detectCard();
             });
 
             player.addEventListener('timeupdate', () => {
-                if (this.settings.enabled) this.onTimeUpdate(player);
+                self.onTimeUpdate(player);
             });
 
             player.addEventListener('ended', () => {
-                this.removeButtons();
+                self.onEnded(player);
             });
         },
 
-        // --- ЛОГІКА ЧАСУ ---
+        // ---------- ОБРОБКА ЧАСУ ----------
         onTimeUpdate(player) {
+            if (!this.settings.enabled) return;
+
             const current = player.currentTime;
             const duration = player.duration || 0;
-            if (!duration) return;
 
-            const isSerial = this.state.currentCard && this.state.currentCard.season > 0;
+            // --- ІНТРО ---
+            const remembered = this.getRememberedIntro();
 
-            // --- INTRO LOGIC ---
-            if (this.settings.showIntroButton && !this.state.introShown && current >= 3 && current <= 15) {
+            // якщо є запам'ятований час і увімкнено авто-скіп
+            if (
+                this.settings.autoSkipIntro &&
+                remembered &&
+                !this.state.introShown &&
+                current >= 1 &&
+                current < remembered
+            ) {
                 this.state.introShown = true;
-                const db = this.getIntroDb();
-                const key = this.getDbKey();
-                const savedIntro = key ? db[key] : null;
-
-                if (savedIntro) {
-                    // Якщо інтро збережено, пропускаємо автоматично або показуємо кнопку з точним часом
-                    if (this.settings.autoSkipIntro) {
-                        this.skipToIntro(player, savedIntro);
-                    } else {
-                        this.showIntroButton(player, savedIntro);
-                    }
-                } else {
-                    // Якщо інтро не збережено, показуємо кнопку з часом з налаштувань
-                    this.showIntroButton(player, this.settings.introSeconds);
-                }
+                player.currentTime = remembered;
+                if (window.Lampa && Lampa.Noty) Lampa.Noty.show('Інтро пропущено');
+                return;
             }
 
-            // Сховати кнопку інтро, якщо час вийшло
-            if (this.state.introShown && this.state.skipButton && current > (parseInt(this.state.skipButton.dataset.time) || 90)) {
-                this.state.skipButton.remove();
-                this.state.skipButton = null;
+            // показ кнопки в перші секунди
+            if (
+                this.settings.showIntroButton &&
+                !this.state.introShown &&
+                current >= 3 &&
+                current <= 25
+            ) {
+                this.state.introShown = true;
+                this.showIntroButton(player);
             }
 
-            // --- CREDITS LOGIC ---
-            if (isSerial && !this.state.creditsShown && current >= duration - this.settings.creditsSeconds) {
+            // --- ТИТРИ ---
+            if (
+                !this.state.creditsShown &&
+                duration > 0 &&
+                current >= duration - this.settings.creditsSeconds
+            ) {
                 this.state.creditsShown = true;
                 this.showCreditsButton(player);
             }
         },
 
-        // --- UI КНОПКИ ---
-        showIntroButton(player, seconds) {
-            if (this.state.skipButton) return;
-            const btn = document.createElement('button');
-            btn.className = 'skip-intro-btn';
+        onEnded(player) {
+            if (this.settings.autoNextEpisode) {
+                this.nextEpisode();
+            }
+        },
+
+        // ---------- КНОПКА «ПРОПУСТИТИ ІНТРО» ----------
+        showIntroButton(player) {
+            const self = this;
+            this.removeIntroButton();
+
+            const remembered = this.getRememberedIntro();
+            const skipTo = remembered || (player.currentTime + this.settings.introSeconds);
+
+            const btn = document.createElement('div');
+            btn.className = 'skip-intro-btn selector';
             btn.textContent = 'Пропустити інтро';
-            btn.dataset.time = seconds;
+            btn.tabIndex = 0;
 
-            // Підтримка пульта
-            btn.addEventListener('click', () => this.skipToIntro(player, seconds));
-            btn.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === 'Ok') this.skipToIntro(player, seconds);
+            const doSkip = function () {
+                const from = player.currentTime;
+                player.currentTime = skipTo;
+                // запам'ятовуємо момент кінця інтро
+                self.rememberIntroTime(skipTo);
+                self.removeIntroButton();
+                if (window.Lampa && Lampa.Noty) Lampa.Noty.show('Інтро пропущено');
+            };
+
+            btn.addEventListener('click', doSkip);
+            btn.addEventListener('hover:enter', doSkip);
+            // підтримка пульта
+            btn.addEventListener('keydown', function (e) {
+                if (e.keyCode === 13) doSkip();
             });
 
-            const playerWrap = player.closest('.player-video') || player.parentNode;
-            if (playerWrap) {
-                playerWrap.style.position = 'relative';
-                playerWrap.appendChild(btn);
-                btn.focus(); // Фокус для пульта
-                this.state.skipButton = btn;
+            document.body.appendChild(btn);
+            this.state.introBtn = btn;
+
+            // фокус для пульта Lampa
+            this.enableRemote(btn);
+
+            // приховати через 12 секунд
+            setTimeout(() => self.removeIntroButton(), 12000);
+        },
+
+        removeIntroButton() {
+            if (this.state.introBtn) {
+                this.state.introBtn.remove();
+                this.state.introBtn = null;
             }
         },
 
-        skipToIntro(player, seconds) {
-            player.currentTime = parseFloat(seconds);
-            if (this.state.skipButton) {
-                this.state.skipButton.remove();
-                this.state.skipButton = null;
-            }
-
-            // Зберігаємо в базу, якщо ще не збережено
-            if (this.settings.rememberIntro) {
-                const key = this.getDbKey();
-                if (key) {
-                    const db = this.getIntroDb();
-                    if (!db[key]) {
-                        db[key] = seconds;
-                        this.saveIntroDb(db);
-                        Lampa.Noty.show('Час інтро запам\'ятовано');
-                    }
-                }
-            }
-        },
-
+        // ---------- КНОПКА «ПРОПУСТИТИ ТИТРИ / НАСТУПНА СЕРІЯ» ----------
         showCreditsButton(player) {
-            if (this.state.nextButton) return;
-            const btn = document.createElement('button');
-            btn.className = 'skip-credits-btn';
-            btn.innerHTML = `<span class="skip-credits-countdown">${this.settings.nextEpisodeDelay}</span> Наступна серія`;
+            const self = this;
+            this.removeCreditsButton();
 
-            btn.addEventListener('click', () => this.triggerNextEpisode());
-            btn.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === 'Ok') this.triggerNextEpisode();
+            const wrap = document.createElement('div');
+            wrap.className = 'skip-credits-wrap';
+
+            const label = document.createElement('div');
+            label.className = 'skip-credits-label';
+
+            const btn = document.createElement('div');
+            btn.className = 'skip-intro-btn selector';
+            btn.tabIndex = 0;
+            btn.textContent = '▶ Наступна серія';
+
+            wrap.appendChild(label);
+            wrap.appendChild(btn);
+            document.body.appendChild(wrap);
+            this.state.creditsBtn = wrap;
+
+            const goNext = function () {
+                self.removeCreditsButton();
+                self.nextEpisode();
+            };
+
+            btn.addEventListener('click', goNext);
+            btn.addEventListener('hover:enter', goNext);
+            btn.addEventListener('keydown', function (e) {
+                if (e.keyCode === 13) goNext();
             });
 
-            const playerWrap = player.closest('.player-video') || player.parentNode;
-            if (playerWrap) {
-                playerWrap.style.position = 'relative';
-                playerWrap.appendChild(btn);
-                btn.focus();
-                this.state.nextButton = btn;
+            this.enableRemote(btn);
 
-                // Зворотний відлік
-                if (this.settings.autoNextEpisode) {
-                    let count = this.settings.nextEpisodeDelay;
-                    const interval = setInterval(() => {
-                        count--;
-                        const countdownEl = btn.querySelector('.skip-credits-countdown');
-                        if (countdownEl) countdownEl.textContent = count;
-                        
-                        if (count <= 0) {
-                            clearInterval(interval);
-                            this.triggerNextEpisode();
-                        }
-                    }, 1000);
-                    
-                    btn.addEventListener('remove', () => clearInterval(interval));
-                }
+            // зворотний відлік
+            if (this.settings.autoNextEpisode && this.settings.nextEpisodeDelay > 0) {
+                let left = this.settings.nextEpisodeDelay;
+                label.textContent = 'Наступна серія через ' + left + '…';
+
+                this.state.countdownTimer = setInterval(() => {
+                    left--;
+                    if (left <= 0) {
+                        clearInterval(self.state.countdownTimer);
+                        self.state.countdownTimer = null;
+                        goNext();
+                    } else {
+                        label.textContent = 'Наступна серія через ' + left + '…';
+                    }
+                }, 1000);
+            } else {
+                label.textContent = 'Пропустити титри';
             }
         },
 
-        triggerNextEpisode() {
-            this.removeButtons();
+        removeCreditsButton() {
+            if (this.state.creditsBtn) {
+                this.state.creditsBtn.remove();
+                this.state.creditsBtn = null;
+            }
+            if (this.state.countdownTimer) {
+                clearInterval(this.state.countdownTimer);
+                this.state.countdownTimer = null;
+            }
+        },
+
+        // ---------- ПЕРЕХІД НА НАСТУПНУ СЕРІЮ ----------
+        nextEpisode() {
+            console.log('[SkipIntro] Next episode');
             try {
-                // Викликаємо стандартну наступну серію в Lampa
-                Lampa.Player.next();
+                if (window.Lampa && Lampa.Player && typeof Lampa.Player.next === 'function') {
+                    Lampa.Player.next();
+                } else if (window.Lampa && Lampa.PlayerVideo && Lampa.PlayerVideo.next) {
+                    Lampa.PlayerVideo.next();
+                }
             } catch (e) {
-                console.error('[SkipIntro] Next episode error', e);
-                Lampa.Noty.show('Помилка переходу до наступної серії');
+                console.error('[SkipIntro] nextEpisode error', e);
             }
         },
 
-        removeButtons() {
-            if (this.state.skipButton) { this.state.skipButton.remove(); this.state.skipButton = null; }
-            if (this.state.nextButton) { this.state.nextButton.remove(); this.state.nextButton = null; }
+        // ---------- ПІДТРИМКА ПУЛЬТА ----------
+        enableRemote(element) {
+            try {
+                if (window.Lampa && Lampa.Controller) {
+                    // дозволяємо фокусуватись засобами Lampa
+                    element.addEventListener('hover:focus', () => {
+                        element.classList.add('focus');
+                    });
+                    element.addEventListener('hover:blur', () => {
+                        element.classList.remove('focus');
+                    });
+                }
+            } catch (e) {}
+        },
+
+        // ---------- СТИЛІ (анімація Netflix) ----------
+        injectStyles() {
+            if (document.getElementById('skip-intro-styles')) return;
+            const css = `
+                .skip-intro-btn {
+                    position: fixed;
+                    right: 4em;
+                    bottom: 6em;
+                    z-index: 9999;
+                    padding: 0.9em 1.8em;
+                    background: rgba(20,20,20,0.85);
+                    color: #fff;
+                    font-size: 1.4em;
+                    font-weight: 600;
+                    border: 2px solid rgba(255,255,255,0.85);
+                    border-radius: 0.4em;
+                    cursor: pointer;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    animation: skipFadeIn 0.4s forwards;
+                    transition: background 0.2s, transform 0.2s, border-color 0.2s;
+                    backdrop-filter: blur(4px);
+                }
+                .skip-intro-btn.focus,
+                .skip-intro-btn:hover {
+                    background: #fff;
+                    color: #000;
+                    border-color: #fff;
+                    transform: scale(1.05);
+                }
+                .skip-credits-wrap {
+                    position: fixed;
+                    right: 4em;
+                    bottom: 6em;
+                    z-index: 9999;
+                    text-align: right;
+                    animation: skipFadeIn 0.4s forwards;
+                }
+                .skip-credits-label {
+                    color: #fff;
+                    font-size: 1.1em;
+                    margin-bottom: 0.6em;
+                    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+                }
+                .skip-credits-wrap .skip-intro-btn {
+                    position: static;
+                    animation: none;
+                    opacity: 1;
+                    transform: none;
+                    display: inline-block;
+                }
+                @keyframes skipFadeIn {
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            const style = document.createElement('style');
+            style.id = 'skip-intro-styles';
+            style.textContent = css;
+            document.head.appendChild(style);
+        },
+
+        // ---------- МЕНЮ НАЛАШТУВАНЬ LAMPA ----------
+        addSettingsMenu() {
+            const self = this;
+            try {
+                if (!Lampa.SettingsApi) return;
+
+                Lampa.SettingsApi.addComponent({
+                    component: 'skip_intro',
+                    name: 'Skip Intro',
+                    icon: '<svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M4 5v14l8-7zM13 5v14l8-7z"/></svg>'
+                });
+
+                // Увімкнути
+                Lampa.SettingsApi.addParam({
+                    component: 'skip_intro',
+                    param: { name: 'si_enabled', type: 'trigger', default: self.settings.enabled },
+                    field: { name: 'Увімкнути' },
+                    onChange: (v) => { self.settings.enabled = (v === true || v === 'true'); self.saveSettings(); }
+                });
+
+                Lampa.SettingsApi.addParam({
+                    component: 'skip_intro',
+                    param: { name: 'si_auto', type: 'trigger', default: self.settings.autoSkipIntro },
+                    field: { name: 'Автоматично пропускати інтро' },
+                    onChange: (v) => { self.settings.autoSkipIntro = (v === true || v === 'true'); self.saveSettings(); }
+                });
+
+                Lampa.SettingsApi.addParam({
+                    component: 'skip_intro',
+                    param: { name: 'si_showbtn', type: 'trigger', default: self.settings.showIntroButton },
+                    field: { name: 'Показувати кнопку' },
+                    onChange: (v) => { self.settings.showIntroButton = (v === true || v === 'true'); self.saveSettings(); }
+                });
+
+                Lampa.SettingsApi.addParam({
+                    component: 'skip_intro',
+                    param: { name: 'si_remember', type: 'trigger', default: self.settings.rememberIntro },
+                    field: { name: 'Запам\'ятовувати інтро' },
+                    onChange: (v) => { self.settings.rememberIntro = (v === true || v === 'true'); self.saveSettings(); }
+                });
+
+                // Тривалість інтро
+                Lampa.SettingsApi.addParam({
+                    component: 'skip_intro',
+                    param: {
+                        name: 'si_intro_sec',
+                        type: 'select',
+                        values: { 30: '30', 45: '45', 60: '60', 90: '90', 120: '120' },
+                        default: String(self.settings.introSeconds)
+                    },
+                    field: { name: 'Тривалість інтро (сек)' },
+                    onChange: (v) => { self.settings.introSeconds = parseInt(v); self.saveSettings(); }
+                });
+
+                // Тривалість титрів
+                Lampa.SettingsApi.addParam({
+                    component: 'skip_intro',
+                    param: {
+                        name: 'si_credits_sec',
+                        type: 'select',
+                        values: { 15: '15', 20: '20', 30: '30', 45: '45', 60: '60' },
+                        default: String(self.settings.creditsSeconds)
+                    },
+                    field: { name: 'Титри (сек до кінця)' },
+                    onChange: (v) => { self.settings.creditsSeconds = parseInt(v); self.saveSettings(); }
+                });
+
+                // Автонаступна серія
+                Lampa.SettingsApi.addParam({
+                    component: 'skip_intro',
+                    param: {
+                        name: 'si_next_delay',
+                        type: 'select',
+                        values: { '-1': 'Вимкнено', 3: '3 сек', 5: '5 сек', 10: '10 сек' },
+                        default: String(self.settings.autoNextEpisode ? self.settings.nextEpisodeDelay : -1)
+                    },
+                    field: { name: 'Автонаступна серія' },
+                    onChange: (v) => {
+                        const n = parseInt(v);
+                        if (n === -1) {
+                            self.settings.autoNextEpisode = false;
+                        } else {
+                            self.settings.autoNextEpisode = true;
+                            self.settings.nextEpisodeDelay = n;
+                        }
+                        self.saveSettings();
+                    }
+                });
+
+                // Очистити базу
+                Lampa.SettingsApi.addParam({
+                    component: 'skip_intro',
+                    param: { name: 'si_clear', type: 'button' },
+                    field: { name: 'Очистити базу інтро' },
+                    onChange: () => {
+                        localStorage.removeItem(STORAGE_KEY);
+                        if (Lampa.Noty) Lampa.Noty.show('Базу очищено');
+                    }
+                });
+
+            } catch (e) {
+                console.error('[SkipIntro] addSettingsMenu error', e);
+            }
         }
     };
 
-    // Запуск
-    if (window.Lampa) {
-        plugin.init();
+    // запуск після готовності Lampa
+    if (window.Lampa && Lampa.Listener) {
+        Lampa.Listener.follow('app', function (e) {
+            if (e.type === 'ready') plugin.init();
+        });
+        // на випадок якщо app вже ready
+        setTimeout(() => { if (!window.__skipInited) { window.__skipInited = true; plugin.init(); } }, 500);
     } else {
-        console.error('[SkipIntro] Lampa framework not found!');
+        plugin.init();
     }
+
+    window.SkipIntro = plugin; // для імпорту/експорту з консолі
 
 })();
