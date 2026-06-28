@@ -9,7 +9,7 @@
 
     const plugin = {
         name: 'Skip Intro',
-        version: '1.2.0',
+        version: '1.3.0',
         author: 'ChatGPT',
 
         settings: {
@@ -34,7 +34,8 @@
             introBtn: null,
             creditsBtn: null,
             countdownTimer: null,
-            isInitialized: false
+            isInitialized: false,
+            currentData: null
         },
 
         init() {
@@ -121,24 +122,28 @@
         // ========== ВИЗНАЧЕННЯ КОНТЕНТУ ==========
         detectCard() {
             try {
-                // Спроба отримати дані з плеєра
+                // Отримуємо дані з плеєра
                 if (window.Lampa?.Player?.playdata) {
                     const data = Lampa.Player.playdata();
                     if (data) {
+                        this.state.currentData = data;
                         this.state.cardId = data.card?.id || data.card?.imdb_id || data.card?.original_title || null;
                         this.state.season = data.season != null ? data.season : null;
                         this.state.episode = data.episode != null ? data.episode : null;
+                        console.log('[SkipIntro] Дані з плеєра:', { cardId: this.state.cardId, season: this.state.season, episode: this.state.episode });
                         return;
                     }
                 }
 
-                // Спроба отримати з Activity
+                // Отримуємо з Activity
                 if (window.Lampa?.Activity?.active) {
                     const act = Lampa.Activity.active();
                     if (act?.card) {
+                        this.state.currentData = act;
                         this.state.cardId = act.card.id || act.card.imdb_id || act.card.original_title;
                         this.state.season = act.season ?? null;
                         this.state.episode = act.episode ?? null;
+                        console.log('[SkipIntro] Дані з Activity:', { cardId: this.state.cardId, season: this.state.season, episode: this.state.episode });
                     }
                 }
             } catch (e) {
@@ -151,8 +156,10 @@
             try {
                 if (Lampa.Player?.listener) {
                     Lampa.Player.listener.follow('start', () => {
-                        this.detectCard();
-                        this.resetState();
+                        setTimeout(() => {
+                            this.detectCard();
+                            this.resetState();
+                        }, 100);
                     });
                 }
             } catch (e) {
@@ -256,7 +263,6 @@
             this.state.introBtn = btn;
             this.enableRemote(btn);
             
-            // Автоматичне приховування через 12 секунд
             setTimeout(() => this.removeIntroButton(), 12000);
         },
 
@@ -288,7 +294,6 @@
             this.state.creditsBtn = wrap;
             this.enableRemote(btn);
 
-            // Таймер зворотного відліку
             if (this.settings.autoNextEpisode && this.settings.nextEpisodeDelay > 0) {
                 let left = this.settings.nextEpisodeDelay;
                 label.textContent = `Наступна серія через ${left}с…`;
@@ -350,112 +355,251 @@
             }
         },
 
-        // ========== ПЕРЕХІД ДО НАСТУПНОЇ СЕРІЇ ==========
+        // ========== ПЕРЕХІД ДО НАСТУПНОЇ СЕРІЇ (ПОКРАЩЕНО) ==========
         nextEpisode() {
             console.log('[SkipIntro] Спроба переходу на наступну серію...');
+            
+            // Оновлюємо дані перед спробою
+            this.detectCard();
 
-            // Спроба 1: Lampa.Player.next()
+            // Спосіб 1: Пошук і клік по кнопці в DOM (найнадійніший)
+            if (this.clickNextButtonInDOM()) return;
+
+            // Спосіб 2: Через Lampa.Player
             if (this.tryLampaNext()) return;
 
-            // Спроба 2: Пошук кнопки в DOM
-            if (this.tryDomNext()) return;
-
-            // Спроба 3: Через Activity
+            // Спосіб 3: Через Activity
             if (this.tryActivityNext()) return;
 
-            // Спроба 4: Кастомна подія
-            this.tryCustomEvent();
+            // Спосіб 4: Емуляція клавіш
+            this.tryKeyboardShortcut();
 
             console.warn('[SkipIntro] Не вдалося перейти на наступну серію');
+            this.showNotification('❌ Не вдалося перейти на наступну серію');
+        },
+
+        // НОВИЙ МЕТОД: Пошук і клік по кнопці в DOM
+        clickNextButtonInDOM() {
+            try {
+                // Розширений список селекторів для кнопки "наступна серія"
+                const selectors = [
+                    // Основні селектори
+                    '.next-episode',
+                    '.next-series', 
+                    '.next',
+                    '[data-action="next"]',
+                    '.episode-next',
+                    '.next-episode-btn',
+                    '.next-btn',
+                    
+                    // Селектори для Lampa
+                    '.player-controls .next',
+                    '.player-controls [data-action="next"]',
+                    '.vjs-next-button',
+                    '.vjs-control.vjs-next-button',
+                    
+                    // Універсальні селектори
+                    '[title="Наступна серія"]',
+                    '[title="Next episode"]',
+                    '[aria-label="Наступна серія"]',
+                    '[aria-label="Next episode"]',
+                    
+                    // По тексту
+                    'button:contains("Наступна")',
+                    'button:contains("Next")',
+                    'div:contains("Наступна серія")',
+                    'div:contains("Next episode")'
+                ];
+
+                // Шукаємо всі можливі кнопки
+                for (const selector of selectors) {
+                    try {
+                        const elements = document.querySelectorAll(selector);
+                        for (const el of elements) {
+                            // Перевіряємо, чи елемент видимий
+                            if (el.offsetParent !== null && el.style.display !== 'none') {
+                                console.log(`[SkipIntro] Знайдено кнопку: ${selector}`, el);
+                                
+                                // Натискаємо
+                                el.click();
+                                
+                                // Також викликаємо всі можливі події
+                                el.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+                                el.dispatchEvent(new Event('click', { bubbles: true }));
+                                
+                                console.log('[SkipIntro] ✅ Кнопку натиснуто!');
+                                this.showNotification('⏭ Перехід на наступну серію...');
+                                return true;
+                            }
+                        }
+                    } catch (e) {
+                        // Продовжуємо з наступним селектором
+                    }
+                }
+
+                // Спеціальний пошук для Lampa
+                const allElements = document.querySelectorAll('*');
+                for (const el of allElements) {
+                    try {
+                        const text = el.textContent || '';
+                        const title = el.getAttribute('title') || '';
+                        const aria = el.getAttribute('aria-label') || '';
+                        
+                        if ((text.includes('Наступна') || text.includes('Next')) && 
+                            (text.includes('серія') || text.includes('episode') || text.includes('▶'))) {
+                            if (el.offsetParent !== null && el.style.display !== 'none') {
+                                console.log('[SkipIntro] Знайдено кнопку за текстом:', el);
+                                el.click();
+                                console.log('[SkipIntro] ✅ Кнопку натиснуто!');
+                                this.showNotification('⏭ Перехід на наступну серію...');
+                                return true;
+                            }
+                        }
+                    } catch (e) {
+                        // Продовжуємо
+                    }
+                }
+
+                return false;
+            } catch (e) {
+                console.error('[SkipIntro] Помилка пошуку кнопки в DOM:', e);
+                return false;
+            }
         },
 
         tryLampaNext() {
             try {
-                if (window.Lampa?.Player?.next) {
-                    Lampa.Player.next();
-                    console.log('[SkipIntro] Перехід через Lampa.Player.next()');
-                    return true;
-                }
-            } catch (e) {
-                console.error('[SkipIntro] Помилка Lampa.Player.next():', e);
-            }
-            return false;
-        },
-
-        tryDomNext() {
-            try {
-                const selectors = [
-                    '.next-episode',
-                    '.next-series',
-                    '.next',
-                    '[data-action="next"]',
-                    '.episode-next',
-                    '.next-episode-btn'
-                ];
-                
-                for (const selector of selectors) {
-                    const buttons = document.querySelectorAll(selector);
-                    for (const btn of buttons) {
-                        if (btn.style.display !== 'none' && btn.offsetParent !== null) {
-                            btn.click();
-                            console.log(`[SkipIntro] Натиснуто кнопку "${selector}"`);
-                            return true;
-                        }
+                // Спроба через Lampa.Player
+                if (window.Lampa?.Player) {
+                    // Метод next
+                    if (typeof Lampa.Player.next === 'function') {
+                        Lampa.Player.next();
+                        console.log('[SkipIntro] ✅ Перехід через Lampa.Player.next()');
+                        this.showNotification('⏭ Перехід на наступну серію...');
+                        return true;
+                    }
+                    
+                    // Метод playNext
+                    if (typeof Lampa.Player.playNext === 'function') {
+                        Lampa.Player.playNext();
+                        console.log('[SkipIntro] ✅ Перехід через Lampa.Player.playNext()');
+                        this.showNotification('⏭ Перехід на наступну серію...');
+                        return true;
+                    }
+                    
+                    // Спроба через плеєр
+                    if (Lampa.Player.player && typeof Lampa.Player.player.next === 'function') {
+                        Lampa.Player.player.next();
+                        console.log('[SkipIntro] ✅ Перехід через Lampa.Player.player.next()');
+                        this.showNotification('⏭ Перехід на наступну серію...');
+                        return true;
                     }
                 }
+                return false;
             } catch (e) {
-                console.error('[SkipIntro] Помилка пошуку кнопки в DOM:', e);
+                console.error('[SkipIntro] Помилка Lampa.Player:', e);
+                return false;
             }
-            return false;
         },
 
         tryActivityNext() {
             try {
-                const active = Lampa?.Activity?.active();
-                if (!active?.card?.seasons) return false;
+                if (!window.Lampa?.Activity) return false;
+                
+                const active = Lampa.Activity.active();
+                if (!active?.card?.seasons) {
+                    console.log('[SkipIntro] Немає даних про сезони');
+                    return false;
+                }
 
                 const card = active.card;
                 const season = this.state.season;
                 const episode = this.state.episode;
 
-                if (season == null || episode == null) return false;
-                if (!card.seasons[season]?.episodes) return false;
+                console.log('[SkipIntro] Дані для переходу:', { season, episode });
+
+                if (season == null || episode == null) {
+                    console.log('[SkipIntro] Немає даних про сезон або епізод');
+                    return false;
+                }
+
+                if (!card.seasons[season]?.episodes) {
+                    console.log('[SkipIntro] Немає епізодів для сезону', season);
+                    return false;
+                }
 
                 const episodes = card.seasons[season].episodes;
-                const currentIndex = episodes.findIndex(e => e.id === episode);
+                const currentIndex = episodes.findIndex(e => e.id === episode || e.episode === episode);
                 
-                if (currentIndex >= 0 && currentIndex < episodes.length - 1) {
-                    const nextEpisode = episodes[currentIndex + 1];
-                    if (nextEpisode) {
-                        this.playEpisode(card, season, nextEpisode.id || nextEpisode.episode);
-                        console.log('[SkipIntro] Перехід через Activity');
-                        return true;
-                    }
+                if (currentIndex === -1) {
+                    console.log('[SkipIntro] Поточний епізод не знайдено');
+                    return false;
                 }
+
+                if (currentIndex >= episodes.length - 1) {
+                    console.log('[SkipIntro] Це остання серія в сезоні');
+                    this.showNotification('⚠️ Це остання серія в сезоні');
+                    return false;
+                }
+
+                const nextEpisode = episodes[currentIndex + 1];
+                if (!nextEpisode) {
+                    console.log('[SkipIntro] Наступний епізод не знайдено');
+                    return false;
+                }
+
+                const nextEpisodeId = nextEpisode.id || nextEpisode.episode;
+                console.log('[SkipIntro] Наступний епізод:', nextEpisodeId);
+
+                // Спроба відтворити через Lampa.Player
+                if (window.Lampa?.Player?.play) {
+                    Lampa.Player.play({
+                        card: card,
+                        season: season,
+                        episode: nextEpisodeId
+                    });
+                    console.log('[SkipIntro] ✅ Перехід через Lampa.Player.play()');
+                    this.showNotification(`⏭ Серія ${nextEpisodeId}...`);
+                    return true;
+                }
+
+                return false;
             } catch (e) {
                 console.error('[SkipIntro] Помилка Activity:', e);
-            }
-            return false;
-        },
-
-        tryCustomEvent() {
-            try {
-                const event = new CustomEvent('lampa:next');
-                document.dispatchEvent(event);
-                console.log('[SkipIntro] Відправлено подію lampa:next');
-            } catch (e) {
-                console.error('[SkipIntro] Помилка відправки події:', e);
+                return false;
             }
         },
 
-        playEpisode(card, season, episode) {
+        tryKeyboardShortcut() {
             try {
-                if (window.Lampa?.Player?.play) {
-                    Lampa.Player.play({ card, season, episode });
-                    console.log('[SkipIntro] Відтворення епізоду через Lampa.Player.play()');
+                // Емулюємо натискання клавіші "стрілка вправо" або "N"
+                const events = [
+                    { key: 'ArrowRight', code: 'ArrowRight', keyCode: 39 },
+                    { key: 'n', code: 'KeyN', keyCode: 78 }
+                ];
+
+                for (const ev of events) {
+                    const event = new KeyboardEvent('keydown', {
+                        key: ev.key,
+                        code: ev.code,
+                        keyCode: ev.keyCode,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    document.dispatchEvent(event);
+                    console.log(`[SkipIntro] Відправлено подію клавіші: ${ev.key}`);
                 }
+
+                // Також пробуємо через кастомну подію
+                const customEvent = new CustomEvent('lampa:next');
+                document.dispatchEvent(customEvent);
+                console.log('[SkipIntro] Відправлено подію lampa:next');
+                
+                this.showNotification('⏭ Спроба переходу...');
+                return true;
             } catch (e) {
-                console.error('[SkipIntro] Помилка відтворення епізоду:', e);
+                console.error('[SkipIntro] Помилка емуляції клавіш:', e);
+                return false;
             }
         },
 
@@ -464,9 +608,11 @@
             try {
                 if (window.Lampa?.Noty) {
                     Lampa.Noty.show(message);
+                } else {
+                    console.log('[SkipIntro]', message);
                 }
             } catch (e) {
-                // Ігноруємо помилки
+                console.log('[SkipIntro]', message);
             }
         },
 
