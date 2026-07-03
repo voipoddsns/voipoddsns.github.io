@@ -1,0 +1,161 @@
+{
+   "headline": "AlterSTORE",
+   "type": "list",
+   "version": "2.5.0",
+   "parameter": "content: http://wals09.github.io/msx/setting_emo.json",
+   "action": "[settings:validate_links:0|home]",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "preload": "next",
+   "overlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "5,0,7,6",
+            "offset": "0,-1,1,1.7",
+            "color": "msx-black-soft"
+         },
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,12,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "image",
+            "type": "space",
+            "layout": "5,2,7,4",
+            "offset": "0.4,0,0,0",
+            "image": "none",
+            "imageFiller": "cover"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "6,1,5,2",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,4,1",
+      "area": "0,1,5,5",
+      "imageWidth": 1,
+      "imageFiller": "cover",
+      "color": "transparent"
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}APPFXML STORE",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "headline": "APPFXML STORE",
+               "text": "Магазин приложений APPFXML STORE"
+            }
+         },
+         "playerLabel": "APPFXML STORE",
+         "image": "https://msx.appfxml.com/msx/appfxmlstore_m.png",
+         "action": "content:request:interaction:my@http://msx.appfxml.com/msx/appfxmlstore.html",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}MSXPlayer{br} V4",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "headline": "MSXPlayer V4",
+               "text": "Лаунчер MSXPlayer V4. Может не  работать на старых весиях MSX и старых устройствах"
+            }
+         },
+         "playerLabel": "MSXPlayer V4",
+         "image": "http://msxplayer.ru/assets/msx-icon.png",
+         "action": "menu:request:interaction:json:eyJoYW5kbGVySWQiOiJzdG9yZSIsInJlcXVlc3QiOiJtZW51In0=@http://v4.msxplayer.ru/plugins/interactions/msxplayer/index.html",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}MSX NoName Launcher",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "headline": "MSX NoName Launcher",
+               "text": "Noname лаунчер. Может не  работать на старых весиях MSX и старых устройствах"
+            }
+         },
+         "playerLabel": "MSX NoName Launcher",
+         "image": "https://static10.tgstat.ru/channels/_0/8a/8ad7d0022ebae2fe172bd0e88d39fd2a.jpg",
+         "action": "menu:request:interaction:menu@https://nnmtv.github.io/launcher/store.html",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}NoName портал",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "headline": "NoName портал",
+               "text": "NoName портал. Запуск web приложений. Возможны региональные ограничения"
+            }
+         },
+         "playerLabel": "NoName портал",
+         "image": "https://static10.tgstat.ru/channels/_0/8a/8ad7d0022ebae2fe172bd0e88d39fd2a.jpg",
+         "action": "content:http://msx.nnmtv.fun/msx/start.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}NoName портал 2",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "headline": "NoName портал 2",
+               "text": "NoName портал 2. Запуск web приложений."
+            }
+         },
+         "playerLabel": "NoName портал 2",
+         "image": "https://static10.tgstat.ru/channels/_0/8a/8ad7d0022ebae2fe172bd0e88d39fd2a.jpg",
+         "action": "content:https://raw.githubusercontent.com/nekto966/msx/main/start.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}MSX CC UA портал",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "headline": "MSX CC UA портал",
+               "text": "MSX CC UA портал. Запуск web приложений"
+            }
+         },
+         "playerLabel": "MSX CC UA портал",
+         "image": "http://msxplayer.ru/assets/msx-icon.png",
+         "action": "content:http://msx.cc.ua/msx/start.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      }
+   ]
+}

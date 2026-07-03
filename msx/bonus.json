@@ -1,0 +1,30 @@
+{
+   "name": "WALS",
+   "version": "1.0.0",
+   "headline": "WALS бонус",
+      "menu": [
+                {
+         "type": "separator"
+      },
+      
+      {
+         "label": "Так себе TV",
+         "icon": "tv",
+          "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/bonus/bonus.m3u"
+       },
+       {
+         "label": "WORLD.TV",
+         "icon": "tv",
+          "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://i.mjh.nz/PlutoTV/all.m3u8"
+       },
+
+       {
+         "label": "Золотая коллекция",
+         "icon": "tv",
+          "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://olsib.at.ua/vip/Golden_Collection.m3u"
+       },
+       {
+         "type": "separator"
+      }
+   ]
+}

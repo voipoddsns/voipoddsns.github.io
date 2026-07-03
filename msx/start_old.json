@@ -1,0 +1,483 @@
+{
+   "name": "WALS MSX",
+   "type": "list",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "background": "https://abrakadabra.fun/uploads/posts/2022-01/1641404182_1-abrakadabra-fun-p-tekstura-dorogoi-bumagi-1.jpg",
+   "headline": "WALS_MSX v2.1",
+   "version": "2.1.0",
+   "parameter": "content:https://raw.githubusercontent.com/wals09/msx/main/start.json",
+   "action": "[settings:validate_links:0|home]",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "launcher": {
+      "image": "https://raw.githubusercontent.com/wals09/msx/main/img/wals.png"
+   },
+   "preload": "next",
+   "overlay": {
+      "items": [
+         {
+            "type": "space",
+            "layout": "8,0,4,6",
+            "offset": "0.5,-1,0.1,1.67",
+            "color": "#FF4F00"
+         },
+         {
+            "id": "image",
+            "type": "space",
+            "layout": "9,0,3,1",
+            "offset": "-0.4,0.1,0.9,1.2",
+            "color": "transparent",
+            "image": "none",
+            "imageFiller": "cover"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "offset": "0,-0.7,0,1",
+            "layout": "9,3,3,3",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,3,1",
+      "area": "0,0,9,6",
+      "offset": "-0.5,0,0,0",
+      "color": "transparent",
+      "imageWidth": 1,
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "titleHeader": "",
+         "titleFooter": "",
+         "offset": "6.5,-0.55,-2.5,-0.5",
+         "color": "gold",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:white}<< G O L D >>{col}{br}{col:msx-white}Тема оформления в золотых тонах",
+               "image": "https://wals09.github.io/msx/tema/gold.png"
+            }
+         },
+         "action": "content:https://wals09.github.io/msx/menu-gold.json"
+      },
+      {
+         "titleHeader": "",
+         "titleFooter": "",
+         "offset": "4.5,-0.55,-2.5,-0.5",
+         "color": "black",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:white}<< B L A C K >>{col}{br}{col:msx-white}Темная тема оформления",
+               "image": "https://wals09.github.io/msx/tema/black.png"
+            }
+         },
+         "action": "content:https://wals09.github.io/msx/menu-black.json"
+      },
+      {
+         "titleHeader": "",
+         "titleFooter": "",
+         "offset": "1,-0.55,-2.5,-0.5",
+         "color": "blue",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:white}<< B L U E >>{col}{br}{col:msx-white}Тема оформления в сине-голубых тонах",
+               "image": "https://wals09.github.io/msx/tema/blue.png"
+            }
+         },
+         "action": "content:https://wals09.github.io/msx/menu-blue.json"
+      },
+      {
+         "titleHeader": "{col:msx-white}DRM-play",
+         "titleFooter": "IPTV player",
+         "focus": true,
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}DRM-play{col}{br}{col:black}IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, stalker-portal, медиатеки. Тестовый плейлист для ознакомления с функциями плеера.",
+               "image": "https://wals09.github.io/msx/drm/capture.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/drm/logo.png",
+         "action": "link:http://ott.drm-play.com"
+      },
+      {
+         "titleHeader": "{col:msx-white}OTT-FOSS",
+         "titleFooter": "IPTV player",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}OTT-FOSS{col}{br}{col:black}IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, медиатеки.",
+               "image": "https://wals09.github.io/msx/foss/capture.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/foss/icon.png",
+         "action": "link:http://ott.prog4food.eu.org/f/"
+      },
+      {
+         "titleHeader": "{col:msx-white}OTT-PLAY",
+         "titleFooter": "IPTV player",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}OTT-PLAY{col}{br}{col:black}IPTV player. Возможность просмотра своих плейлистов,сталкер-порталов,медиатек. Сохранение, перенос настроек",
+               "image": "https://wals09.github.io/msx/ott-play/111.png"
+            }
+         },
+         "image": "https://wals09.github.io/msx/ott-play/icon.png",
+         "action": "link:http://ott-play.com/f/"
+      },
+      {
+         "titleHeader": "{col:msx-white}ICVA",
+         "titleFooter": "IPTV player",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}ICVA{col}{br}{col:black}IPTV player от разработчиков LAMPA. Возможность просмотра своих плейлистов.",
+               "image": "https://wals09.github.io/msx//icva/capture.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/icva/logo.png",
+         "action": "link:http://icva.mx/"
+      },
+      {
+         "titleHeader": "{col:msx-white}LAMPA",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}LAMPA{col}{br}{col:black}Приложение-каталог. Не содержит медиаконтента, но легко трансформируется в онлайн кинотеатр с возможностью просмотра торрентов и iptv",
+               "image": "https://wals09.github.io/msx/lampa/capture3.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx/lampa/logo.png",
+         "action": "link:http://lampa.mx"
+      },
+      {
+         "titleHeader": "{col:msx-white}VoKINO",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}VoKINO{col}{br}{col:black}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов",
+               "image": "https://wals09.github.io/msx/vokino/capture.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx/vokino/logo.png",
+         "action": "link: http://web.vokino.tv/"
+      },
+      {
+         "titleHeader": "{col:msx-white}ATODO",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}ATODO{col}{br}{col:black}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов",
+               "image": "https://wals09.github.io/msx/atodo/capture.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx/atodo/logo.png",
+         "action": "menu:request:interaction:menu@http://atodo.fun/fun.html"
+      },
+      {
+         "titleHeader": "{col:msx-white}ATODO",
+         "titleFooter": "{col:yellow}web",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}ATODO{col}{br}{col:black}Web версия приложения ATODO. Просмотр различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов",
+               "image": "https://wals09.github.io/msx/atodo/capture.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx/atodo/logo.png",
+         "action": "link:http://msx.atodo.fun/"
+      },
+      {
+         "titleHeader": "{col:msx-white}MOOVIES",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}MOOVIES{col}{br}{col:black}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов, iptv, прослушивание радиостанций",
+               "image": "https://wals09.github.io/msx/moovies/capture.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx/moovies/logo.png",
+         "action": "menu:request:interaction:init@http://moovies.uz/index.html"
+      },
+      {
+         "titleHeader": "{col:msx-white}MOVIELAB",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}MOVIELAB{col}{br}{col:black}Портал MOVIELAB на базе Media Station X. Просмотр видео контента on-line",
+               "image": "https://github.com/wals09/msx/blob/main/ml/001.png?raw=true"
+            }
+         },
+         "image": "https://github.com/wals09/msx/blob/main/ml/logo2.png?raw=true",
+         "action": "menu:https://movielab.fun/msx/menu.json"
+      },
+      {
+         "titleHeader": "{col:msx-white}Forkplayer",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}Forkplayer{col}{br}{col:black}Bеб-браузер, адаптированный для просмотра специальных интернет-страниц с автоматически обновляемыми плейлистами, предоставляет возможность прямо с браузера смотреть фильмы, ТВ-каналы, слушать музыку, радиостанции",
+               "image": "https://wals09.github.io/msx/fork/capture.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx/fork/logo.png",
+         "action": "link:http://browser.appfxml.com/"
+      },
+      {
+         "titleHeader": "{col:msx-white}КИНОПОИСК",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}КИНОПОИСК{col}{br}{col:black}Oнлайн-кинотеатр с фильмами и сериалами по подписке Яндекс Плюс или за отдельную плату.",
+               "image": "https://wals09.github.io/msx/kinopoisk/screen.png"
+            }
+         },
+         "image": "https://wals09.github.io/msx/kinopoisk/logo.png",
+         "action": "link:https://smarttv-app.ott.yandex.ru/"
+      },
+      {
+         "titleHeader": "{col:msx-white}RUTUBE-WEB",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}RUTUBE-WEB{col}{br}{col:black}Pоссийский онлайн-сервис для хостинга и просмотра видео",
+               "image": "https://wals09.github.io/msx/rutube/capture.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/rutube/logo.png",
+         "action": "link:https://rutube.ru/tv-release/rutube.server-22.0.0/webos/"
+      },
+      {
+         "titleHeader": "{col:msx-white}СМОТРИМ-WEB",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}СМОТРИМ-WEB{col}{br}{col:black}российская государственная мультимедийная онлайн-платформа, разработанная крупнейшим государственным медиахолдингом «ВГТРК»",
+               "image": "https://github.com/wals09/msx/blob/main/smotrim/smotrim.gif?raw=true"
+            }
+         },
+         "image": "https://wals09.github.io/msx/smotrim/icon.png",
+         "action": "link:https://tv.smotrim.ru"
+      },
+      {
+         "titleHeader": "{col:msx-white}YouTUBE",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}YouTUBE{col}{br}{col:black}Oнлайн-сервис для хостинга и просмотра видео",
+               "image": "https://wals09.github.io/msx/youtube/capture.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/youtube/logo.png",
+         "action": "link:https://www.youtube.com/tv#/"
+      },
+      {
+         "titleHeader": "{col:msx-white}YOUTUBE KIDS",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}YOUTUBE KIDS{col}{br}{col:black}Oтдельная версия популярного видеохостинга Youtube, нацеленная исключительно на детей.",
+               "image": "https://wals09.github.io/msx/youtube_kids/capture.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx//youtube_kids/logo.png",
+         "action": "link:https://www.youtube.com/tv/kids"
+      },
+      {
+         "titleHeader": "{col:msx-white}МУЛЬТИКИ",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}МУЛЬТИКИ{col}{br}{col:black}Смотрим мультфильмы онлайн. Коллекция мультфильмов советских времен и не только. Самые лучшие мультики из вашего детства!",
+               "image": "https://github.com/wals09/repo/blob/main/multiki/multiki.gif?raw=true"
+            }
+         },
+         "image": "https://wals09.github.io/msx/multiki/logo.png",
+         "action": "content:https://wals09.github.io/msx/welcome.json"
+      },
+      {
+         "titleHeader": "{col:msx-white}DEEPLEX",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}DEEPLEX{col}{br}{col:black}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов.",
+               "image": "https://wals09.github.io/msx//deeplex/Deeplex.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/deeplex/logo.png",
+         "action": "link:http://smart.deeplex.cc/"
+      },
+      {
+         "titleHeader": "{col:msx-white}KinoPUB",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}KinoPUB {col}{br}{col:black}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме. Нужна регистрация и подписка",
+               "image": "https://wals09.github.io/msx//kinopub/screen.png"
+            }
+         },
+         "image": "https://wals09.github.io/msx/kinopub/logo.png",
+         "action": "link:http://kpms.cc/bootstrap.html"
+      },
+      {
+         "titleHeader": "{col:msx-white}X-SMART TV",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}X-SMART TV{col}{br}{col:black}Цифровая медиа платформа XSMART — это интернет каталог в виде приложения, где собрана информация о фильмах и сериалах, актерах и режиссерах. Вся информация в каталоге взята из открытых источников и предоставляются исключительно в ознакомительных целях.",
+               "image": "https://wals09.github.io/msx/xsmart/capture.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx/xsmart/logo.png",
+         "action": "link:http://app.xsmart.tv"
+      },
+      {
+         "titleHeader": "{col:msx-white}IMPIRE BOOM",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}IMPIRE BOOM{col}{br}{col:black}ИмперияBOOM представляет собой упорядоченные ссылки на медиа-контент: фильмы, сериалы, мультфильмы, IPTV, радио и т.п.",
+               "image": "https://wals09.github.io/msx/imboom/capture.png"
+            }
+         },
+         "image": "https://wals09.github.io/msx/imboom/logo.png",
+         "action": "link:http://web.imboom.ru/"
+      },
+      {
+         "titleHeader": "{col:msx-white}KINOBOOM",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}KINOBOOM{col}{br}{col:black}{ico:#ced6e0:arrow-right}Просмотр видео контента из многих источников{br}{ico:#ced6e0:arrow-right}Поиск контента (фильмы, сериалы, мультфильмы, аниме, тв-передачи).{br}{ico:#ced6e0:arrow-right}Выбора качества{br}{ico:#ced6e0:arrow-right}KBC каналы {br}{ico:#ced6e0:arrow-right}VIP подписка на три устройства ",
+               "image": "https://wals09.github.io/msx/kinoboom/capture.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx/kinoboom/logo.png",
+         "action": "execute:info:extended:http://kb-team.club/msx/enter.php"
+      },
+      {
+         "titleHeader": "{col:msx-white}Кинофраншизы",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}Коллекция медиаподборок от {col:white}OLSIB TV{col}{br}{col:black}Kинофраншиза — несколько последовательно связанных между собой фильмов, действие которых происходит в одной вымышленной вселенной; либо маркетинговым образом преподносятся как серия",
+               "image": "https://wals09.github.io/kf/img/001.gif"
+            }
+         },
+         "image": "https://wals09.github.io/kf/img/logo.png",
+         "action": "content: https://wals09.github.io/kf/menu.json"
+      },
+      {
+         "titleHeader": "{col:msx-white}Akter Black",
+         "titleFooter": "{col:yellow}demo",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}Akter Black{col}{br}{col:black}Мод программы Лампа{br}{col:yellow}В данный момент находиться в разработке и некоторые функции могут быть недоступны!!!{br}Опубликованно только для ознакомления с программой!!!",
+               "image": "https://github.com/wals09/msx/blob/main/akter_black/welcome.jpg?raw=true"
+            }
+         },
+         "image": "https://github.com/wals09/msx/blob/main/akter_black/logo.png?raw=true",
+         "action": "link:http://abvidaa.ru/"
+      },
+      {
+         "titleHeader": "{col:msx-white}Prisma TV",
+         "titleFooter": "{col:yellow}demo",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}Prisma TV{col}{br}{col:black}Мод программы Лампа{br}{col:yellow}В данный момент находиться в разработке и некоторые функции могут быть недоступны!!!{br}Опубликованно только для ознакомления с программой!!!",
+               "image": "https://github.com/wals09/msx/blob/main/prisma/001.png?raw=true"
+            }
+         },
+         "image": "https://github.com/wals09/msx/blob/main/prisma/logo.png?raw=true",
+         "action": "link:https://prisma.ws/"
+      },
+      {
+         "titleHeader": "{col:msx-white}Бонус контент",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}Бонус контент{col}{br}{col:black}Медиа-контент из различных источников в интернете выложенный в свободный доступ {br}{col:yellow}Работает как работает!!!{br}Работает пока работает!!!",
+               "image": "https://wals09.github.io/msx/img/bonus.png"
+            }
+         },
+         "image": "https://wals09.github.io/msx/img/bonus.png",
+         "action": "content: https://wals09.github.io/msx/test/category.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}Sixth Item",
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}",
+         "titleFooter": "",
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}{col}{br}{col:black}",
+               "image": ""
+            }
+         },
+         "action": "content: https://wals09.github.io/msx/test/tv.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      }
+   ]
+}

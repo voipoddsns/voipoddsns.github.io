@@ -1,0 +1,178 @@
+{
+   "headline": "Выбор темы WALS_MSX",
+   "type": "list",
+   "version": "2.5.0",
+   "parameter": "content: http://wals09.github.io/msx/setting_emo.json",
+   "action": "[settings:validate_links:0|home]",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "preload": "next",
+   "overlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "5,0,7,6",
+            "offset": "0,-1,1,1.7",
+            "color": "msx-black-soft"
+         },
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,12,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "image",
+            "type": "space",
+            "layout": "5,2,7,4",
+            "offset": "0.4,0,0,0",
+            "image": "none",
+            "imageFiller": "cover"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "6,1,5,2",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,4,1",
+      "area": "0,1,5,5",
+      "imageWidth": 1,
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}ОСНОВНАЯ ТЕМА",
+         "color": "transparent",
+         "focus": true,
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}Основная тема {col}{br}Основная тема без фонового изображения",
+               "image": "https://wals09.github.io/msx/tema/lite.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/tema/them_icon/lite.png",
+         "action": "start",
+         "data": {
+            "name": "BASIC",
+            "version": "1.0.0",
+            "parameter": "content:https://wals09.github.io/msx/menu.json",
+            "welcome": "none"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}CLASSIC",
+         "color": "transparent",
+         "focus": true,
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}CLASSIC{col}{br}Классическая оболочка MSX",
+               "image": "https://wals09.github.io/msx/tema/classic.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/tema/them_icon/classic.png",
+         "action": "start",
+         "data": {
+            "name": "CLASSIC",
+            "version": "1.0.0",
+            "parameter": "content:https://wals09.github.io/msx/menu_classic.json",
+            "welcome": "none"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}CLASSIC compact",
+         "color": "transparent",
+         "focus": true,
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}CLASSIC compact{col}{br}Классическая оболочка MSX, компактный вид",
+               "image": "https://wals09.github.io/msx/tema/classic_compact.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/tema/them_icon/classic_compact.png",
+         "action": "start",
+         "data": {
+            "name": "CLASSIC",
+            "version": "1.0.0",
+            "parameter": "content:https://wals09.github.io/msx/menu_classic_compact.json",
+            "welcome": "none"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}ТЕМА «ЗИМА»",
+         "color": "transparent",
+         "focus": true,
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}Тема «ЗИМА»{col}{br}Зимняя тема оформления",
+               "image": "https://wals09.github.io/msx/tema/зима.png"
+            }
+         },
+         "image": "https://github.com/wals09/msx/blob/main/tema/them_icon/зима.png?raw=true",
+         "action": "start",
+         "data": {
+            "name": "BASIC Lite",
+            "version": "1.0.0",
+            "parameter": "content:https://wals09.github.io/msx/зима.json",
+            "welcome": "none"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}ТЕМА «WHITE»",
+         "color": "transparent",
+         "focus": true,
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}Тема «WHITE»{col}{br}Тема в светлых тонах",
+               "image": "https://wals09.github.io/msx/tema/wite.jpg"
+            }
+         },
+         "image": "https://wals09.github.io/msx/tema/them_icon/white.png",
+         "action": "start",
+         "data": {
+            "name": "BASIC Lite",
+            "version": "1.0.0",
+            "parameter": "content:https://wals09.github.io/msx/menu_white.json",
+            "welcome": "none"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}ТЕМА «ОСЕНЬ»",
+         "color": "transparent",
+         "focus": true,
+         "selection": {
+            "important": true,
+            "action": "[update:content:overlay:image|update:content:overlay:text]",
+            "data": {
+               "text": "{col:msx-white}Тема «ОСЕНЬ»",
+               "image": "https://wals09.github.io/msx/tema/осень.png"
+            }
+         },
+         "image": "https://wals09.github.io/msx/tema/them_icon/осень.png",
+         "action": "start",
+         "data": {
+            "name": "BASIC Lite",
+            "version": "1.0.0",
+            "parameter": "content:https://wals09.github.io/msx/осень.json",
+            "welcome": "none"
+         }
+      }
+   ]
+}

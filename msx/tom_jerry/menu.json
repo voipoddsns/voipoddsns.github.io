@@ -1,0 +1,30 @@
+{
+   "name": "Том и Джерри",
+   "version": "1.0.0",
+   "background": "https://wals09.github.io/msx/img/splash.png",
+   "headline": "Подборки",
+   "menu": [
+      {
+         "type": "separator",
+         "label": "Короткометражные"
+      },
+      {
+         "label": "Том и Джерри Old (1-163 серии)",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/tom_jerry/pl/tom_jerry_old.m3u"
+      },
+      {
+         "label": "Сказки (2006 – 2008)",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/tom_jerry/pl/skazki.m3u"
+      },
+      {
+         "label": "Детские годы (1990 – 1994)",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/tom_jerry/pl/detskie_gody.m3u"
+      },
+      {
+         "type": "separator"
+      }
+   ]
+}

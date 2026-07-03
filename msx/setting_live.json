@@ -1,0 +1,237 @@
+{
+   "type": "list",
+   "transparent": 1,
+   "trigger:back": "player:stop",
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,12,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "0,0,7,1",
+            "offset": "-0.65,0.1,0,0 ",
+            "label": "Для демонстрации темы нажмите на картинку"
+         }
+      ]
+   },
+   "pages": [
+      {
+         "headline": "Динамические темы",
+         "items": [
+            {
+               "type": "default",
+               "layout": "0,1,4,3",
+               "titleHeader": "{col:msx-white} GOLD",
+               "imageHeight": 2.3,
+               "imageFiller": "cover",
+               "wrapperColor": "red",
+               "image": "http://wals09.github.io/msx/tema/gold_live.jpg",
+               "action": "video:auto:plugin:http://msx.benzac.de/plugins/background.html?url=http://msx.benzac.de/media/atmos2.mp4",
+               "controlTransparent": "true",
+               "properties": {
+                  "trigger:back": "player:stop",
+                  "control:type": "extended",
+                  "control:reuse": "restart",
+                  "control:transparent": "{context:controlTransparent}",
+                  "control:dim": false,
+                  "label:duration": "{VALUE} {ico:repeat}"
+               }
+            },
+            {
+               "layout": "0,4,4,1",
+               "offset": "0,0,0,-0.3",
+               "color": "red",
+               "text": "{col:msx-white}Установить",
+               "action": "start",
+               "data": {
+                  "name": "GOLD",
+                  "version": "1.0.0",
+                  "parameter": "content:https://wals09.github.io/msx/tema/live_tems/menu-gold_live.json",
+                  "welcome": "none"
+               }
+            },
+            {
+               "type": "default",
+               "layout": "4,1,4,3",
+               "titleHeader": "{col:msx-white} AQUA",
+               "imageHeight": 2.3,
+               "imageFiller": "cover",
+               "wrapperColor": "red",
+               "image": "http://wals09.github.io/msx/tema/aqua.jpg",
+               "action": "video:auto:plugin:http://msx.benzac.de/plugins/background.html?url=http://msx.benzac.de/media/atmos4.mp4",
+               "playerLabel": "Atmospheric Background 2",
+               "controlTransparent": "true",
+               "properties": {
+                  "trigger:back": "player:stop",
+                  "control:type": "extended",
+                  "control:reuse": "restart",
+                  "control:transparent": "{context:controlTransparent}",
+                  "control:dim": false,
+                  "label:duration": "{VALUE} {ico:repeat}"
+               }
+            },
+            {
+               "type": "default",
+               "color": "red",
+               "layout": "4,4,4,1",
+               "offset": "0,0,0,-0.3",
+               "text": "{col:msx-white}Установить",
+               "action": "start",
+               "data": {
+                  "name": "AQUA",
+                  "version": "1.0.0",
+                  "parameter": "content:https://wals09.github.io/msx/tema/live_tems/menu_aqua.json",
+                  "welcome": "none"
+               }
+            },
+            {
+               "type": "default",
+               "layout": "8,1,4,3",
+               "titleHeader": "{col:msx-white} RAIN",
+               "imageHeight": 2.3,
+               "imageFiller": "cover",
+               "wrapperColor": "red",
+               "image": "http://wals09.github.io/msx/tema/rain.jpg",
+               "action": "video:auto:plugin:http://msx.benzac.de/plugins/background.html?url=http://msx.benzac.de/media/atmos6.mp4",
+               "playerLabel": "Atmospheric Background 2",
+               "controlTransparent": "true",
+               "properties": {
+                  "trigger:back": "player:stop",
+                  "control:type": "extended",
+                  "control:reuse": "restart",
+                  "control:transparent": "{context:controlTransparent}",
+                  "control:dim": false,
+                  "label:duration": "{VALUE} {ico:repeat}"
+               }
+            },
+            {
+               "type": "default",
+               "color": "red",
+               "layout": "8,4,4,1",
+               "offset": "0,0,0,-0.3",
+               "text": "{col:msx-white}Установить",
+               "action": "start",
+               "data": {
+                  "name": "RAIN",
+                  "version": "1.0.0",
+                  "parameter": "content:https://wals09.github.io/msx/tema/live_tems/menu_rain.json",
+                  "welcome": "none"
+               }
+            }
+         ]
+      },
+      {
+         "headline": "Динамические темы",
+         "items": [
+            {
+               "type": "default",
+               "layout": "0,1,4,3",
+               "titleHeader": "{col:msx-white} MATERIA",
+               "imageHeight": 2.3,
+               "imageFiller": "cover",
+               "wrapperColor": "red",
+               "image": "http://wals09.github.io/msx/tema/materia.jpg",
+               "action": "video:auto:plugin:http://msx.benzac.de/plugins/background.html?url=http://msx.benzac.de/media/atmos3.mp4",
+               "playerLabel": "MATERIA",
+               "controlTransparent": "true",
+               "properties": {
+                  "trigger:back": "player:stop",
+                  "control:type": "extended",
+                  "control:reuse": "restart",
+                  "control:transparent": "{context:controlTransparent}",
+                  "control:dim": false,
+                  "label:duration": "{VALUE} {ico:repeat}"
+               }
+            },
+            {
+               "layout": "0,4,4,1",
+               "offset": "0,0,0,-0.3",
+               "color": "red",
+               "text": "{col:msx-white}Установить",
+               "transparent": 1,
+               "action": "start",
+               "data": {
+                  "name": "MATERIA",
+                  "version": "1.0.0",
+                  "parameter": "content:https://wals09.github.io/msx/tema/live_tems/menu_materia.json",
+                  "welcome": "none"
+               }
+            },
+            {
+               "type": "default",
+               "layout": "4,1,4,3",
+               "titleHeader": "{col:msx-white} OCEAN",
+               "imageHeight": 2.3,
+               "imageFiller": "cover",
+               "wrapperColor": "red",
+               "image": "http://wals09.github.io/msx/tema/ocean.jpg",
+               "action": "video:auto:plugin:http://msx.benzac.de/plugins/background.html?url=http://msx.benzac.de/media/atmos5.mp4",
+               "playerLabel": "OCEAN",
+               "controlTransparent": "true",
+               "properties": {
+                  "trigger:back": "player:stop",
+                  "control:type": "extended",
+                  "control:reuse": "restart",
+                  "control:transparent": "{context:controlTransparent}",
+                  "control:dim": false,
+                  "label:duration": "{VALUE} {ico:repeat}"
+               }
+            },
+            {
+               "type": "default",
+               "color": "red",
+               "layout": "4,4,4,1",
+               "offset": "0,0,0,-0.3",
+               "text": "{col:msx-white}Установить",
+               "action": "start",
+               "data": {
+                  "name": "OCEAN",
+                  "version": "1.0.0",
+                  "parameter": "content:https://wals09.github.io/msx/tema/live_tems/menu_ocean.json",
+                  "welcome": "none"
+               }
+            },
+            {
+               "type": "default",
+               "layout": "8,1,4,3",
+               "titleHeader": "{col:msx-white} Atmospheric",
+               "imageHeight": 2.3,
+               "imageFiller": "cover",
+               "wrapperColor": "red",
+               "image": "http://wals09.github.io/msx/tema/atmopheric.jpg",
+               "action": "video:auto:plugin:http://msx.benzac.de/plugins/background.html?url=http://msx.benzac.de/media/atmos1.mp4",
+               "playerLabel": "Atmospheric",
+               "controlTransparent": "true",
+               "properties": {
+                  "trigger:back": "player:stop",
+                  "control:type": "extended",
+                  "control:reuse": "restart",
+                  "control:transparent": "{context:controlTransparent}",
+                  "control:dim": false,
+                  "label:duration": "{VALUE} {ico:repeat}"
+               }
+            },
+            {
+               "type": "default",
+               "color": "red",
+               "layout": "8,4,4,1",
+               "offset": "0,0,0,-0.3",
+               "text": "{col:msx-white}Установить",
+               "action": "start",
+               "data": {
+                  "name": "Atmospheric",
+                  "version": "1.0.0",
+                  "parameter": "content:https://wals09.github.io/msx/tema/live_tems/menu_atmospheric.json",
+                  "welcome": "none"
+               }
+            }
+         ]
+      }
+   ]
+}

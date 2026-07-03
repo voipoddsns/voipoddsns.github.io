@@ -1,0 +1,76 @@
+{
+    "inbounds": [
+        {
+            "tag": null,
+            "port": 10801,
+            "listen": "127.0.0.1",
+            "protocol": "socks",
+            "sniffing": null,
+            "settings": {
+                "auth": null,
+                "udp": true,
+                "ip": null,
+                "address": null,
+                "clients": null,
+                "decryption": null,
+                "allowTransparent": false,
+                "accounts": null
+            },
+            "streamSettings": null
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": null,
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "81.19.141.190",
+                        "port": 51529,
+                        "users": [
+                            {
+                                "id": "ad2879c1-7f77-4a4c-ba50-c24dd5ceffa4",
+                                "alterId": 0,
+                                "email": "t@t.tt",
+                                "security": null,
+                                "encryption": "none",
+                                "flow": ""
+                            }
+                        ]
+                    }
+                ],
+                "servers": null,
+                "response": null,
+                "domainStrategy": null,
+                "userLevel": 0
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "reality",
+                "tlsSettings": null,
+                "tcpSettings": null,
+                "kcpSettings": null,
+                "wsSettings": null,
+                "httpSettings": null,
+                "quicSettings": null,
+                "xtlsSettings": null,
+                "grpcSettings": null,
+                "realitySettings": {
+                    "show": false,
+                    "fingerprint": "chrome",
+                    "serverName": "yandex.ru",
+                    "publicKey": "9smFk5QZXifHGrtwDwhbROsLBh179bExNWABnvUCvSw",
+                    "shortId": "b77a294515ecc200",
+                    "spiderX": "/"
+                }
+            },
+            "mux": null
+        }
+    ],
+    "stats": null,
+    "api": null,
+    "policy": null,
+    "dns": null,
+    "routing": null
+}

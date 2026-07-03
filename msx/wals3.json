@@ -1,0 +1,613 @@
+{
+   "type": "list",
+   "headline": "WALS_MSX 3.0",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,2,12,3",
+            "offset": "-1.25,-0.33,2,1",
+            "color": "msx-black-soft"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,11,3",
+            "offset": "-1,0,1,0",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,1,1",
+      "area": "0,0,12,3",
+      "offset": "0,2.2,0,0",
+      "color": "msx-glass",
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item0/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "DRM-play",
+               "text": "IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, stalker-portal, медиатеки. Тестовый плейлист для ознакомления с функциями плеера."
+            }
+         },
+         "image": "https://wals09.github.io/msx/drm/logo.png",
+         "action": "link:http://ott.drm-play.com",
+         "properties": {
+            "image:extension": "| {col:msx-white}First Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item1/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "OTT-FOSS",
+               "text": "IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, медиатеки."
+            }
+         },
+         "image": "https://wals09.github.io/msx/foss/icon.png",
+         "action": "link:http://ott.prog4food.eu.org/f/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Second Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item2/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "OTT-PLAY",
+               "text": "IPTV player. Возможность просмотра своих плейлистов,сталкер-порталов,медиатек. Сохранение, перенос настроек"
+            }
+         },
+         "image": "https://wals09.github.io/msx/ott-play/icon.png",
+         "action": "link:http://ott-play.com/f/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Third Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item3/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "ICVA",
+               "text": "{col:msx-white}IPTV player от разработчиков LAMPA. Возможность просмотра своих плейлистов."
+            }
+         },
+         "image": "https://wals09.github.io/msx/icva/logo.png",
+         "action": "link:http://icva.mx/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Fourth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item4/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "LAMPA",
+               "text": "{col:msx-white}Приложение-каталог. Не содержит медиаконтента, но легко трансформируется в онлайн кинотеатр с возможностью просмотра торрентов и iptv"
+            }
+         },
+         "image": "https://wals09.github.io/msx/lampa/logo.png",
+         "action": "link:http://lampa.mx",
+         "properties": {
+            "image:extension": "| {col:msx-white}Fifth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item5/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "VoKINO",
+               "text": "{col:msx-white}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
+            }
+         },
+         "image": "https://wals09.github.io/msx/vokino/logo.png",
+         "action": "link: http://web.vokino.tv/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item6/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "ATODO",
+               "text": "{col:msx-white}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
+            }
+         },
+         "image": "https://wals09.github.io/msx/atodo/logo.png",
+         "action": "menu:request:interaction:menu@http://atodo.fun/fun.html",
+         "properties": {
+            "image:extension": "| {col:msx-white}Seventh Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item7/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "ATODO-web",
+               "text": "{col:msx-white}Web версия приложения ATODO. Просмотр различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
+            }
+         },
+         "image": "https://wals09.github.io/msx/atodo/logo.png",
+         "action": "link:http://msx.atodo.fun/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Eighth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item8/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "MOOVIES",
+               "text": "{col:msx-white}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов, iptv, прослушивание радиостанций"
+            }
+         },
+         "image": "https://wals09.github.io/msx/moovies/logo.png",
+         "action": "menu:request:interaction:init@http://moovies.uz/index.html",
+         "properties": {
+            "image:extension": "| {col:msx-white}Ninth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item9/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "MOVIELAB",
+               "text": "{col:msx-white}Портал MOVIELAB на базе Media Station X. Просмотр видео контента on-line"
+            }
+         },
+         "image": "https://github.com/wals09/msx/blob/main/ml/logo2.png?raw=true",
+         "action": "menu:https://movielab.fun/msx/menu.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}Tenth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item10/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Forkplayer",
+               "text": "{col:msx-white}Bеб-браузер, адаптированный для просмотра специальных интернет-страниц с автоматически обновляемыми плейлистами, предоставляет возможность прямо с браузера смотреть фильмы, ТВ-каналы, слушать музыку, радиостанции"
+            }
+         },
+         "image": "https://wals09.github.io/msx/fork/logo.png",
+         "action": "link:http://browser.appfxml.com/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Eleventh Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item11/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "КИНОПОИСК",
+               "text": "{col:msx-white}Oнлайн-кинотеатр с фильмами и сериалами по подписке Яндекс Плюс или за отдельную плату."
+            }
+         },
+         "image": "https://wals09.github.io/msx/kinopoisk/logo.png",
+         "action": "link:https://smarttv-app.ott.yandex.ru/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Twelfth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item12/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "RUTUBE-WEB",
+               "text": "{col:msx-white}Pоссийский онлайн-сервис для хостинга и просмотра видео"
+            }
+         },
+         "image": "https://wals09.github.io/msx/rutube/logo.png",
+         "action": "link:https://rutube.ru/tv-release/rutube.server-22.0.0/webos/",
+         "properties": {
+            "image:extension": "| {col:msx-white}13th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item13/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "TikTok {col:yellow}",
+               "text": "{col:yellow}Только WebOS{col}{br}{col:msx-white}Hеофициальное приложение для webOS"
+            }
+         },
+         "image": "https://shopespot.shopespot.com/uploads/partner/144/paperbits_blobs/ea916776-f655-c87c-09ee-53c5b9bd625a.webp",
+         "action": "link:https://tv.tiktok.com/webos",
+         "properties": {
+            "image:extension": "| {col:msx-white}14th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item14/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "VK Video",
+               "text": "{col:yellow}Только WebOS{col}{br}шоу любимых блогеров, свежие фильмы и сериалы, любимые телеканалы, прямые эфиры, мультфильмы для детей, спортивные трансляции, музыкальные новинки и многое другое "
+            }
+         },
+         "image": "https://github.com/wals09/msx/blob/main/vkvideo/icon.png?raw=true",
+         "action": "link:https://vk.ru/tv-app/lib?version=1.3.13&platform=webos",
+         "properties": {
+            "image:extension": "| {col:msx-white}15th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item15/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "СМОТРИМ-WEB",
+               "text": "{col:msx-white}российская государственная мультимедийная онлайн-платформа, разработанная крупнейшим государственным медиахолдингом «ВГТРК»"
+            }
+         },
+         "image": "https://wals09.github.io/msx/smotrim/icon.png",
+         "action": "link:https://tv.smotrim.ru",
+         "properties": {
+            "image:extension": "| {col:msx-white}16th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item16/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "YouTUBE",
+               "text": "{col:msx-white}Oнлайн-сервис для хостинга и просмотра видео"
+            }
+         },
+         "image": "https://wals09.github.io/msx/youtube/logo.png",
+         "action": "link:https://www.youtube.com/tv#/",
+         "properties": {
+            "image:extension": "| {col:msx-white}17th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item17/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "YOUTUBE KIDS",
+               "text": "{col:msx-white}Oтдельная версия популярного видеохостинга Youtube, нацеленная исключительно на детей."
+            }
+         },
+         "image": "https://wals09.github.io/msx//youtube_kids/logo.png",
+         "action": "link:https://www.youtube.com/tv/kids",
+         "properties": {
+            "image:extension": "| {col:msx-white}18th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item18/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "МУЛЬТИКИ",
+               "text": "{col:msx-white}Смотрим мультфильмы онлайн. Коллекция мультфильмов советских времен и не только. Самые лучшие мультики из вашего детства!"
+            }
+         },
+         "image": "https://wals09.github.io/msx/multiki/logo.png",
+         "action": "content:https://wals09.github.io/msx/welcome.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}19th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item19/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "DEEPLEX",
+               "text": "{col:msx-white}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов."
+            }
+         },
+         "image": "https://wals09.github.io/msx/deeplex/logo.png",
+         "action": "link:http://smart.deeplex.cc/",
+         "properties": {
+            "image:extension": "| {col:msx-white}20th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item20/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "KinoPUB",
+               "text": "{col:msx-white}Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме. Нужна регистрация и подписка"
+            }
+         },
+         "image": "https://wals09.github.io/msx/kinopub/logo.png",
+         "action": "link:http://kpms.cc/bootstrap.html",
+         "properties": {
+            "image:extension": "| {col:msx-white}21st Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item21/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "X-SMART TV",
+               "text": "{col:msx-white}Цифровая медиа платформа XSMART — это интернет каталог в виде приложения, где собрана информация о фильмах и сериалах, актерах и режиссерах. Вся информация в каталоге взята из открытых источников и предоставляются исключительно в ознакомительных целях.",
+               "image": "https://wals09.github.io/msx/xsmart/capture.gif"
+            }
+         },
+         "image": "https://wals09.github.io/msx/xsmart/logo.png",
+         "action": "link:http://app.xsmart.tv",
+         "properties": {
+            "image:extension": "| {col:msx-white}22nd Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item22/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "IMPIRE BOOM",
+               "text": "{col:msx-white}ИмперияBOOM представляет собой упорядоченные ссылки на медиа-контент: фильмы, сериалы, мультфильмы, IPTV, радио и т.п."
+            }
+         },
+         "image": "https://wals09.github.io/msx/imboom/logo.png",
+         "action": "link:http://web.imboom.ru/",
+         "properties": {
+            "image:extension": "| {col:msx-white}23rd Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item23/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "KINOBOOM",
+               "text": "{col:msx-white}Просмотр видео контента из многих источников. Поиск контента (фильмы, сериалы, мультфильмы, аниме, тв-передачи).Выбора качества. KBC каналы. VIP подписка на три устройства "
+            }
+         },
+         "image": "https://wals09.github.io/msx/kinoboom/logo.png",
+         "action": "execute:info:extended:http://kb-team.club/msx/enter.php",
+         "properties": {
+            "image:extension": "| {col:msx-white}24th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item24/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Кинофраншизы",
+               "text": "{col:msx-white}Коллекция медиаподборок от {col:white}OLSIB TV{col}{br}{col:msx-white-soft}Kинофраншиза — несколько последовательно связанных между собой фильмов, действие которых происходит в одной вымышленной вселенной; либо маркетинговым образом преподносятся как серия"
+            }
+         },
+         "image": "https://wals09.github.io/kf/img/logo.png",
+         "action": "content: https://wals09.github.io/kf/menu.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}25th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item25/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Akter Black",
+               "text": "{col:msx-white}Мод программы Лампа{br}{col:yellow}В данный момент находиться в разработке и некоторые функции могут быть недоступны!!! Опубликованно только для ознакомления с программой!!!"
+            }
+         },
+         "image": "https://github.com/wals09/msx/blob/main/akter_black/logo.png?raw=true",
+         "action": "link:http://abvidaa.ru/",
+         "properties": {
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item26/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Prisma TV",
+               "text": "{col:msx-white}Мод программы Лампа{br}{col:yellow}В данный момент находиться в разработке и некоторые функции могут быть недоступны!!!{br}Опубликованно только для ознакомления с программой!!!"
+            }
+         },
+         "image": "https://github.com/wals09/msx/blob/main/prisma/logo.png?raw=true",
+         "action": "link:https://prisma.ws/",
+         "properties": {
+            "image:extension": "| {col:msx-white}27th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item27/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Бонус контент",
+               "text": "{col:msx-white}Медиа-контент из различных источников в интернете выложенный в свободный доступ. {col:yellow}Работает как работает!!! Работает пока работает!!!"
+            }
+         },
+         "image": "https://wals09.github.io/msx/img/bonus.png",
+         "action": "content: https://wals09.github.io/msx/test/category.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}28th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item29/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "30th Item",
+               "text": "{col:msx-white}Quisque dolor ipsum{col}{br}Lorem ipsum dolor sit amet, ad noster vocibus albucius pro, alia latine aeterno est cu, sententiae posidonium cu sea. Ex primis placerat sed, nam tollit persecuti ad. Idque maluisset contentiones id nam, pro ex sint impetus dissentiet. Est ne omittantur consectetuer, audiam ocurreret qui eu."
+            }
+         },
+         "image": "https://picsum.photos/seed/msx_24764bb8_item29/408/264",
+         "action": "image:https://picsum.photos/seed/msx_24764bb8_item29/1920/1080",
+         "properties": {
+            "image:extension": "| {col:msx-white}30th Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item0/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "First Item",
+               "text": "{col:msx-white}Duis rutrum orci purus{col}{br}Lorem ipsum dolor sit amet, omittam vivendum ad mea, putant voluptaria mei an, cum saperet probatus ea. Gloriatur adolescens est id, denique oporteat inciderint an nec, ut mea veniam aliquando signiferumque. Quod periculis adversarium qui te. Ea pri facer semper, stet eleifend per ut. Eum soluta pertinacia an, vel tation tollit pertinax et. Aperiri scribentur."
+            }
+         },
+         "image": "https://picsum.photos/seed/msx_24764bb8_item0/408/264",
+         "action": "image:https://picsum.photos/seed/msx_24764bb8_item0/1920/1080",
+         "properties": {
+            "image:extension": "| {col:msx-white}First Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item1/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Second Item",
+               "text": "{col:msx-white}Orci varius natoque penatibus et{col}{br}Lorem ipsum dolor sit amet, duo iisque erroribus comprehensam no, at pri quis apeirian perpetua. Ea ius harum oportere, idque audiam impedit mea ei, eam ea utinam moderatius. No nam albucius voluptua fabellas, cibo ancillae at nam. Cu viris volutpat."
+            }
+         },
+         "image": "https://picsum.photos/seed/msx_24764bb8_item1/408/264",
+         "action": "image:https://picsum.photos/seed/msx_24764bb8_item1/1920/1080",
+         "properties": {
+            "image:extension": "| {col:msx-white}Second Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item2/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Third Item",
+               "text": "{col:msx-white}Sed et sem augue{col}{br}Lorem ipsum dolor sit amet, scaevola perpetua ut qui. Te per partem definitiones, id has modus delenit scriptorem. Eu eos."
+            }
+         },
+         "image": "https://picsum.photos/seed/msx_24764bb8_item2/408/264",
+         "action": "image:https://picsum.photos/seed/msx_24764bb8_item2/1920/1080",
+         "properties": {
+            "image:extension": "| {col:msx-white}Third Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item3/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Fourth Item",
+               "text": "{col:msx-white}Mauris tincidunt non mauris ut{col}{br}Lorem ipsum dolor sit amet, nec alii invenire ea. Eu viderer repudiandae has, qui an."
+            }
+         },
+         "image": "https://picsum.photos/seed/msx_24764bb8_item3/408/264",
+         "action": "image:https://picsum.photos/seed/msx_24764bb8_item3/1920/1080",
+         "properties": {
+            "image:extension": "| {col:msx-white}Fourth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item4/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Fifth Item",
+               "text": "{col:msx-white}Sed et sem augue{col}{br}Lorem ipsum dolor sit amet, ad noster vocibus albucius pro, alia latine aeterno est cu, sententiae posidonium cu sea. Ex primis placerat sed, nam tollit persecuti ad. Idque maluisset contentiones id nam, pro ex sint impetus dissentiet. Est ne omittantur consectetuer, audiam ocurreret qui eu."
+            }
+         },
+         "image": "https://picsum.photos/seed/msx_24764bb8_item4/408/264",
+         "action": "image:https://picsum.photos/seed/msx_24764bb8_item4/1920/1080",
+         "properties": {
+            "image:extension": "| {col:msx-white}Fifth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item5/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Sixth Item",
+               "text": "{col:msx-white}Vestibulum ex lectus{col}{br}Lorem ipsum dolor sit amet, ius an solum scriptorem, sit ea duis fastidii theophrastus. Ludus nemore propriae cu sea, et usu magna option. Mei ad possit pertinacia, an tota congue eum. An per pertinacia percipitur."
+            }
+         },
+         "image": "https://picsum.photos/seed/msx_24764bb8_item5/408/264",
+         "action": "image:https://picsum.photos/seed/msx_24764bb8_item5/1920/1080",
+         "properties": {
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item28/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "",
+               "text": "{col:msx-white}"
+            }
+         },
+         "image": "",
+         "action": "content: https://wals09.github.io/msx/test/demo.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}29th Item"
+         }
+      }
+   ]
+}

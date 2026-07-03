@@ -1,0 +1,194 @@
+{
+   "type": "list",
+   "headline": "Том и Джерри",
+   "transparent": 2,
+   "preload": "next",
+   "underlay": {
+      "action": "[quiet|delay:backdrop:1:interaction:load:http://msx.benzac.de/interaction/backdrop.html]",
+      "data": {
+         "url": "none"
+      },
+      "items": [
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "0,0,8,3",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,2,3",
+      "area": "0,3,12,3",
+      "wrapperColor": "msx-glass",
+      "imageHeight": 1.83,
+      "color": "msx-glass",
+      "imageFiller": "cover",
+      "truncation": "titleFooter",
+      "titleHeader": "",
+      "titleFooter": "",
+      "description": "No description available.",
+      "backdrop": "none",
+      "image": "none",
+      "selection": {
+         "important": true,
+         "action": "data",
+         "data": {
+            "actions": [
+               {
+                  "action": "invalidate:content:underlay:text"
+               },
+               {
+                  "action": "delay:text:1:update:content:underlay:text",
+                  "data": {
+                     "headline": "{context:titleHeader}",
+                     "text": "{context:titleFooter}{br}{br}{context:description}"
+                  }
+               },
+               {
+                  "action": "delay:backdrop:1:interaction:load:http://msx.benzac.de/interaction/backdrop.html",
+                  "data": {
+                     "url": "{context:backdrop}",
+                     "type": 1
+                  }
+               }
+            ]
+         }
+      },
+      "properties": {
+         "image:extension": "| {context:titleHeader}"
+      }
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}Короткометражные подборки",
+         "titleFooter": "",
+         "description": "Подборки короткометражных мультфильмов о прелючениях кота Тома и мышонка Джерри.",
+         "backdrop": "https://wals09.github.io/msx/img/960_tom-i-dzherri-1.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-1.jpg",
+         "action": "menu: https://wals09.github.io/msx/tom_jerry/menu.json"
+      },
+      {
+         "titleHeader": "{col:msx-white}Фильм (1992)",
+         "titleFooter": "",
+         "description": "Неугомонные любимые друзья в полнометражном мультфильме «Том и Джерри: Фильм». Они не гоняются друг за другом, а помогают совсем маленькой девочке найти её пропавшего отца. Но не думайте, что вы заскучаете при просмотреть мультфильма. Ведь это наши любимые Том и Джерри! Погони, море опасностей, злые козни старой злой тётки. Просто отличный юмор и радость от общения с любимыми героями!",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-film-1992.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-film-1992.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/480/Tom-i-Dzherri-Film-480.mp4 "
+      },
+      {
+         "titleHeader": "{col:msx-white}Волшебное кольцо (2002)",
+         "titleFooter": "",
+         "description": "Том недавно был назначен ответственным за волшебное кольцо, принадлежащее его хозяину - молодому, но перспективному волшебнику. Но вы и представить себе не можете, в какой ужас пришел наш любимый кот, когда кольцо застряло на голове у мышонка Джерри. Более того, грызун прямо с кольцом на своей ушастой голове отправился на прогулку в город! И еще до того, как вы успеете произнести «пиф-паф-ой-ой-ой», весь город немедленно бросится в погоню за нашими весёлыми героями, кольцо-то ведь волшебное! Драгоценное колечко начинает делать всевозможные чудеса, добавляя хлопот нашей неугомонной парочке героев. Тому и Джерри предстоит пережить наверное самое удивительное и невероятное приключение за всю их мультипликационную карьеру",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-volshebnoe-kolco-2002.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-volshebnoe-kolco-2002.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/480/Tom-i-Dzherri-Volshebnoe-kolco-480.mp4"
+      },
+      {
+         "titleHeader": "{col:msx-white}Быстрый и бешеный (2005)",
+         "titleFooter": "",
+         "description": "Главным призом супергонок является шикарный особняк. В надежде победить и получить замечательный приз, Том и Джерри соглашаются на участие в этих невероятных бешеных гонках. Однако и здесь они не забывают устраивать друг другу всевозможные хитрые ловушки, ну как же без этого ..?",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-bystryj-i-beshenyj-2005.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-bystryj-i-beshenyj-2005.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-Bystryj-i-beshenyj-1080.mp4"
+      },
+      {
+         "titleHeader": "{col:msx-white}Полет на Марс (2005)",
+         "titleFooter": "",
+         "description": "Получается, что для своих погонь и приключений весёлые Том и Джерри уже использовали все возможные места на нашей планете - старушке Земле, теперь забавные животные решают совершить полёт на Марс, чтобы повеселиться там от души! Вот, правда, марсиане оказались слишком маленькими: крошечные гуманоиды посчитали Тома свирепым межгалактическим монстром и решили расправиться с ним. Марс атакует! ",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-polet-na-mars-2005.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-polet-na-mars-2005.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-Polet-na-Mars-1080.mp4 "
+      },
+      {
+         "titleHeader": "{col:msx-white}Трепещи, Усатый! (2006)",
+         "titleFooter": "",
+         "description": "Это хулиганское путешествие началось из-за Тома, который на маленькой лодке отправился в плавание с жутким и грозным пиратом - капитаном Рэдом. Устав работать на капитана и постоянно драить палубу Том уже было подумал, что удача отвернулась от него, как вскоре он находит всплывшую на море бутылку с картой сокровищ. Но, в бутылке вместе с картой был также мышонок Джерри, который охранял её. Начинается гонка на выживание - удастся ли Тому перехитрить мышонка и добраться первым на остров сокровищ?",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-trepeshhi-usatyj-2006.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-trepeshhi-usatyj-2006.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-Trepeshhi-Usatyj-1080.mp4  "
+      },
+      {
+         "titleHeader": "{col:msx-white}История о щелкунчике (2007)",
+         "titleFooter": "",
+         "description": "Однажды, в совсем пустом оперном театре, Джерри загадал желание получить шанс выступить на сцене и его мечта чудесным образом быстро исполняется. Мышонок переносится в волшебное королевство, где все возможно и есть много чего интересного: конфетный лес, поющие снежинки, даже игрушки оживают! Джерри весело проводит время со своими новыми друзьями и танцует с красивой балериной из маленькой музыкальной шкатулки.",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-istorija-o-shhelkunchike-2007.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-istorija-o-shhelkunchike-2007.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-Istorija-o-shhelkunchike-1080.mp4"
+      },
+      {
+         "titleHeader": "{col:msx-white}Шерлок Холмс (2010)",
+         "titleFooter": "",
+         "description": "В самом центре Британской столицы похищен старинный драгоценный камень, Скотлэнд Ярд сбит с толку и несправедливо обвиняет в преступлении красивую певицу Рэд. Лишь легендарный Шерлок Холмс с помощью своего верного помощника Доктора Ватсона может найти настоящего вора. Ну и, конечно - Том и Джерри.",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-sherlok-kholms-2010.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-sherlok-kholms-2010.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-Sherlok-Holms-1080.mp4"
+      },
+      {
+         "titleHeader": "{col:msx-white}Волшебник из страны Оз (2011)",
+         "titleFooter": "",
+         "description": "Замечательная, любимая многими сказка о Волшебнике из страны Оз, обретает новый смысл с любимыми героями! Том и Джерри парят над разноцветной радугой и двигаются вниз по извилистой дороге из желтого кирпича, а на пути им встречаются всем знакомые удивительные персонажи из волшебной страны.",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-i-volshebnik-iz-strany-oz-2011.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-i-volshebnik-iz-strany-oz-2011.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-i-Volshebnik-iz-strany-Oz-1080.mp4"
+      },
+      {
+         "titleHeader": "{col:msx-white}Робин Гуд и Мышь-Весельчак (2012)",
+         "titleFooter": "",
+         "description": " Он всегда грабил богатых и раздавал награбленное беднякам, а теперь ему срочно нужна помощь Тома и Джерри! Знаменитый разбойник Робин Гуд попал в лапы хладнокровного и злого шерифа Ноттингемского, а возлюбленной Робина, девушке Мэриан, грозит очень серьезная опасность со стороны злобного принца Джона. Сумеют ли заклятые враги Том и Джерри забыть о своей вражде, чтобы спасти сложившееся положение? ",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-robin-gud-i-mysh-veselchak-2012.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-robin-gud-i-mysh-veselchak-2012.jpg",
+         "action": "https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-Robin-Gud-i-Mysh-Veselchak-1080.mp4"
+      },
+      {
+         "titleHeader": "{col:msx-white}Гигантское приключение (2013)",
+         "titleFooter": "",
+         "description": " Начинается гигантское приключение с рассказа о сказочном городе, который был когда-то давно. И были там сказочная парковка и сказочные аттракционы и первоклассный зоопарк. И жили в этом городе - мечтатель Джо с женой Вайолетт и сыном Джеком, которые владели красивым зоопарком. Но вскоре зоопарк Джо пришёл в убыток и в нем не осталось никого, кроме двоих обитателей - кота Тома и мышонка Джерри...",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-gigantskoe-prikljuchenie-2013.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-gigantskoe-prikljuchenie-2013.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-Gigantskoe-prikljuchenie-1080.mp4"
+      },
+      {
+         "titleHeader": "{col:msx-white}Потерянный дракон (2014)",
+         "titleFooter": "",
+         "description": "На этот раз совершенно случайно Том и Джерри становятся обладателями огромных размеров яйца, из которого в скором времени появляется на свет маленький дракончик Паффи. Малыш, который первым увидел Тома принял его за свою маму и коту не осталось ничего, кроме как взять заботу о нем на себя. Джерри в этом нелегком деле решил помочь ему.",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-poterjannyj-drakon-2014.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-poterjannyj-drakon-2014.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/720/Tom-i-Dzherri-Poterjannyj-drakon-720.mp4 "
+      },
+      {
+         "titleHeader": "{col:msx-white}Маленькие помощники Санты (2014)",
+         "titleFooter": "",
+         "description": "Джерри уже достаточно давно наслаждается спокойной размеренной жизнью в доме-мастерской Санта-Клауса. Но вскоре семья доброго дедушки, дарящего подарки и радость всем детишкам, решает приютить у себя в доме кота Тома. ",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-malenkie-pomoshhniki-santy-2014.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-malenkie-pomoshhniki-santy-2014.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/480/Tom-i-Dzherri-Malenkie-pomoshhniki-Santy-480.mp4"
+      },
+      {
+         "titleHeader": "{col:msx-white}Шпионские игры (2015)",
+         "titleFooter": "",
+         "description": "Джонни и его новые пушистые друзья Том и Джерри отправляются на очень опасные поиски отца, в попытке предотвратить похищение энергетической установки и спасти весь земной шар! ",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-shpion-kvest-2015.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-shpion-kvest-2015.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-Shpion-Kvest-1080.mp4 "
+      },
+      {
+         "titleHeader": "{col:msx-white}Возвращение в страну Оз (2016)",
+         "titleFooter": "",
+         "description": "Том и Джерри, которые не так давно вернулись из страны Оз, где дружной компанией смогли одолеть злую ведьму, не могли бы подумать, что их ожидает столь быстрое возвращение в сказочную невероятную страну. В этот раз им предстоит одолеть подданых западной ведьмы из предыдущего мультфильма и освободить жителей Изумрудного города, у которых большие неприятности. ",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-vozvrashcheniye-v-stranu-oz-2016.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-vozvrashcheniye-v-stranu-oz-2016.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/1080/Tom-i-Dzherri-Vozvrashhenie-v-stranu-Oz-1080.mp4"
+      },
+      {
+         "titleHeader": "{col:msx-white}Вилли Вонка и шоколадная фабрика (2017)",
+         "titleFooter": "",
+         "description": "Главным призом супергонок является шикарный особняк. В надежде победить и получить замечательный приз, Том и Джерри соглашаются на участие в этих невероятных бешеных гонках. Однако и здесь они не забывают устраивать друг другу всевозможные хитрые ловушки, ну как же без этого ..?",
+         "backdrop": "https://wals09.github.io/msx/img/tom-i-dzherri-villi-vonka-i-shokoladnaya-fabrika-2017.jpg",
+         "image": "https://tom-dzherri.net/static/images/tumbs/tom-i-dzherri-villi-vonka-i-shokoladnaya-fabrika-2017.jpg",
+         "action": "video: https://v.tom-dzherri.net/video/film/720/Tom-i-Dzherri-Villi-Vonka-i-shokoladnaja-fabrika-720.mp4"
+      }
+   ]
+}
