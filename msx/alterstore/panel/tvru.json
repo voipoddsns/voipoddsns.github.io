@@ -1,0 +1,60 @@
+{
+   "type": "list",
+   "headline": "TVRU портал",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,8,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,6,2",
+            "offset": "0,0,0,0",
+            "headline": "",
+            "text": "{col:white}{br}TVRU портал{col}{br}Большой выбор приложений, запускайте которые нравятся без необходимости установки на устройство."
+         },
+         {
+            "id": "text2",
+            "type": "space",
+            "layout": "1,3,6,2",
+            "offset": "0,0,0,1",
+            "headline": "",
+            "text": "Параметр {col:white}ЗАПУСТИТЬ{col}{br} позволяет ознакомится и использовать TVRU портал не покидая портал WALS.{br}{br}Параметр {col:white}УСТАНОВИТЬ{col}: {br}выход из портала WALS и замена стартового адреса "
+         }
+      ]
+   },
+   "template": {
+      "type": "panel",
+      "layout": "0,0,3,1",
+      "area": "1,5,6,1",
+      "offset": "0,0.3,0,0",
+      "imageFiller": "cover",
+      "color": "transparent"
+   },
+   "items": [
+      {
+         "type": "button",
+         "label": "Запустить",
+         "action": "content:https://github.com/tvru/tvru.github.io/raw/refs/heads/main/msx/menu.json"
+      },
+      {
+         "type": "button",
+         "label": "Установить",
+         "action": "start",
+         "data": {
+            "name": "NoName 2",
+            "version": "1.0.0",
+            "parameter": "content:https://github.com/tvru/tvru.github.io/raw/refs/heads/main/msx/menu.json",
+            "welcome": "none"
+         }
+      }
+   ]
+}

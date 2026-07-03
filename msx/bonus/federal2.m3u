@@ -1,0 +1,64 @@
+#EXTM3U url-tvg="https://iptvx.one/epg/epg.xml.gz"
+
+#EXTINF:-1 tvg-id="ChannelOne.ru" tvg-logo="https://i.imgur.com/RUSX0rX.png" tvg-name="Первый канал" group-title="Общий",Первый канал Европа [1280x720]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://202.21.104.6:88/ort-tv/mono.m3u8
+
+#EXTINF:-1 tvg-id="Russia1.ru" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/11-%D0%B9_%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F-1.svg/512px-11-%D0%B9_%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F-1.svg.png" tvg-name="Россия-1" group-title="Общий",Россия 1 [1920x1080]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://193.201.98.10:5000/c100
+
+#EXTINF:-1 tvg-id="ChannelOne.ru" tvg-logo="https://i.imgur.com/RUSX0rX.png" tvg-name="Первый канал" group-title="Общий",Первый канал [720x576]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://s18209.cdn.ngenix.net/hls/CH_R03_1TV/playlist.m3u8
+
+#EXTINF:-1 tvg-id="NTV.ru" tvg-logo="https://i.imgur.com/9r1BKzK.png" tvg-name="НТВ" group-title="Общий",НТВ [1920x1080]
+#EXTVLCOPT:http-user-agent=okhttp/4.11.0
+http://cdn.ntv.ru/ntv-msk_hd/tracks-v1a1/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Channel5.ru" tvg-logo="https://i.imgur.com/KPXMa3U.png" tvg-name="Пятый канал" group-title="Общий",5 канал [720x576]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+https://bkm.beetv.kz/btv/live/hls/000003718.m3u8
+
+#EXTINF:-1 tvg-id="Channel5International.ru" tvg-logo="https://i.imgur.com/KPXMa3U.png" tvg-name="Пятый International" group-title="Общий",5 канал International [720x576]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://otv.wotom.net:4433/udp/238.1.1.137:1234
+
+#EXTINF:-1 tvg-id="STS.ru" tvg-logo="https://i.imgur.com/ilUzAeb.png" tvg-name="СТС" group-title="Общий",СТС [854x480]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://ott-cdn.ucom.am/s52/04.m3u8
+
+#EXTINF:-1 tvg-id="RENTV.ru" tvg-logo="https://i.imgur.com/0Tu5lte.png" tvg-name="РЕН ТВ" group-title="Общий",Рен ТВ [1920x1080]
+#EXTVLCOPT:http-user-agent=okhttp/4.11.0
+http://185.37.150.46:8092/RenTV_HD/tracks-v1a1/index.m3u8
+
+#EXTINF:-1 tvg-id="TNT.ru" tvg-logo="https://i.imgur.com/T4A6rEI.png" tvg-name="ТНТ" group-title="Общий",ТНТ [1920x1080]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://185.37.150.46:8092/THT_HD/tracks-v1a1/index.m3u8
+#EXTINF:-1 tvg-id="Zvezda.ru" tvg-logo="https://i.imgur.com/4PAcpfM.png" tvg-name="Звезда" group-title="Общий",Звезда [720x576]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://stream01.vnet.am/Zvezda/index.m3u8
+
+#EXTINF:-1 tvg-id="FridayInternational.ru" tvg-logo="https://i.imgur.com/N2z3EZC.png" tvg-name="Пятница! International" group-title="Общий",Пятница! International [854x480]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://ott-cdn.ucom.am/s50/04.m3u8
+
+#EXTINF:-1 tvg-id="TVCentr.ru" tvg-logo="https://i.imgur.com/fIkd01t.png" tvg-name="ТВ Центр" group-title="Общий",ТВ Центр [854x480]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://tvc-hls.cdnvideo.ru/tvc-res/smil:vd9221_2.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Mir.ru" tvg-logo="https://i.imgur.com/Murt4NK.png" tvg-name="Мир" group-title="Общий",МИР [1920x1080]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+https://hls-mirtv.cdnvideo.ru/mirtv-parampublish/mirtv_2500/tracks-v1a1/mono.m3u8?hls_proxy_host=f4eb0d287702d48f6bbf6e6f56891e63
+
+#EXTINF:-1 tvg-id="360.ru" tvg-logo="https://i.imgur.com/VTJqdoX.png" tvg-name="360" group-title="Общий",360° [1920x1080]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://live-vgtrksmotrim.cdnvideo.ru/vgtrksmotrim/smotrim-live-04-srt.smil/tracks-v5a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="Pobeda.ru" tvg-logo="https://i.imgur.com/gNiz1xm.png" tvg-name="Победа" group-title="Общий",Победа [1024x576]
+#EXTVLCOPT:http-user-agent=VLC/3.0.20 LibVLC/3.0.20
+https://streaming102.goodstream.cyou/live/43-req_offset_28000000-req_window_0-1k_v5.m3u8
+
+#EXTINF:-1 tvg-logo="http://iptvn.idc.md/img/ico/2.gif" tvg-name="ТСВ" group-title="Общий",ТСВ [720x576]
+#EXTVLCOPT:http-user-agent=Donate BTC bc1q2zucynhgqfznfhk48r6ewlmk55z5sw38mqaffe
+http://iptv-hls.idc.md:8200/hls/2/live1.m3u8

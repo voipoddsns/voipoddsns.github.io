@@ -1,0 +1,90 @@
+{
+   "type": "list",
+   "headline": "Так Себе ТВ",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,3,12,3",
+            "offset": "-1.25,-0.33,2,1",
+            "color": "msx-black-soft"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,6,3",
+            "offset": "-1,0.5,1,0",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,3,1",
+      "area": "0,0,12,3",
+      "offset": "0,3,0,0",
+      "trigger:back": "player:stop",
+      "imageWidth": 0.83,
+      "color": "msx-glass",
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}Федеральные",
+         "selection": {
+            "important": true,
+            "background": "https://w.forfun.com/fetch/a1/a1b925ef361a11c589c4ffb4a57c3024.jpeg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "text": "{col:msx-white}{col}{br}Подборка федеральных российских телеканалов.{br}Взято из интернета в открытом доступе.{br} Работают так как есть. Работают пока работают."
+            }
+         },
+         "image": "https://lh6.ggpht.com/YG4EXT5XzcM4OKXln4LBNaoHnQ7lEyMTGtQ_4iz7ELH2KckQxigKxYrRTQX86z-bVw=w300",
+         "action": "content: https://wals09.github.io/msx/bonus/federal.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Спортивные",
+         "selection": {
+            "important": true,
+            "background": "https://sportishka.com/uploads/posts/2023-12/1701472201_sportishka-com-p-samie-populyarnie-komandnie-vidi-sporta-pi-32.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "text": "{col:msx-white}{col}{br}Подборка спортивных каналов.{br}Взято из интернета в открытом доступе.{br} Работают так как есть. Работают пока работают."
+            }
+         },
+         "image": "https://www.pngitem.com/pimgs/m/112-1122080_futbol-png-image-vector-clipart-psd-png.png",
+         "action": "content: https://wals09.github.io/msx/bonus/sport.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Relax",
+         "selection": {
+            "important": true,
+            "background": "https://gas-kvas.com/uploads/posts/2023-02/1675490637_gas-kvas-com-p-fonovie-risunki-na-rabochii-stol-noch-17.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "text": "{col:msx-white}{col}{br}Подборка каналов для  расслабления, сна, медитации, йоги, массажа и отдыха."
+            }
+         },
+         "image": "https://yt3.ggpht.com/ytc/AKedOLTnnv0Gw8nYogetKuQl-M437g5e8XuxgPoKe1pV=s900-c-k-c0x00ffffff-no-rj",
+         "action": "content: https://wals09.github.io/msx/bonus/relax.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      }
+   ]
+}

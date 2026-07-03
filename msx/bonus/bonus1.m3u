@@ -1,0 +1,787 @@
+#EXTM3U url-tvg="http://iptvx.one/epg/epg.xml.gz"
+
+#EXTINF:-1,КП HD
+http://45.159.74.13:80/Kinopremera/tracks-v1a1/mono.m3u8
+#EXTINF:-1,К=премьера
+http://stream02.vnet.am/Kinopremera/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Кинопремьера 1920x1080
+http://stream02.vnet.am/Kinopremera/mono.m3u8
+#EXTINF:-1,Кинопремьера HD
+http://sc.id-tv.kz/Kinopremiera_hd_34_35.m3u8
+#EXTINF:-1,Кинопремьера 720x576
+https://st1.uzdigital.tv/Kinopremera/tracks-v1a1/mono.m3u8
+#EXTINF:-1,КИНОХИТ
+https://st1.uzdigital.tv/Kinoxit/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Kinohit
+http://91.205.199.3/kinoxithd/index.m3u8
+#EXTINF:-1,Кино хит 
+http://sc.id-tv.kz/Kinohit_hd_34_35.m3u8
+#EXTINF:-1,Киносемья HD
+http://sc.id-tv.kz/Kinosemiya_hd_34_35.m3u8
+#EXTINF:-1,КИНОСЕМЬЯ
+https://st1.uzdigital.tv/Kinosemya/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Киносерия sd
+https://st1.uzdigital.tv/Kinoseriya/tracks-v1a1/mono.m3u8
+#EXTINF:-1,КИНОСВИДАНИЕ SD
+https://st1.uzdigital.tv/Kinosvidanie/tracks-v1a1/mono.m3u8
+#EXTINF:-1,КИНОСВИДАНИЕ
+http://sc.id-tv.kz/Kinosvidanie_hd_34_35.m3u8
+#EXTINF:-1,Kinosvidanie
+http://91.205.199.3/kinosvidanie/index.m3u8
+#EXTINF:-1,Кинокомедия SD
+http://sc.id-tv.kz/Kinokomediya_hd_34_35.m3u8
+#EXTINF:-1,КИНОКОМЕДИЯ SD
+https://st1.uzdigital.tv/Kinokomediya/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Kinokomedia
+http://91.205.199.3/komedia/index.m3u8
+#EXTINF:-1,Киномикс SD
+https://st1.uzdigital.tv/KinomiksHD/tracks-v1a1/mono.m3u8
+#EXTINF:-1,КИНОМИКС HD
+http://sc.id-tv.kz/Kinomix_hd_34_35.m3u8
+#EXTINF:-1,Киномикс 1920x1080
+https://st1.uzdigital.tv/Kinomiks/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Мужское кино SD
+http://stream01.vnet.am/MujskoeKino/index.m3u8
+#EXTINF:-1,МУЖСКОЕ КИНО KZ
+http://sc.id-tv.kz/Mujskoe_kino_hd_34_35.m3u8
+#EXTINF:-1,VIP PREMIERE
+https://bkm.beetv.kz/btv/live/hls/000000868.m3u8
+#EXTINF:-1,VIP COMEDY
+https://bkm.beetv.kz/btv/live/hls/000000870.m3u8
+#EXTINF:-1,VIP MEGAHIT
+https://bkm.beetv.kz/btv/live/hls/000000869.m3u8
+#EXTINF:-1,VIP Serial HD
+https://bkm.beetv.kz/btv/live/hls/000004375.m3u8
+#EXTINF:-1,Viju+ Serial
+http://91.205.199.3/vipserialhd/index.m3u8
+#EXTINF:-1,viju TV1000 новелла
+http://158.101.194.132:8080/channel/n51877d66/index.m3u8?q=5656d7c7c902657d3491c0330b58ec0e
+#EXTINF:-1,Viasat Kino Comedy HD
+http://88.135.128.20:7272/5RqMvVnGzdoBQbf
+#EXTINF:-1,Viju TV1000 Ру Кино
+https://bkm.beetv.kz/btv/live/hls/000003748.m3u8
+#EXTINF:-1,TV1000 Р Кино
+http://sc.id-tv.kz/TV1000RuKino_34_35.m3u8
+#EXTINF:-1,TV1000
+http://sc.id-tv.kz/TV1000_34_35.m3u8
+#EXTINF:-1,TV 1000 SD
+https://st1.uzdigital.tv/TV1000/tracks-v1a1/mono.m3u8
+#EXTINF:-1,viju TV1000
+https://bkm.beetv.kz/btv/live/hls/000003747.m3u8
+#EXTINF:-1,Viju TV1000
+http://91.205.199.3/tv1000/index.m3u8
+#EXTINF:-1,Viju TV1000 Action
+http://91.205.199.3/tv1000action/index.m3u8
+#EXTINF:-1,TV 1000 Action SD
+http://sc.id-tv.kz/TV1000Action_34_35.m3u8
+#EXTINF:-1,Viju TV1000 Action HD
+https://bkm.beetv.kz/btv/live/hls/000003910.m3u8
+#EXTINF:-1,Премиум Кино HD
+https://bkm.beetv.kz/btv/live/hls/000008491.m3u8
+#EXTINF:-1,Мировое Кино HD
+https://bkm.beetv.kz/btv/live/hls/000008488.m3u8
+#EXTINF:-1,Семейное кино HD
+https://bkm.beetv.kz/btv/live/hls/000008489.m3u8
+#EXTINF:-1,Кинобоевик HD
+https://bkm.beetv.kz/btv/live/hls/000008490.m3u8
+#EXTINF:-1,Киноман
+https://bkm.beetv.kz/btv/live/hls/000003871.m3u8
+#EXTINF:-1,КИНОМАН HD
+http://45.159.74.13:80/Kinoman/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Kinoman
+http://stream02.vnet.am/Kinoman/mono.m3u8
+#EXTINF:-1,SERIES movify.tv
+https://void.greenhosting.ru/MovifySerial_Mpeg4/tracks-v1a1/mono.m3u8
+#EXTINF:-1,НТК
+https://bkm.beetv.kz/btv/live/hls/000000673.m3u8
+#EXTINF:-1,START World
+https://bkm.beetv.kz/btv/live/hls/000007818.m3u8
+#EXTINF:-1,COMEDY CENTRAL
+https://bkm.beetv.kz/btv/live/hls/000000452.m3u8
+#EXTINF:-1,FlixSnip HD
+https://bkm.beetv.kz/btv/live/hls/000004466.m3u8
+#EXTINF:-1,Дорама HD
+https://bkm.beetv.kz/btv/live/hls/000003392.m3u8
+#EXTINF:-1,Кинеко HD
+https://bkm.beetv.kz/btv/live/hls/000008136.m3u8
+#EXTINF:-1,Сапфир HD
+https://bkm.beetv.kz/btv/live/hls/000008135.m3u8
+#EXTINF:-1,Trash HD
+https://bkm.beetv.kz/btv/live/hls/000005621.m3u8
+#EXTINF:-1,FILM UA Drama
+https://bkm.beetv.kz/btv/live/hls/000003028.m3u8
+#EXTINF:-1,Еврокино SD
+https://bkm.beetv.kz/btv/live/hls/000000152.m3u8
+#EXTINF:-1,TV XXI SD
+https://bkm.beetv.kz/btv/live/hls/000000006.m3u8
+#EXTINF:-1,Иллюзион+ HD
+https://bkm.beetv.kz/btv/live/hls/000004582.m3u8
+#EXTINF:-1,Иллюзион+ sd
+http://sc.id-tv.kz/IlluzionPlus_36_37.m3u8
+#EXTINF:-1,KinoSweet UA HD
+http://95.67.12.180:11111
+#EXTINF:-1,Hollywood sd
+http://stream01.vnet.am/ParamountChannel/mono.m3u8
+#EXTINF:-1,HOLLYWOOD
+https://bkm.beetv.kz/btv/live/hls/000000031.m3u8
+#EXTINF:-1,Plan B
+https://bkm.beetv.kz/btv/live/hls/000007625.m3u8
+#EXTINF:-1,BackusTV Dark HD
+https://playlist.nuum.ru/live/5443/tracks-v1a1/mono.m3u8
+#EXTINF:-1,BackusTV Original HD
+https://playlist.nuum.ru/live/5354/tracks-v1a1/mono.m3u8
+#EXTINF:-1,BackusTV Original HD
+https://media-gateway-cache.nuum.ru/live/5354/index.m3u8
+#EXTINF:-1,Малдер Best Film
+https://playlist.nuum.ru/live/94916/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Сити Эдем - Кино Драма
+https://autopilot.catcast.tv/content/45269/index.m3u8
+#EXTINF:-1,Сити Эдем - Кино Классика
+https://autopilot.catcast.tv/content/34185/index.m3u8
+#EXTINF:-1,Сити Эдем - Кино Экшен
+https://autopilot.catcast.tv/content/41333/index.m3u8
+#EXTINF:-1,Сити Эдем - Кино Мистика
+https://autopilot.catcast.tv/content/40783/index.m3u8
+#EXTINF:-1,Сити Эдем - Кино Комедия
+https://autopilot.catcast.tv/content/41331/index.m3u8
+#EXTINF:-1,Сити Эдем - Кино Детектив
+https://autopilot.catcast.tv/content/41327/index.m3u8
+#EXTINF:-1,КІНО ТV VHS
+https://playlist.nuum.ru/live/28423/tracks-v1a1/mono.m3u8
+#EXTINF:-1,ВИДЕОКАССЕТА
+https://playlist.nuum.ru/live/4968/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Кино 1 International
+http://kino-1.catcast.tv/content/38617/index.m3u8
+#EXTINF:-1,Кино 1 International HD
+http://213.172.73.132:8081/nimble_live/kino_1_int/playlist.m3u8
+#EXTINF:-1,Kino Home HD
+http://mol-2.com:8080/play/live.php?mac=00:1A:79:fb:30:83&stream=275524&extension=ts
+#EXTINF:-1,Kino TV HD
+http://mol-2.com:8080/play/live.php?mac=00:1A:79:fb:30:83&stream=275522&extension=ts
+#EXTINF:-1,КИНОПОКАЗ
+http://158.101.194.132:8080/channel/n7ffadd45/index.m3u8?q=4965b2524bbd5b7c9cadb3719420c02c
+#EXTINF:-1,HORROR
+http://158.101.194.132:8080/channel/d178d72/index.m3u8?q=4965b2524bbd5b7c9cadb3719420c02c
+#EXTINF:-1,ХИТ
+http://158.101.194.132:8080/channel/n484decb9/index.m3u8?q=4965b2524bbd5b7c9cadb3719420c02c
+#EXTINF:-1,Кино Меню
+http://158.101.194.132:8080/channel/489a40cb/index.m3u8?q=4965b2524bbd5b7c9cadb3719420c02c
+#EXTINF:-1,Киноклассика
+http://158.101.194.132:8080/channel/7e5a40bb/index.m3u8?q=4965b2524bbd5b7c9cadb3719420c02c
+#EXTINF:-1,Movie Classic
+http://158.101.194.132:8080/channel/n3b2f2768/index.m3u8?q=4965b2524bbd5b7c9cadb3719420c02c
+#EXTINF:-1,Novella TV
+http://158.101.194.132:8080/channel/7d3fabec/index.m3u8?q=4965b2524bbd5b7c9cadb3719420c02c
+#EXTINF:-1,Советское Кино
+http://158.101.194.132:8080/channel/n4ef90b2b/index.m3u8?q=4965b2524bbd5b7c9cadb3719420c02c
+#EXTINF:-1,Star Cinema
+http://88.135.128.20:7272/szWljUvHlTAKXVa
+#EXTINF:-1,Star Family UA
+http://194.33.181.28:9010/udp/238.255.51.36:1234
+#EXTINF:-1,Star Family
+http://88.135.128.20:7272/MTsnTXg1kReNwSf
+#EXTINF:-1,BOLT UA
+http://88.135.128.20:7272/6B1DxxB8sXUqpZM
+#EXTINF:-1,Bolt
+#EXTVLCOPT:http-user-agent=ExoPlayer2/2.37
+http://edge02.odtv.az/o4/mtvhits/playlist.m3u8
+#EXTINF:-1,Cinema 
+https://bkm.beetv.kz/btv/live/hls/000000239.m3u8
+#EXTINF:-1,Cinema SD
+http://sc.id-tv.kz/Cinema_34_35.m3u8
+#EXTINF:-1,Нове тв 
+https://novoe.top/nove_tv.m3u8.jpg?m3u8
+#EXTINF:-1,НСТ SD
+https://bkm.beetv.kz/btv/live/hls/000000078.m3u8
+#EXTINF:-1,НСТ 576
+http://sc.id-tv.kz/NSTV.m3u8
+#EXTINF:-1,Шокирующее
+http://str10.ottg.online/5128/mpegts?token=48503f939b1efb3e61d29bffaa6e44e7
+#EXTINF:-1,Индийское кино SD
+http://sc.id-tv.kz/Indiiskoe_kino.m3u8
+#EXTINF:-1,Индия
+http://stream01.vnet.am/ZeeTV/mono.m3u8
+#EXTINF:-1,BOLLYWOOD HD
+https://bkm.beetv.kz/btv/live/hls/000001419.m3u8
+#EXTINF:-1,Bollywood hd
+http://sc.id-tv.kz/bollywood_hd_34_35.m3u8
+#EXTINF:-1,FOX Life HD
+https://bkm.beetv.kz/btv/live/hls/000004471.m3u8
+#EXTINF:-1,FOX Life SD
+http://91.205.199.3/FoxLife/index.m3u8
+#EXTINF:-1,Fx HD
+https://bkm.beetv.kz/btv/live/hls/000004472.m3u8
+#EXTINF:-1,Fox  
+https://stream01.vnet.am/Fox/mono.m3u8
+#EXTINF:-1,Fx
+http://sc.id-tv.kz/FOX_HD_34_35.m3u8
+#EXTINF:-1,Amedia 1 sd
+http://sc.id-tv.kz/A1.m3u8
+#EXTINF:-1,Amedia 1
+https://bkm.beetv.kz/btv/live/hls/000000710.m3u8
+#EXTINF:-1,Amedia 2
+https://bkm.beetv.kz/btv/live/hls/000000351.m3u8
+#EXTINF:-1,Amedia 2 SD
+http://91.205.199.3/amedia2/index.m3u8
+#EXTINF:-1,Amedia 2 sd
+http://sc.id-tv.kz/A2_36_37.m3u8
+#EXTINF:-1,A2
+http://stream01.vnet.am/Zagorodniy/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Amedia Hit
+https://bkm.beetv.kz/btv/live/hls/000001662.m3u8
+#EXTINF:-1,Amedia Hit HD
+http://sc.id-tv.kz/amedia_hit_hd_34_35.m3u8
+#EXTINF:-1,Amedia Premium
+http://stream01.vnet.am/AmediaPremium/mono.m3u8
+#EXTINF:-1,Amedia premium sd
+https://bkm.beetv.kz/btv/live/hls/000000709.m3u8
+#EXTINF:-1,Red
+http://91.205.199.3/red/index.m3u8
+#EXTINF:-1,.RED
+https://bkm.beetv.kz/btv/live/hls/000000213.m3u8
+#EXTINF:-1,.SCI-FI sd
+http://stream01.vnet.am/Kinoseriya/mono.m3u8
+#EXTINF:-1,.SCI-FI
+https://bkm.beetv.kz/btv/live/hls/000000134.m3u8
+#EXTINF:-1,sci-fi
+http://91.205.199.3/scifi/index.m3u8
+#EXTINF:-1,.BLACK
+https://bkm.beetv.kz/btv/live/hls/000000520.m3u8
+#EXTINF:-1,Black
+http://91.205.199.3/black/index.m3u8
+#EXTINF:-1,ТСВ iptv-org-ua
+https://iptv-hls.idc.md/hls/2/live2.m3u8
+#EXTINF:-1,FilmZone
+http://45.159.74.13:80/Filmzone/tracks-v1a1/mono.m3u8
+#EXTINF:-1,1+2 iptv*org*ua
+http://88.135.128.20:7272/KfbeysdY6Fva3sW
+#EXTINF:-1,FILM ZONE
+http://88.135.128.20:7272/ko7BKj9NV0ZCX2C
+#EXTINF:-1,Kino 1 HD
+http://88.135.128.20:7272/i0yRlKi4YlfGtF6
+#EXTINF:-1,Kino 7
+http://88.135.128.20:7272/Hdyt7wbXlSuwOpq
+#EXTINF:-1,TV Extra
+http://88.135.128.20:7272/IurtgdVgs6Tfa8J
+#EXTINF:-1,Super+
+http://88.135.128.20:7272/JkfGhb36Cvs7Fgz
+#EXTINF:-1,Super Baltic
+http://88.135.128.20:7272/OkcbfGtsHx1g4Vs
+#EXTINF:-1,3 Plus
+http://88.135.128.20:7272/qx4hiIaBoQlLK7f
+#EXTINF:-1,Duo3
+http://88.135.128.20:7272/FSvh0OsSPGQldO3
+#EXTINF:-1,Любимое кино
+http://88.135.128.20:7272/JS7lUbMstASMl0r
+#EXTINF:-1,8 канал HD 
+http://88.135.128.20:7272/kJd8eBVsywE41mz
+#EXTINF:-1,FLIX Snip
+http://95.67.12.82:9061
+#EXTINF:-1,Dorama
+http://95.67.12.82:9046
+#EXTINF:-1,ТНТ HD
+https://livetv.mylifeisgood.net.ru/channels/tnthd.m3u8
+#EXTINF:-1,ТНТ4 HD
+https://livetv.mylifeisgood.net.ru/channels/tnt4.m3u8
+#EXTINF:-1,Timeless Dizi Channel
+http://194.158.222.36:6086
+#EXTINF:-1,Дом Кино
+https://stream01.vnet.am/DomKino/mono.m3u8
+#EXTINF:-1,Дом кино SD
+https://st1.uzdigital.tv/Dom_Kino/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Дом Кино sd
+http://sc.id-tv.kz/DomKino_36_37.m3u8
+#EXTINF:-1,ДОМ КИНО SD
+https://bkm.beetv.kz/btv/live/hls/000000050.m3u8
+#EXTINF:-1,ДОМ КИНО ПРЕМИУМ HD
+https://bkm.beetv.kz/btv/live/hls/000002943.m3u8
+#EXTINF:-1,ДОМ КИНО ПРЕМИУМ
+http://stream02.vnet.am/THT/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Наше новое кино
+https://st1.uzdigital.tv/Nashe_novoe_kino/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Наше новое кино sd
+http://sc.id-tv.kz/Nnk_hd.m3u8
+#EXTINF:-1,ПЕРЕЦ
+https://bkm.beetv.kz/btv/live/hls/000001248.m3u8
+#EXTINF:-1,ФЕНИКС+КИНО
+https://bkm.beetv.kz/btv/live/hls/000000125.m3u8
+#EXTINF:-1,ТЕЛЕКАФЕ
+https://bkm.beetv.kz/btv/live/hls/000000206.m3u8
+#EXTINF:-1,Телекафе SD
+http://stream01.vnet.am/Telekafe/mono.m3u8
+#EXTINF:-1,Домашний HD
+http://88.135.128.20:7272/CGGe9lr8Dx9PZy1
+#EXTINF:-1,ДОМАШНИЙ International
+https://bkm.beetv.kz/btv/live/hls/000002348.m3u8
+#EXTINF:-1,ТВ3
+https://st1.uzdigital.tv/TV3/index.m3u8
+#EXTINF:-1,СТС sd
+http://sc.id-tv.kz/STS_34_35.m3u8
+#EXTINF:-1,СТС SD
+https://bkm.beetv.kz/btv/live/hls/000000428.m3u8
+#EXTINF:-1,СТС
+http://stream02.vnet.am/CTC/tracks-v1a1/mono.m3u8
+#EXTINF:-1,Рен ТВ
+http://stream01.vnet.am/RenTv/mono.m3u8
+#EXTINF:-1,Че
+#EXTVLCOPT:http-user-agent=ExoPlayer2/2.37
+http://edge02.odtv.az/o5/chetv/playlist.m3u8
+#EXTINF:-1,ТВ 3 International
+https://bkm.beetv.kz/btv/live/hls/000004712.m3u8
+#EXTINF:-1,Пятница! International (Казахстан)
+http://stream01.vnet.am/Pyatnica/mono.m3u8
+#EXTINF:-1,Любимое кино
+https://bkm.beetv.kz/btv/live/hls/000000283.m3u8
+#EXTINF:-1,Рус Иллюзион
+https://bkm.beetv.kz/btv/live/hls/000004207.m3u8
+#EXTINF:-1,Русский Иллюзион
+http://sc.id-tv.kz/RusIlluzion_34_35.m3u8
+#EXTINF:-1,Русский иллюзион 720x576
+#EXTVLCOPT:http-user-agent=okhttp/4.11.0
+http://edge02.odtv.az/o2/ruilluzion/playlist.m3u8
+#EXTINF:-1,Мир сериала 576
+https://bkm.beetv.kz/btv/live/hls/000000319.m3u8
+#EXTINF:-1,Русский роман
+http://stream01.vnet.am/RusskiyRoman/mono.m3u8
+#EXTINF:-1,РОДНОЕ КИНО
+#EXTVLCOPT:http-user-agent=ExoPlayer2/2.37
+http://edge02.odtv.az/o2/rodnoekino/playlist.m3u8
+#EXTINF:-1,Золотая коллекция
+https://bkm.beetv.kz/btv/live/hls/000006365.m3u8
+#EXTINF:-1,НОСТАЛЬГИЯ
+#EXTVLCOPT:http-user-agent=ExoPlayer2/2.37
+http://edge02.odtv.az/o3/nostalgiya/playlist.m3u8
+#EXTINF:-1 ,Полный метр
+https://tv.2222.one/ch5.m3u8?tva*in*ua
+#EXTINF:-1 ,Полный метр 2
+https://tv.2222.one/ch6.m3u8?tva*in*ua
+#EXTINF:-1 ,Полный метр 3
+https://tv.2222.one/ch7.m3u8
+#EXTINF:-1 ,Полный метр 4
+https://tv.2222.one/ch8.m3u8
+#EXTINF:-1 ,Больше каналов с фильмами
+https://tv.2222.one/ch13.m3u8
+#EXTINF:-1 ,Больше каналов с фильмами 2
+https://tv.2222.one/ch14.m3u8
+#EXTINF:-1 ,X-Files
+https://tv.2222.one/ch4.m3u8
+#EXTINF:-1 ,Друзья
+https://tv.2222.one/ch10.m3u8
+#EXTINF:-1 ,Ситкомы
+https://tv.2222.one/ch19.m3u8
+#EXTINF:-1 ,Детективы
+https://tv.2222.one/ch20.m3u8
+#EXTINF:-1 ,Все сериалы
+https://tv.2222.one/ch2.m3u8
+#EXTINF:-1 ,Другие сериалы
+https://tv.2222.one/ch3.m3u8
+#EXTINF:-1 ,Сериалы
+https://tv.2222.one/ch17.m3u8
+#EXTINF:-1 ,Сериалы 2
+https://tv.2222.one/ch18.m3u8
+#EXTINF:-1 ,Еще сериалы
+https://tv.2222.one/ch11.m3u8
+#EXTINF:-1 ,И еще сериалы
+https://tv.2222.one/ch12.m3u8
+#EXTINF:-1 ,Непопулярные сериалы
+https://tv.2222.one/ch15.m3u8
+#EXTINF:-1 ,Непопулярные сериалы 2
+https://tv.2222.one/ch16.m3u8
+#EXTINF:-1 group-title="Usba TV",Украина
+https://ipv4.bozztv.com/dvrfl07/ushba5/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Украина 2
+https://ipv4.bozztv.com/dvrfl07/ushba12/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Военный
+https://ipv4.bozztv.com/dvrfl07/ushba16/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Ералаш
+https://ipv4.bozztv.com/dvrfl07/ushba8/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Приколы 1
+https://ipv4.bozztv.com/dvrfl07/ushba11/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Приколы 2
+https://ipv4.bozztv.com/dvrfl07/ushba20/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Приколы 3
+https://ipv4.bozztv.com/dvrfl07/ushba45/index.m3u8
+#EXTINF:-1 group-title="Usba TV",Документалка 1 
+https://ipv4.bozztv.com/dvrfl07/ushba28/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Документалка 2
+https://ipv4.bozztv.com/dvrfl07/ushba29/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Документалка 3
+https://ipv4.bozztv.com/dvrfl07/ushba38/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Танцы 1
+https://ipv4.bozztv.com/dvrfl07/ushba17/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Танцы 2
+https://ipv4.bozztv.com/dvrfl07/ushba15/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Танцы 3
+https://ipv4.bozztv.com/dvrfl07/ushba56/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Gameplay
+https://ipv4.bozztv.com/dvrfl07/ushba31/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Gameplay трейлеры
+https://ipv4.bozztv.com/dvrfl07/ushba44/index.m3u8
+#EXTINF:-1 group-title="Usba TV",Спорт
+https://ipv4.bozztv.com/dvrfl07/ushba46/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Овертайм
+https://ipv4.bozztv.com/dvrfl07/ushba55/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Залипательное
+https://ipv4.bozztv.com/dvrfl07/ushba58/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 1
+https://ipv4.bozztv.com/dvrfl07/ushba13/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 2
+https://ipv4.bozztv.com/dvrfl07/ushba14/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 3
+https://ipv4.bozztv.com/dvrfl07/ushba24/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 4
+https://ipv4.bozztv.com/dvrfl07/ushba26/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 5
+https://ipv4.bozztv.com/dvrfl07/ushba-films-b/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 6
+https://ipv4.bozztv.com/dvrfl07/ushba-films-c/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 7
+https://ipv4.bozztv.com/dvrfl07/ushba-films-d/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 8
+https://ipv4.bozztv.com/dvrfl07/ushba-films-e/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 9
+https://ipv4.bozztv.com/dvrfl07/ushba-films-f/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 10
+https://ipv4.bozztv.com/dvrfl07/ushba-films-g/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 11
+https://ipv4.bozztv.com/dvrfl07/ushba-films-h/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 12
+https://ipv4.bozztv.com/dvrfl07/ushba-films-i/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 13
+https://ipv4.bozztv.com/dvrfl07/ushba-films-j/index.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 14
+https://ipv4.bozztv.com/dvrfl07/ushba-films-m/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 15
+https://ipv4.bozztv.com/dvrfl07/ushba-films-p/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 16
+https://ipv4.bozztv.com/dvrfl07/ushba-films-t/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 17
+https://ipv4.bozztv.com/dvrfl07/ushba-films-yz/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 18
+https://ipv4.bozztv.com/dvrfl07/ushba-films-n/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 19
+https://ipv4.bozztv.com/dvrfl07/ushba-films-qr/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 20
+https://ipv4.bozztv.com/dvrfl07/ushba-films-uv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 21
+https://ipv4.bozztv.com/dvrfl07/ushba-films-o/index.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 22
+https://ipv4.bozztv.com/dvrfl07/ushba-films-s/index.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 23
+https://ipv4.bozztv.com/dvrfl07/ushba-films-w/index.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 24
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-0/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 25
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-a/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 26
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-b/index.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 27
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-c/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 28
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-d/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 29
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-e/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 30
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-g/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 31
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-i/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 32
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-k/index.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 33
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-p/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 34
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-v/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 35
+https://ipv4.bozztv.com/dvrfl07/ushba-rfilrms-z/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Кинозалы 36
+https://ipv4.bozztv.com/dvrfl07/ushba32/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",КИНО 
+https://ipv4.bozztv.com/dvrfl07/ushba9/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Retrovision
+https://ipv4.bozztv.com/dvrfl07/ushba-rvision/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Retrovision Motor
+https://ipv4.bozztv.com/dvrfl07/ushba-rvisionmotor/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Retrovision Кинопанорама
+https://ipv4.bozztv.com/dvrfl07/ushba-rvisionkinopanorama/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Retrovision Movies
+https://ipv4.bozztv.com/dvrfl07/ushba-rvisionmovies/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Retrovision Classic
+https://ipv4.bozztv.com/dvrfl07/ushba-rvisionclassic/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV" ,Star Media
+https://ipv4.bozztv.com/dvrfl07/ushba4/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Музыка 1
+https://ipv4.bozztv.com/dvrfl07/ushba-t1/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Музыка 2
+https://ipv4.bozztv.com/dvrfl07/ushba-t2/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Музыка 3
+https://ipv4.bozztv.com/dvrfl07/ushba-t3/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Музыка 4
+https://ipv4.bozztv.com/dvrfl07/ushba-t4/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",МУЗ
+https://ipv4.bozztv.com/dvrfl07/ushba6/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Музыка 5
+https://ipv4.bozztv.com/dvrfl07/ushba-monj/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Музыка 6
+https://ipv4.bozztv.com/dvrfl07/ushba-mafia/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Kpop Play TV
+https://ipv4.bozztv.com/dvrfl07/ushba-m4/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Мода 1
+https://ipv4.bozztv.com/dvrfl07/ushba-t8/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Мода 2
+https://ipv4.bozztv.com/dvrfl07/ushba-m6/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Мода 3
+https://ipv4.bozztv.com/dvrfl07/ushba-m7/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Мода 4
+https://ipv4.bozztv.com/dvrfl07/ushba-m8/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Мода 5
+https://ipv4.bozztv.com/dvrfl07/ushba-m9/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Мода 6
+https://ipv4.bozztv.com/dvrfl07/ushba-m1/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Fashion Channel
+https://ipv4.bozztv.com/dvrfl07/ushba19/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",канал
+https://ipv4.bozztv.com/dvrfl07/ushba59/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",Муз
+https://ipv4.bozztv.com/dvrfl07/ushba57/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",канал 2
+https://ipv4.bozztv.com/dvrfl07/ushba47/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",AFREECA TV
+https://ipv4.bozztv.com/dvrfl07/ushba23/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",КАНАЛ?
+https://ipv4.bozztv.com/dvrfl07/ushba61/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",ЮМОР
+https://ipv4.bozztv.com/dvrfl07/ushba62/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Usba TV",СПОРТ
+https://ipv4.bozztv.com/dvrfl07/ushba63/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Кинозалы-Test",Cobra Comedy HD
+http://158.101.194.132:8888/channel/61817e7f/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Cobra Detektiv HD
+http://158.101.194.132:8888/channel/n73225250/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Cobra Drama HD
+http://158.101.194.132:8888/channel/n7defe4c7/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Cobra Melodrama HD
+http://158.101.194.132:8888/channel/2d7a5354/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Cobra Thriller HD
+http://158.101.194.132:8888/channel/56064960/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop Mylt UA
+http://158.101.194.132:8888/channel/n4efa3560/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Cinema 4K
+http://158.101.194.132:8888/channel/n10f341e0/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Cinema 60 FPS
+http://158.101.194.132:8888/channel/23d816c/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Cinema Best HD
+http://158.101.194.132:8888/channel/1f541eaf/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Comedy HD
+http://158.101.194.132:8888/channel/28f9a7dd/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Criminal HD
+http://158.101.194.132:8888/channel/n6a9f2cad/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Detektiv HD
+http://158.101.194.132:8888/channel/56f0f78e/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Deutsche
+http://158.101.194.132:8888/channel/773a0af3/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Docu HD
+http://158.101.194.132:8888/channel/7f457439/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Fantazy HD
+http://158.101.194.132:8888/channel/33cfa803/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV HD UA
+http://158.101.194.132:8888/channel/n78ab16b6/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Hard&Heavy Concerts HD
+http://158.101.194.132:8888/channel/ae10061/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Hip Hop
+http://158.101.194.132:8888/channel/49327692/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV History HD
+http://158.101.194.132:8888/channel/n22a100b2/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Horror HD
+http://158.101.194.132:8888/channel/2d95cf2c/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Kids HD
+http://158.101.194.132:8888/channel/n189ed1f7/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Kung Fu
+http://158.101.194.132:8888/channel/n39d33fa/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Music
+http://158.101.194.132:8888/channel/n784d20e1/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Netflix HD
+http://158.101.194.132:8888/channel/n3c4df870/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV New Films HD
+http://158.101.194.132:8888/channel/75ddabb3/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Peters Pop Show
+http://158.101.194.132:8888/channel/3638c03f/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Serial HD
+http://158.101.194.132:8888/channel/6d9732a2/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Show HD
+http://158.101.194.132:8888/channel/n7284fc87/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Simpsons HD UA
+http://158.101.194.132:8888/channel/n40bba810/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Вторая мировая
+http://158.101.194.132:8888/channel/22d781ee/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Кулинар
+http://158.101.194.132:8888/channel/2aaa0761/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Масяня
+http://158.101.194.132:8888/channel/24c9981a/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Мульт HD UA
+http://158.101.194.132:8888/channel/57079c14/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Prokop TV Сказки СССР
+http://158.101.194.132:8888/channel/1943057b/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Action HD
+http://158.101.194.132:8888/channel/3e645a7/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Catastrophe HD
+http://158.101.194.132:8888/channel/n7848ede9/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Cinema HD
+http://158.101.194.132:8888/channel/575b530c/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Cinema+ HD
+http://158.101.194.132:8888/channel/n6bec86df/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Comedy HD
+http://158.101.194.132:8888/channel/n6eb7c59c/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Comedy HD OLD
+http://158.101.194.132:8888/channel/n1bd3d9b5/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Cosmo HD
+http://158.101.194.132:8888/channel/30698872/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Cosmo HD OLD
+http://158.101.194.132:8888/channel/56bbbd59/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Criminal HD
+http://158.101.194.132:8888/channel/2454e01a/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Fantastic HD
+http://158.101.194.132:8888/channel/574fe120/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU FilMystic HD
+http://158.101.194.132:8888/channel/3c91e0ab/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU History HD
+http://158.101.194.132:8888/channel/7ee2bda7/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Kids 4K
+http://158.101.194.132:8888/channel/n6a8f4c15/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Kids HD
+http://158.101.194.132:8888/channel/n6a8f49b0/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Kids+ HD
+http://158.101.194.132:8888/channel/18aa7e5d/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Kinorating HD
+http://158.101.194.132:8888/channel/3eca43a1/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Little HD
+http://158.101.194.132:8888/channel/n1b4af719/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU MEDIA HD
+http://158.101.194.132:8888/channel/3f2b9417/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU MEDIA HD OLD
+http://158.101.194.132:8888/channel/n276a9182/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Marvel HD
+http://158.101.194.132:8888/channel/n2cd22a42/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Marvel HD OLD
+http://158.101.194.132:8888/channel/38c084a5/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Premiere 1 HD
+http://158.101.194.132:8888/channel/n3ebb86d/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Premiere 2 HD
+http://158.101.194.132:8888/channel/n3eb440e/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Premiere 3 HD
+http://158.101.194.132:8888/channel/n3eacfaf/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Premiere HD
+http://158.101.194.132:8888/channel/5470fb44/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Premiere Ultra 4K
+http://158.101.194.132:8888/channel/607e37f3/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU RUSERIAL HD
+http://158.101.194.132:8888/channel/36b4de26/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Reality HD
+http://158.101.194.132:8888/channel/n46787995/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Reality HD OLD
+http://158.101.194.132:8888/channel/44816d2/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Romantic HD
+http://158.101.194.132:8888/channel/n797477b4/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Romantic HD OLD
+http://158.101.194.132:8888/channel/n3639bfcd/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Russia 90s HD
+http://158.101.194.132:8888/channel/ncefbf1a/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Russian HD
+http://158.101.194.132:8888/channel/n432181b8/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Stars HD
+http://158.101.194.132:8888/channel/n67737586/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Survival HD
+http://158.101.194.132:8888/channel/3a759f5f/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Survival HD OLD
+http://158.101.194.132:8888/channel/n42276a3a/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU TruMotion HD
+http://158.101.194.132:8888/channel/n71691872/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Ultra 4K
+http://158.101.194.132:8888/channel/n1e7f1316/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU VHS HD
+http://158.101.194.132:8888/channel/36c5b29a/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Мультсериал HD
+http://158.101.194.132:8888/channel/584122fa/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU СССР HD
+http://158.101.194.132:8888/channel/f772f5e/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",BCU Сваты HD
+http://158.101.194.132:8888/channel/n7feb114d/index.m3u8?q=f30a6b04b99d1c3f96e9c749895770b6
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K France music
+http://87.99.87.203:2007/channel/n5d8a98f9/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K HBO series
+http://87.99.87.203:2007/channel/35228d29/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Kинодети CССР
+http://87.99.87.203:2007/channel/4f21ced1/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Russian music
+http://87.99.87.203:2007/channel/n5ca460ef/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Walt Disney
+http://87.99.87.203:2007/channel/3fae467b/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K World Music
+http://87.99.87.203:2007/channel/n5b8ca610/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K deep house
+http://87.99.87.203:2007/channel/1a5955b3/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K АвтоМастер
+http://87.99.87.203:2007/channel/38a1ae45/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Города
+http://87.99.87.203:2007/channel/5cf9a64c/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Комедия
+http://87.99.87.203:2007/channel/n4bb5ae19/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Комедия СССР 1
+http://87.99.87.203:2007/channel/n5b8f1b17/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Комедия СССР 2
+http://87.99.87.203:2007/channel/n5b8f1b16/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Космомир
+http://87.99.87.203:2007/channel/n22109934/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Мультляндия
+http://87.99.87.203:2007/channel/n62ac791b/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Мюзикл
+http://87.99.87.203:2007/channel/6d328edb/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Приключения
+http://87.99.87.203:2007/channel/222f0ee9/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Путешествие
+http://87.99.87.203:2007/channel/470ae523/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Семейный
+http://87.99.87.203:2007/channel/n2fed93da/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Ужасы
+http://87.99.87.203:2007/channel/nca6bc20/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Ужасы VHS
+http://87.99.87.203:2007/channel/5b642ba1/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 group-title="Кинозалы-Test",Clarity4K Фантастика
+http://87.99.87.203:2007/channel/15197eb5/index.m3u8?q=1b8c2b84d89772e85341da42b9e646b9
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4UhxNu_Y7th3xbtWAlcmaGj0kQiJf5OW3NYJ2u8bV5-j.png" group-title="Чебурашка ТВ",Chebur Смешной FHD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi-iH3meVzPem_uFWzOIrXnfdgTxQd-TQW4if8bra_Mem/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4XShU_8IIgYXrH4ihpLDDkicsFatibrnhFh3h46KLXSA.png" group-title="Чебурашка ТВ",Chebur Приключения FHD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi-iH3meVzPem_uFWzOIrXnfwHILE_ARhYoPuYyeDh8ZA/ts
+#EXTINF:-1  tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4fkARLEldO5z0h-y7QRaKx1aVkwpW0K6KvQS3fCVGHkD.png" group-title="Чебурашка ТВ",Chebur Драма FHD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi-iH3meVzPem_uFWzOIrXndL3-xBFwDSTOmg1IfnNnjz/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4X-usjflBO3cQKtG28zZ0ztecQEy-owaad89b_PY9MWp.png" group-title="Чебурашка ТВ",Chebur Триллер FHD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi-iH3meVzPem_uFWzOIrXndplrWz9W1BN8o4EEFbFlwi/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4RymgbU-xLjPOZ_QYXF82FOHTPcaPCy94LSM8M14g8FF.png" group-title="Чебурашка ТВ",Chebur Семейное  FHD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi6VCKQC_xxecc6nyez3tufRn0ELC89_xMm-UcmwDg1Us/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4VcAr73-Qc3NFUtjo4Txs_faObCJgX4R0qC8GUPYdLOD.png" group-title="Чебурашка ТВ",Chebur RU Сериал HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi6VCKQC_xxecc6nyez3tufSfT3OpIF0cK4lNFAoY62Gy/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4Rno_cjmGFpRJ1d_WVhtba3j9-vN5MCqnHGABlBOqPNu.png" group-title="Чебурашка ТВ",Chebur Фантастика UHD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi6VCKQC_xxecc6nyez3tufTAfk1IrsEfeXKeBCt585PY/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4dzccScICG_llLt2phpJ_6pae-kL0tYv_fTPvAmeXoql.png" group-title="Чебурашка ТВ",Chebur RU Кино HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi6VCKQC_xxecc6nyez3tufSuCbSd4yJeIQV8Ym7foBeU/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4S_0sdQpFH_ZZtgu3EmIsNAJfh95VCxpazA36MU_jiyt.png" group-title="Чебурашка ТВ",Chebur Стрелялки UHD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi0eY6AbZcxXklhN4AqoCkUO7W7X1KeVo3uScZTSi6up8/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4en84rcI8AQ7F0WIw-KOdFGPj521JSb_QSDLbi5kjUCv.png" group-title="Чебурашка ТВ",Chebur Новинки HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi0eY6AbZcxXklhN4AqoCkUMeGa2OPUAPlAxLhokC9LH0/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4aMMyzKqbEJrC_qINml4KkxDO0QfsYs7pDFUa7gEJyBX.png" group-title="Чебурашка ТВ",Chebur Фантазия HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi0eY6AbZcxXklhN4AqoCkUO3YOKnMoj9gFWXdvGXof6y/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4U94PYDJyWFCRx0CXq-W1EiLklzsMI62YJGpgdeExfvZ.png" group-title="Чебурашка ТВ",Chebur Криминал HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi0eY6AbZcxXklhN4AqoCkUNfVuzaGGUlKfw9KvafDP9H/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4fibf6CWVpM8Cw1F_8wJQrq2IlOCTU2TnQSghkR4243s.png" group-title="Чебурашка ТВ",Chebur Вестерн HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi0eY6AbZcxXklhN4AqoCkUOdNl5sf4-2x9w75tn_9fdi/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4dOiu7Kwy73bw-EA1JuSSbzUUyLODciNToqvl6_Ru1DI.png" group-title="Чебурашка ТВ",Chebur Ужасный HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSiyBSverJGDP2CbWZW_XEbV7pQldLk8ealYHSUjlthEqY/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4dASpw5SwrTTVLEid6q3lXKPqLNnCeXY5CvvG05PpEON.png" group-title="Чебурашка ТВ",Chebur Мультики UHD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSiyBSverJGDP2CbWZW_XEbV4_zMn_HtU0ccO9Iz6V36LW/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4VdPIzDDj_VjSDbfEeGuRZA9MtHqWEZfWIB2XpD5_g5d.png" group-title="Чебурашка ТВ",Chebur Физ-Мульт Привет HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi8dDblBCimoiGdgYYpD7URHbrua8c4sP2fRo4nG8RPTZ/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4TH82S4qY3wHy_5i0PXYHRXAoPMRfbb4_rvkTAQ-3g_8.png" group-title="Чебурашка ТВ",Chebur СССР HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi8dDblBCimoiGdgYYpD7URGm0qzpXfhcN3nA43Xta5BL/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4SlmgsKhNetrSi4MY7najXeP6mAElmH3PCn1sY_4QAo8.png" group-title="Чебурашка ТВ",Chebur Детектив HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi8dDblBCimoiGdgYYpD7UREj9i6EbtRIPeuuBS5ulu0E/ts
+#EXTINF:-1 tvg-logo="http://chiburator.monster:8000/images/dsAt8cMDBjbP3mVNdeYR4YQD6D73ED1H2z824hhz9Oa6rKKvLXovVQOmn8wCSqFU.png" group-title="Чебурашка ТВ",Chebur Мелодрама HD
+http://chiburator.monster:8000/play/QHg9RpcrFC7qEVnwi3OSi8dDblBCimoiGdgYYpD7URFYRgXswxIMDuQIdCU8I_OC/ts

@@ -1,0 +1,60 @@
+{
+   "type": "list",
+   "headline": "APPFXML STORE",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,8,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,6,2",
+            "offset": "0,0,0,0",
+            "headline": "",
+            "text": "{col:white}{br}Магазин - лаунчер приложений APPFXML STORE{col}{br}Создайте свой набор приложений, закрепляйте то, чем пользуетесь. Возможность добавить, удалить приложения, ссылки по своему усмотрению."
+         },
+         {
+            "id": "text2",
+            "type": "space",
+            "layout": "1,3,6,2",
+            "offset": "0,0,0,1",
+            "headline": "",
+            "text": "Параметр {col:white}ЗАПУСТИТЬ{col}{br} позволяет ознакомится и пользоваться APPFXML STORE не покидая портал WALS.{br}{br}Параметр {col:white}УСТАНОВИТЬ{col}: {br}выход из портала WALS и замена стартового адреса на {col:red}msx.appfxml.com"
+         }
+      ]
+   },
+   "template": {
+      "type": "panel",
+      "layout": "0,0,3,1",
+      "area": "1,5,6,1",
+      "offset": "0,0.3,0,0",
+      "imageFiller": "cover",
+      "color": "transparent"
+   },
+   "items": [
+      {
+         "type": "button",
+         "label": "Запустить",
+         "action": "content:request:interaction:my@http://msx.appfxml.com/msx/appfxmlstore.html"
+      },
+      {
+         "type": "button",
+         "label": "Установить",
+         "action": "start",
+         "data": {
+            "name": "APPFXML STORE",
+            "version": "1.0.0",
+            "parameter": "content:request:interaction:my@http://msx.appfxml.com/msx/appfxmlstore.html",
+            "welcome": "none"
+         }
+      }
+   ]
+}

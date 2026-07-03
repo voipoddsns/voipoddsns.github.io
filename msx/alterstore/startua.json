@@ -1,0 +1,130 @@
+{
+  "name": "Portal",
+    "type": "list",
+   "extension": "{ico:msx-white:event} {now:date:dd.mm.yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+  "background": "http://msx.cc.ua/msx/img/bg.png", 
+  "headline": "Media Station X App Store",
+  "version": "1.0.0",
+  "parameter": "content:http://msx.cc.ua/msx/start.json",
+  "action": "[settings:validate_links:0|home]", 
+  "dictionary": "http://msx.cc.ua/msx/lang/ru.json",
+    "launcher": {
+        "image": "http://msx.cc.ua/msx/img/sparow.png"},
+   "template": {
+        "type": "separate",
+      "layout": "0,0,2,3",
+      "color": "msx-glass"
+   },
+   "items": [
+      {
+		"title":"Lampa",
+         "image": "http://msx.cc.ua/msx/img/lampa.jpg",
+          "action": "link:http://lampa.stream"
+      },
+      {
+		  		"title":"Atodo",
+         "image": "http://atodo.fun/assets/images/icon.png?v=0.1",
+          "action": "menu:request:interaction:menu@http://atodo.fun/fun.html"
+      },
+      {
+		"title":"MovieLab",
+            "image": "http://msx.cc.ua/msx/img/movielab.jpg",
+            "action": "menu:https://movielab.fun/msx/menu.json"
+      },
+      {
+		  		"title":"Ott-play",
+         "image": "http://msx.cc.ua/msx/img/ottplay.jpg",
+         "action": "link:http://ott-play.com/f/"
+      },
+      {
+		"title":"Ott-play FOSS",
+         "image": "http://msx.cc.ua/msx/img/ott_foss.png",
+         "action": "link:http://ott.prog4food.eu.org/f/"
+      },
+      {
+		"title":"DRM-Play",
+         "image": "http://msx.cc.ua/msx/img/drm_play.png",
+         "action":"execute:info:extended:http://drm-play.com/msx/data.php"
+      },
+      {
+		"title":"OTTplayer",
+         "image": "http://msx.cc.ua/msx/img/ottplayer.png",
+         "action": "link:http://widget.ottplayer.tv/"
+      },
+      {
+		"title":"MOOVIES",
+         "image": "http://msx.cc.ua/msx/img/imovies.png",
+          "action": "menu:request:interaction:init@http://moovies.uz/index.html"
+      },
+      {
+		"title":"PRISMA",
+         "image": "http://msx.cc.ua/msx/img/prisma.png",
+         "action": "link:https://prisma.ws/"
+      },
+	  {
+		"title":"AKTER BLACK",
+            "image": "http://msx.cc.ua/msx/img/akterb.png",
+            "action": "link:http://abmsx.tech"
+      },
+	  {
+		"title":"HDGO",
+         "image": "http://msx.cc.ua/msx/img/hdgo.png",
+          "action": "link:http://hdgo.me"
+      },
+      {
+		"title":"FREE TV",
+         "image": "http://msx.cc.ua/msx/img/tvnew.png",
+          "action": "menu:http://msx.cc.ua/msx/tv.json"
+      },
+      {
+		"title":"Dstore",
+         "image": "http://msx.cc.ua/msx/img/dstore.png",
+         "action": "content:http://msx.lh1.in/msx/content.json"
+      },
+      {
+		"title":"ForkPlayer",
+         "image": "http://msx.cc.ua/msx/img/forknew.png",
+         "action": "link:http://browser.appfxml.com/"
+      },
+	  {
+		"title":"DEEPLEX",
+         "image": "http://msx.cc.ua/msx/img/deep.png",
+          "action": "link:https://deeplex.cc"
+      },
+      {
+		"title":"VoKino",
+            "image": "http://msx.cc.ua/msx/img/vokino.jpg",
+            "action": "link:http://web.vokino.tv/"
+      },
+      {
+		"title":"Webvideocaster",
+         "image": "http://msx.cc.ua/msx/img/Webvideocaster.png",
+          "action": "link:http://vewd.webvideocaster.com/"
+      },
+      {
+		"title":"Radio Record",
+         "image": "http://www.radiorecord.ru/upload/stations_images/record_image600_gray_outline.png",
+          "action": "content:http://radio.nnmtv.site/rr.json"
+      },
+      {
+		"title":"SS-IPTV",
+         "image": "http://msx.cc.ua/msx/img/ssiptv.jpg",
+          "action": "link:http://app.ss-iptv.com/"
+      },
+      {
+		"title":"WEB MSX HTTP",
+         "image": "http://msx.cc.ua/msx/img/msx.jpg",
+         "action": "link:http://msx.benzac.de?leave=1"
+      },
+	  {
+		"title":"КВІТИ",
+            "image": "http://msx.cc.ua/msx/img/flow.png",
+            "action": "link:https://weflowers.com.ua/"
+      },
+	  {
+		"title":"ICVA",
+            "image": "http://msx.cc.ua/msx/img/icva.png",
+            "action": "link:http://icva.mx/"
+      }
+   ]
+}

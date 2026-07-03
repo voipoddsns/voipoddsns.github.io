@@ -1,0 +1,286 @@
+{
+   "type": "list",
+   "headline": "RELAX",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,3,12,3",
+            "offset": "-1.25,-0.33,2,1",
+            "color": "msx-black-soft"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,6,3",
+            "offset": "-1,0.5,1,0",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,3,1",
+      "area": "0,0,12,3",
+      "offset": "0,3,0,0",
+      "trigger:back": "player:stop",
+      "imageWidth": 0.83,
+      "color": "transparent",
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}Ночь ",
+         "selection": {
+            "important": true,
+            "background": "https://gas-kvas.com/uploads/posts/2023-02/1675490637_gas-kvas-com-p-fonovie-risunki-na-rabochii-stol-noch-17.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Ночь ",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Ночь ",
+         "image": "https://ws.shoutcast.com/images/contacts/b/beeb/beeb1dbe-82f5-4a41-96e9-4819fa8501d2/radios/fa6eee6f-446c-4405-bb8d-7eec67b10115/fa6eee6f-446c-4405-bb8d-7eec67b10115.png",
+         "action": "video: http://iptv.prosto.tv:7000/ch349/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Лес ",
+         "selection": {
+            "important": true,
+            "background": "https://gas-kvas.com/grafic/uploads/posts/2023-09/1695906065_gas-kvas-com-p-kartinki-les-48.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Лес ",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Лес ",
+         "image": "https://i1.sndcdn.com/artworks-C8hcDBSG4W2FDet1-5x1GVw-t500x500.jpg",
+         "action": "video: http://iptv.prosto.tv:7000/ch330/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Зоо ",
+         "selection": {
+            "important": true,
+            "background": "https://live.staticflickr.com/7296/13937018640_8e5d17b63f_b.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Зоо",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Зоо",
+         "image": "https://avatars.mds.yandex.net/i?id=2a00000179f220bc4407242c6d7b33b0da59-4532852-images-thumbs&n=13",
+         "action": "video: http://iptv.prosto.tv:7000/ch319/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Водопад ",
+         "selection": {
+            "important": true,
+            "background": "https://i.ytimg.com/vi/5ug44EbFImw/maxresdefault.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Водопад ",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Водопад ",
+         "image": "https://cm.author.today/content/2022/08/19/e59ffb63955e4eefa64e6e7ad0f397e6.jpeg?height=750&width=750&rmode=max",
+         "action": "video: http://iptv.prosto.tv:7000/ch329/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Дожди",
+         "selection": {
+            "important": true,
+            "background": "https://kartin.papik.pro/uploads/posts/2023-07/1688802810_kartin-papik-pro-p-kartinki-zvuk-dozhdya-24.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Дожди",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Дожди",
+         "image": "https://masterpiecer-images.s3.yandex.net/737142c4618f11ee97791e2a02a7791f:upscaled",
+         "action": "video: http://iptv.prosto.tv:7000/ch304/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Loupe 4K ",
+         "selection": {
+            "important": true,
+            "background": "https://wallpapercave.com/wp/wp8496578.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Loupe 4K",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Loupe 4K",
+         "image": "https://i.pinimg.com/736x/22/c5/6d/22c56d0c04821d28fcecbefe7cedd131.jpg",
+         "action": "video: https://d2dw21aq0j0l5c.cloudfront.net/playlist_3840x2160.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Подводный мир ",
+         "selection": {
+            "important": true,
+            "background": "https://gas-kvas.com/grafic/uploads/posts/2023-10/1696440217_gas-kvas-com-p-kartinki-podvodnii-mir-40.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Подводный мир",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Подводный мир",
+         "image": "https://avatars.mds.yandex.net/i?id=2268dbd8aad0287652b779d9e3332956-5220772-images-thumbs&n=13",
+         "action": "video: http://iptv.prosto.tv:7000/ch305/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Зима",
+         "selection": {
+            "important": true,
+            "background": "https://www.desktopbackground.org/download/1920x1200/2010/05/04/12214_wallpapers-hd-winter_1920x1200_h.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Зима",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Зима",
+         "image": "https://ландшафт-пенза.рф/wp-content/uploads/2020/01/79789916_753231711753783_8973320594941288760_n.jpg",
+         "action": "video: https://iptv.prosto.tv/ch327/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Камин ",
+         "selection": {
+            "important": true,
+            "background": "https://i1.wp.com/attuale.ru/wp-content/uploads/2018/02/b59444ec55e5fca462d768ed3d39e60a.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Камин 4К",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Камин",
+         "image": "https://i.pinimg.com/736x/fc/33/92/fc3392cfa74c1ec65a52545d97d9f08e.jpg",
+         "action": "video: https://i.mjh.nz/SamsungTVPlus/USBA3800004EL.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Космос ",
+         "selection": {
+            "important": true,
+            "background": "https://images.hdqwalls.com/download/mountains-stars-space-planets-digital-art-artwork-4k-0i-2880x1800.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Космос",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Космос",
+         "image": "https://i1.sndcdn.com/artworks-WlaDkVWOvRgZYL2r-NdKIDA-t500x500.jpg",
+         "action": "video: http://iptv.prosto.tv:7000/ch314/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Природа ",
+         "selection": {
+            "important": true,
+            "background": "https://img.goodfon.com/original/1920x1080/8/e5/peizazh-priroda-ozero-gory-les-voda-nebo-krasota.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Природа",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Природа",
+         "image": "https://i1.sndcdn.com/artworks-ZYK0e7oi7UewECoj-Xi9WAA-t500x500.jpg",
+         "action": "video: http://185.57.68.33:8091/232/tracks-v1a1/index.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Аквариум ",
+         "selection": {
+            "important": true,
+            "background": "https://fanfishka.ru/uploads/posts/2017-06/1498067219_fish-wallpapers-background.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Аквариум",
+               "text": "{col:msx-white}{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Аквариум",
+         "image": "https://akvamir72.ru/wa-data/public/shop/products/97/18/1897/images/2371/2371.970.jpg",
+         "action": "video: http://iptv.prosto.tv:7000/ch325/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "offset": "0,3,-2,-0.09",
+         "color": "transparent",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item12/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Главное меню",
+               "text": "{col:msx-white}{col}{br}Вернуться в главное меню к выбору программ"
+            }
+         },
+         "icon": "grey:auto-awesome-motion",
+         "action": "content: https://wals09.github.io/msx/menu.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      }
+   ]
+}

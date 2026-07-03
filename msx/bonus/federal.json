@@ -1,0 +1,286 @@
+{
+   "type": "list",
+   "headline": "ОБЩИЕ",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,3,12,3",
+            "offset": "-1.25,-0.33,2,1",
+            "color": "msx-black-soft"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,6,3",
+            "offset": "-1,0.5,1,0",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,3,1",
+      "area": "0,0,12,3",
+      "offset": "0,3,0,0",
+      "trigger:back": "player:stop",
+      "imageWidth": 0.83,
+      "color": "transparent",
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}Первый канал ",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item0/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Первый канал",
+               "text": "{col:msx-white}{col}{br}Новости, познавательные передачи и развлекательные шоу, фильмы и сериалы."
+            }
+         },
+         "playerLabel": "Первый канал ",
+         "image": "http://epg.it999.ru/img/983.png",
+         "action": "video: http://91.207.115.228:5000/c99",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Россия 1",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item1/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Россия 1",
+               "text": "{col:msx-white}{col}{br}Лучшие сериалы, программы, документальные и художественные фильмы производства России."
+            }
+         },
+         "playerLabel": "Россия 1",
+         "image": "http://epg.it999.ru/img/984.png",
+         "action": "video: http://stream02.vnet.am/Rossia1/tracks-v1a1/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}НТВ",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item2/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "НТВ",
+               "text": "{col:msx-white}{col}{br}Онлайн-вещание, все главные новости, полные выпуски передач, лучшие сериалы и фильмы."
+            }
+         },
+         "playerLabel": "НТВ",
+         "image": "http://epg.it999.ru/img/2001.png",
+         "action": "video: http://cdn.ntv.ru/ntv0_hd/tracks-v1a1/playlist.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}5 канал",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item3/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "5 канал",
+               "text": "{col:msx-white}{col}{br}Пятый канал – один из лидеров информационного вещания и признанный поставщик качественного сериального контента."
+            }
+         },
+         "playerLabel": "5 канал",
+         "image": "http://epg.it999.ru/img/427.png",
+         "action": "video: https://bkm.beetv.kz/btv/live/hls/000003718.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}СТС",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item4/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "СТС",
+               "text": "{col:msx-white}{col}{br}Развлекательный телеканал, в эфире которого вас ждут фильмы и сериалы как отечественного, так и зарубежного производства, мультфильмы для самых маленьких, а также юмористические шоу и программы. "
+            }
+         },
+         "playerLabel": "СТС",
+         "image": "http://epg.it999.ru/img/79.png",
+         "action": "video: http://stream02.vnet.am/CTC/tracks-v1a1/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Рен ТВ",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item5/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Рен ТВ",
+               "text": "{col:msx-white}{col}{br}Общественно-политический телеканал для активной аудитории, в эфире которого вас ждет остросюжетный контент самых разных форматов. Это новости, кассовые экшен-фильмы и сериалы, зрелищные концерты и музыкальные фестивали, а также документальные проекты-расследования на разные темы. "
+            }
+         },
+         "playerLabel": "Рен ТВ",
+         "image": "http://epg.it999.ru/img/18.png",
+         "action": "video: http://185.37.150.46:8092/RenTV_HD/tracks-v1a1/index.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}ТНТ",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item6/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "ТНТ",
+               "text": "{col:msx-white}{col}{br}Развлекательный канал, где вас ждут комедийные сериалы и шоу, реалити и полнометражные фильмы, созданные одними из лучших на рынке производителями контента. "
+            }
+         },
+         "playerLabel": "ТНТ",
+         "image": "http://epg.it999.ru/img/1767.png",
+         "action": "video: http://91.207.115.228:5000/c157",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Звезда",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item7/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Звезда",
+               "text": "{col:msx-white}{col}{br}Общественно-патриотический телеканал. В эфире: отечественные кино и сериалы, уникальное документальное видео, развлекательные программы, эксклюзивные новости и аналитика."
+            }
+         },
+         "playerLabel": "Звезда",
+         "image": "http://epg.it999.ru/img/405.png",
+         "action": "video: http://stream01.vnet.am/Zvezda/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Мир HD",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item8/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Мир HD",
+               "text": "{col:msx-white}{col}{br}Информационно‑развлекательный телеканал, который знакомит зрителей с современной жизнью и историей стран постсоветского пространства. "
+            }
+         },
+         "playerLabel": "Мир HD",
+         "image": "http://epg.it999.ru/img/726.png",
+         "action": "video: http://hls-mirtv.cdnvideo.ru/mirtv-parampublish/mirtv_2500/tracks-v1a1/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Победа",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item9/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Победа",
+               "text": "{col:msx-white}{col}{br}В эфире телеканала — классика советского кино, российские фильмы и сериалы, документальные фильмы, программы собственного производства. "
+            }
+         },
+         "playerLabel": "Победа",
+         "image": "http://epg.it999.ru/img/2447.png",
+         "action": "video: https://streaming101.goodstream.cyou/live/43-req_offset_28000000-req_window_0-1k_v5.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Суббота",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item11/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Суббота",
+               "text": "{col:msx-white}{col}{br}Российский развлекательный канал, рассчитанный на женскую аудиторию 18-45 лет. Основу сетки вещания канала составляют реалити-шоу и популярные женские сериалы. "
+            }
+         },
+         "playerLabel": "Суббота",
+         "image": "https://sun1-87.userapi.com/s/v1/ig2/t8_y3MsS0f5klch0XhluTDLhsHhLm6Q06xruNdXn8Xv6JiMYYDDvapfTokchK4zL_F0QzpBR0z3XVW8IkT3OJDvz.jpg?size=400x400&quality=96&crop=0,0,200,200&ava=1",
+         "action": "video: http://91.207.115.228:5000/c52",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}ТВ 3",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item12/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "ТВ 3",
+               "text": "{col:msx-white}{col}{br}Общероссийский федеральный телеканал, специализирующийся на художественных и документальных фильмах и сериалах преимущественно мистического характера."
+            }
+         },
+         "playerLabel": "ТВ 3",
+         "image": "http://epg.it999.ru/img/698.png",
+         "action": "video: http://stream01.vnet.am/Channel_121/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "offset": "0,3,-2,-0.09",
+         "color": "transparent",
+         "selection": {
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item12/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Главное меню",
+               "text": "{col:msx-white}{col}{br}Вернуться в главное меню к выбору программ"
+            }
+         },
+         "icon": "grey:auto-awesome-motion",
+         "action": "content: https://wals09.github.io/msx/menu.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      }
+   ]
+}

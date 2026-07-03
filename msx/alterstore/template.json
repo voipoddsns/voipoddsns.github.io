@@ -1,0 +1,82 @@
+{
+   "type": "list",
+   "headline": "AlterSTORE",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,8,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "4,0,4,6",
+            "offset": "0,0.3,0,0",
+            "headline": "",
+            "text": "{col:white}APPFXML STORE{col}{br}Магазин приложений APPFXML STORE{br} {br}{col:white}MSXPlayer V4{col}{br}Может не  работать на старых весиях MSX и старых устройствах{br}{br}{col:white}MSX NoName Launcher{col}{br}Может не  работать на старых весиях MSX и старых устройствах{br}{br}{col:white}NoName портал{col}{br}Запуск web приложений. Возможны региональные ограничения{br}{br}{col:white}TVRU{col}{br}Запуск web приложений.{br}{br}{col:white}MSX CC UA портал{col}{br}Запуск web приложений"
+         }
+      ]
+   },
+   "template": {
+      "type": "panel",
+      "layout": "0,0,2,2",
+      "offset": "0,0.3,0,0",
+      "area": "0,0,4,4"
+   },
+   "items": [
+      {
+         "iconSize": "medium",
+         "badge": "APPFXML STORE",
+         "titleHeader": "Launchcer",
+         "type": "button",
+         "image": "https://msx.appfxml.com/msx/appfxmlstore_m.png",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/appfxml.json"
+      },
+      {
+         "badge": "MSXPlayer - V4",
+         "titleHeader": "Launchcer",
+         "type": "button",
+         "iconSize": "medium",
+         "image": "https://wals09.github.io/msx/alterstore/msx-icon.png",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/msxplayer_v4.json"
+      },
+      {
+         "badge": "NoName{br}",
+         "titleHeader": "Launchcer",
+         "type": "button",
+         "iconSize": "medium",
+         "image": "https://wals09.github.io/msx/logo/noname.jpg",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/noname _launch.json"
+      },
+      {
+         "badge": "NoName ",
+         "titleHeader": "Portal",
+         "type": "button",
+         "iconSize": "medium",
+         "image": "https://wals09.github.io/msx/logo/noname.jpg",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/noname.json"
+      },
+      {
+         "badge": "TV RU",
+         "titleHeader": "Portal",
+         "type": "button",
+         "iconSize": "medium",
+         "image": "https://wals09.github.io/msx/logo/noname.jpg",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/tvru.json"
+      },
+      {
+         "badge": "MSX CC UA",
+         "titleHeader": "Portal",
+         "type": "button",
+         "iconSize": "medium",
+         "image": "https://wals09.github.io/msx/alterstore/msx-icon.png",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/msx_cc_ua.json"
+      }
+   ]
+}

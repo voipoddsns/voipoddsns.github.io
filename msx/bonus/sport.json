@@ -1,0 +1,269 @@
+{
+   "type": "list",
+   "headline": "SPORT",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,3,12,3",
+            "offset": "-1.25,-0.33,2,1",
+            "color": "msx-black-soft"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,6,3",
+            "offset": "-1,0.5,1,0",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,3,1",
+      "area": "0,0,12,3",
+      "offset": "0,3,0,0",
+      "trigger:back": "player:stop",
+      "imageWidth": 0.83,
+      "color": "transparent",
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}Eurosport 1 ",
+         "selection": {
+            "important": true,
+            "background": "https://www.bhmpics.com/wallpapers/basketball_throw-2048x1152.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Eurosport 1",
+               "text": "{col:msx-white}{col}{br}Футбол, теннис, биатлон, зимние виды, велоспорт, снукер и другие новости спорта"
+            }
+         },
+         "playerLabel": "Eurosport 1 ",
+         "image": "http://epg.it999.ru/img/3734.png",
+         "action": "video: http://stream01.vnet.am/Eurosport/tracks-v1a2/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Eurosport 2 ",
+         "selection": {
+            "important": true,
+            "background": "https://www.bhmpics.com/wallpapers/basketball_throw-2048x1152.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Eurosport 2",
+               "text": "{col:msx-white}{col}{br}Футбол, теннис, биатлон, зимние виды, велоспорт, снукер и другие новости спорта"
+            }
+         },
+         "playerLabel": "Eurosport 2 ",
+         "image": "http://epg.it999.ru/img/3735.png",
+         "action": "video: http://77.235.1.17/eurosport_2/index.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Setanta sports 1",
+         "selection": {
+            "important": true,
+            "background": "http://images.interactives.dk/files/bonnier-atr/maratonloebere_maend.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Setanta sports 1",
+               "text": "{col:msx-white}{col}{br}один из ведущих мировых спортивных телеканалов, который вещает круглосуточно и предлагает широкий спектр спортивных событий."
+            }
+         },
+         "playerLabel": "Setanta sports 1",
+         "image": "https://sun9-14.userapi.com/impf/c854328/v854328247/8611d/c1TZRGhRzA8.jpg?size=604x510&quality=96&sign=bd1d51cdc1f148b01e344c806f65952d&type=album",
+         "action": "video: https://stream1.cinerama.uz/1263/tracks-v1a1/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Setanta sports 2",
+         "selection": {
+            "important": true,
+            "background": "https://gas-kvas.com/grafic/uploads/posts/2023-10/1696418577_gas-kvas-com-p-kartinki-o-sporte-32.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Setanta sports 2",
+               "text": "{col:msx-white}{col}{br}один из ведущих мировых спортивных телеканалов, который вещает круглосуточно и предлагает широкий спектр спортивных событий."
+            }
+         },
+         "playerLabel": "Setanta sports 2",
+         "image": "https://sun9-14.userapi.com/impf/c854328/v854328247/8611d/c1TZRGhRzA8.jpg?size=604x510&quality=96&sign=bd1d51cdc1f148b01e344c806f65952d&type=album",
+         "action": "video: https://stream1.cinerama.uz/1264/tracks-v1a1/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Матч",
+         "selection": {
+            "important": true,
+            "background": "https://4.bp.blogspot.com/-FOlW2qIgxRA/UViSiYgjg3I/AAAAAAAACXw/dkvzUuUv5C8/s1600/Reading+Aloud+Keep+It+Exciting.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Матч",
+               "text": "{col:msx-white}{col}{br}Спортивно-развлекательный телеканал — здесь есть все про: экстремальный спорт, путешествия, единоборства, активный образ жизни"
+            }
+         },
+         "playerLabel": "Матч",
+         "image": "https://telegrator.ru/wp-content/uploads/2019/12/chat_avatar-13.jpg",
+         "action": "video: http://77.235.1.17/match/index.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+    
+      {
+         "titleHeader": "{col:msx-white}Матч Премьер ",
+         "selection": {
+            "important": true,
+            "background": "https://s-cdn.sportbox.ru/images/styles/upload/fp_fotos/d6/52/6e84db27080f9b707dec6d27747a476d5d9faa6d6af4b230113280.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Матч Премьер",
+               "text": "{col:msx-white}{col}{br}Игра – телеканал транслирует матчи наиболее рейтинговых и значимых мировых турниров. "
+            }
+         },
+         "playerLabel": "Матч Премьер ",
+         "image": "https://luganet.ru/wp-content/uploads/2020/01/Матч-Премьер-HD.png",
+         "action": "video:http://s1.merlive.am:80/matchpremier/index.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Футбол",
+         "selection": {
+            "important": true,
+            "background": "https://cdn.livesport.ru/l/football/2022/08/12/fakel_ural/picture--original.jpg?1660329361",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Футбол ",
+               "text": "{col:msx-white}{col}{br} канал о российском и европейском футболе с эксклюзивным контентом, на котором доступны в прямом эфире "
+            }
+         },
+         "playerLabel": "Футбол ",
+         "image": "https://i.mycdn.me/image?id=862371109463&t=40&plc=WEB&tkn=*gt572ZLaUDWSkvvKrJzACRP1NYU",
+         "action": "video: http://s1.merlive.am:80/matchfutbol1/index.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+            {
+         "titleHeader": "{col:msx-white}Матч Арена",
+         "selection": {
+            "important": true,
+            "background": "https://static.ngs.ru/news/2021/99/preview/48e70a69634c997fb7f8a5f60162e6c400c64562_2000_1333.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Матч Арена",
+               "text": "{col:msx-white}{col}{br}Новый канал посвящен кулачным поединкам, кикбоксингу, боксу и MMA!"
+            }
+         },
+         "playerLabel": "Матч Арена",
+         "image": "https://luganet.ru/wp-content/uploads/2020/01/МАТЧ-АРЕНА.png",
+         "action": "video: http://77.235.1.17/match_arena/index.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+        {
+         "titleHeader": "{col:msx-white}VIJU+sport",
+         "selection": {
+            "important": true,
+            "background": "https://prostavkinasport.ru/wp-content/uploads/2015/07/FUTBOL.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "VIJU+sport",
+               "text": "{col:msx-white}{col}{br}«Viasat Sport» открывает своим зрителям замечательную возможность качественно и своевременно лицезреть новости хоккея, футбола, баскетбола а также все максимально актуальные события спортивного мир"
+            }
+         },
+         "playerLabel": "VIJU+sport",
+         "image": "http://epg.it999.ru/img/2055.png",
+         "action": "video: http://stream02.vnet.am/AutoPlus/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Телеканал Футбол",
+         "selection": {
+            "important": true,
+            "background": "https://photobooth.cdn.sports.ru/preset/wysiwyg/e/48/caa8cdab341c39ce23a4aa288ec94.webp?q=90",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Телеканал Футбол",
+               "text": "{col:msx-white}{col}{br}Телеканал «Футбол» российский круглосуточный телеканал о самом популярном и массовом виде спорта."
+            }
+         },
+         "playerLabel": "Телеканал Футбол",
+         "image": "",
+         "action": "video: http://iptv-hls.idc.md:8200/hls/77/live1.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Бокс ТВ HD",
+         "selection": {
+            "important": true,
+            "background": "https://gas-kvas.com/grafic/uploads/posts/2023-09/1695989630_gas-kvas-com-p-kartinki-boks-33.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Бокс ТВ HD",
+               "text": "{col:msx-white}{col}{br}«БОКС ТВ» — уникальное авторское наполнение. В прямом эфире и записи зрителям доступны журналистские проекты, посвященные звездам из мира бокса и единоборств. "
+            }
+         },
+         "playerLabel": "Бокс ТВ HD",
+         "image": "http://epg.it999.ru/img/2285.png",
+         "action": "video: http://stream01.vnet.am/BoksTv/mono.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+
+      {
+         "titleHeader": "{col:msx-white}KHL",
+         "selection": {
+            "important": true,
+            "background": "https://kartinki.pics/uploads/posts/2021-07/1625678246_7-kartinkin-com-p-khokkei-oboi-krasivie-7.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "KHL",
+               "text": "{col:msx-white}{col}{br}топ-матчи между лучшими клубами Лиги, предматчевые и послематчевые студии, мнения экспертов, нарезки лучших голов, сэйвов, силовых приёмов и многое другое. "
+            }
+         },
+         "playerLabel": "KHL",
+         "image": "https://logodix.com/logo/1762929.png",
+         "action": "video: http://82.215.111.227/1028/index.m3u8?token=fas-tv.com",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      }
+   ]
+}
