@@ -1,0 +1,17 @@
+{
+    "icon": "icon.png",
+    "main": "all.html",
+    "title": "LampaLand",
+    "type": "web",
+    "version": "1.0.0",
+    "splashBackground": "welcome.jpg",
+    "bgImage": "splash.png",
+    "bgColor": "#2f373e",
+    "vendor": "LampaLand",
+    "largeIcon": "largeIcon.png",
+    "iconColor": "#2f373e",
+    "id": "lampa.land",
+    "supportGIP":true,
+    "disableBackHistoryAPI":true,
+    "uiRevision":2
+}
