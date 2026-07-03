@@ -4,6 +4,6 @@
     "dictionary": "https://voipoddsns.github.io/msx/dictionary.json",
     "parameter": "menu: https://voipoddsns.github.io/msx/mooviestile/menu_ms.json",
     "launcher": {
-      "image": "https://raw.githubusercontent.com/voipoddsns/msx/main/img/wals.png"
+      "image": "https://voipoddsns.github.io/msx/img/wals.png"
    }   
 }
