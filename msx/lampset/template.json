@@ -1,0 +1,71 @@
+{
+   "type": "list",
+   "headline": "Lampset",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,8,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "4,0,4,6",
+            "offset": "0,0.3,0,0",
+            "headline": "",
+              "text": "{col:white}«Khuyampa best», «Cf lampa mx», «Lampa stream»{col}{br}\"LAMPA\" с альтернативными адресaми {br}{br}{col:white}«Bwa-cloud»{col}{br}\"LAMPA\" с альтернативным адресом. Установлены плагины online{br}{br}{col:white}«Bwa-cloud top»{col}{br}\"LAMPA\" с альтернативным адресом. Установлены плагины online, парсер{br}{br}{col:white}«Lampa skaz tv», «Lampa land»{col}{br}\"LAMPA\" с альтернативным адресом. Установлены плагины online, парсер, торрсервер, IPTV"
+         }
+      ]
+   },
+   "template": {
+      "type": "panel",
+      "layout": "0,0,2,2",
+      "offset": "0,0.3,0,0",
+      "area": "0,0,4,4",
+      "imageFiller": "cover",
+      "color": "transparent"
+   },
+   "items": [
+      {
+         "badge": "Khuyampa best",
+         "image": "https://github.com/wals09/msx/blob/main/lampset/blue.png?raw=true",
+         "action": "link: https://khuyampa.best"
+      },
+      {
+         "badge": "Cf lampa mx",
+         "image": "https://github.com/wals09/msx/blob/main/lampset/yewllo.png?raw=true",
+         "action": "link: https://cf.lampa.mx"
+      },
+      {
+         "badge": "Lampa stream",
+         "image": "https://github.com/wals09/msx/blob/main/lampset/red.png?raw=true",
+         "action": "link: https://lampa.stream"
+      },
+      {
+         "badge": "Bwa-cloud",
+         "image": "https://github.com/wals09/msx/blob/main/lampset/green.png?raw=true",
+         "action": "link: https://bwa-cloud.apn.monster"
+      },
+      {
+         "badge": "Bwa-cloud top",
+         "image": "https://github.com/wals09/msx/blob/main/lampset/purple.png?raw=true",
+         "action": "link: http://bwa-cloud.cfhttp.top"
+      },
+      {
+         "badge": "Lampa skaz tv",
+         "image": "https://github.com/wals09/msx/blob/main/lampset/lite_blue.png?raw=true",
+         "action": "link: http://lampa.byskaz.ru"
+      },
+      {
+         "badge": "Lampa land",
+         "image": "https://github.com/wals09/msx/blob/main/lampset/lampa-land.png?raw=true",
+         "action": "link: http://lampa.land"
+      }
+   ]
+}
