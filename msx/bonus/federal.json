@@ -2,7 +2,7 @@
    "type": "list",
    "headline": "ОБЩИЕ",
    "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
-   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "dictionary": "https://voipoddsns.github.io/msx/dictionary.json",
    "preload": "next",
    "captionUnderlay": 1,
    "underlay": {
@@ -276,7 +276,7 @@
             }
          },
          "icon": "grey:auto-awesome-motion",
-         "action": "content: https://wals09.github.io/msx/menu.json",
+         "action": "content: https://voipoddsns.github.io/msx/menu.json",
          "properties": {
             "trigger:back": "player:stop",
             "image:extension": "| {col:msx-white}Sixth Item"
