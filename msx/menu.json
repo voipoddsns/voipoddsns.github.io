@@ -2,7 +2,7 @@
    "type": "list",
    "headline": "WALS_MSX 2.5",
    "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
-   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "dictionary": "https://voipoddsns.github.io/msx/dictionary.json",
    "preload": "next",
    "captionUnderlay": 1,
    "underlay": {
@@ -43,7 +43,7 @@
    "items": [
       {
          "color": "transparent",
-         "image": "https://wals09.github.io/msx/logon/tema.png",
+         "image": "https://voipoddsns.github.io/msx/logon/tema.png",
          "selection": {
             "important": true,
             "action": "update:content:underlay:text",
@@ -52,7 +52,7 @@
                "text": "Выбор темы оформления WALS_MSX"
             }
          },
-         "action": "panel:https://wals09.github.io/msx/tema/panel_tems.json",
+         "action": "panel:https://voipoddsns.github.io/msx/tema/panel_tems.json",
          "properties": {
             "trigger:back": "player:stop",
             "image:extension": "| {col:msx-white}26th Item"
@@ -68,7 +68,7 @@
                "text": "IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, stalker-portal, медиатеки. Тестовый плейлист для ознакомления с функциями плеера."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/drm.png",
+         "image": "https://voipoddsns.github.io/msx/logon/drm.png",
          "action": "link:http://ott.drm-play.com"
       },
       {
@@ -80,7 +80,7 @@
                "text": "IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, медиатеки."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/foss.png",
+         "image": "https://voipoddsns.github.io/msx/logon/foss.png",
          "action": "link:http://ott.prog4food.eu.org/f/"
       },
       {
@@ -92,7 +92,7 @@
                "text": "IPTV player. Возможность просмотра своих плейлистов,сталкер-порталов,медиатек. Сохранение, перенос настроек"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/ott-play.png",
+         "image": "https://voipoddsns.github.io/msx/logon/ott-play.png",
          "action": "link:http://ott-play.com/f/"
       },
       {
@@ -104,7 +104,7 @@
                "text": "IPTV player от разработчиков LAMPA. Возможность просмотра своих плейлистов."
             }
          },
-         "image": "https://wals09.github.io/msx/logon//icva.png",
+         "image": "https://voipoddsns.github.io/msx/logon//icva.png",
          "action": "link:http://icva.mx/"
       },
       {
@@ -116,7 +116,7 @@
                "text": "Cервис, позволяющий собрать все ваше IP-телевидение в один плейлист, настроить порядок каналов, получить электронный программный гид."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/ottplayer.png",
+         "image": "https://voipoddsns.github.io/msx/logon/ottplayer.png",
          "action": "link:http://widget.ottplayer.tv"
       },
       {
@@ -128,7 +128,7 @@
                "text": "Mультиплатформенный плеер для воспроизведения m3u плейлистов в общепринятом формате, подходит для воспроизведения аудио, видео, радио, live плейлистов. "
             }
          },
-         "image": "https://wals09.github.io/msx/logon/one_player.png",
+         "image": "https://voipoddsns.github.io/msx/logon/one_player.png",
          "action": "link:http://webos.oneplayer.me"
       },
       {
@@ -140,7 +140,7 @@
                "text": "Приложение-каталог. Не содержит медиаконтента, но легко трансформируется в онлайн кинотеатр с возможностью просмотра торрентов и iptv"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/lampa.png",
+         "image": "https://voipoddsns.github.io/msx/logon/lampa.png",
          "action": "link:http://lampa.mx"
       },
       {
@@ -152,7 +152,7 @@
                "text": "Мод программы Лампа{br}Программа уже настроенная для он-лайн просмотра и просмотра iptv"
             }
          },
-         "image": "https://wals09.github.io/msx/lampa_land/icon.png",
+         "image": "https://voipoddsns.github.io/msx/lampa_land/icon.png",
          "action": "link:http://lampa.land"
       },
       {
@@ -164,8 +164,8 @@
                "text": "Подборка приложения \"LAMPA\" с альтернативными адресами на случай \"падения\" оригинальной или для постоянного использования. {br} Воспользуйтесь сохранением и переносом настроек на сайте {col:msx-blue}cub.red {col}что-бы не настраивать приложение заново."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/lampset.png",
-         "action": "panel: https://wals09.github.io/msx/lampset/template.json",
+         "image": "https://voipoddsns.github.io/msx/logon/lampset.png",
+         "action": "panel: https://voipoddsns.github.io/msx/lampset/template.json",
          "properties": {
             "trigger:back": "player:stop"
          }
@@ -179,7 +179,7 @@
                "text": "Мод программы Лампа{br}c установленым магазином плагинов и другими «плюшками»"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/bylampa.png",
+         "image": "https://voipoddsns.github.io/msx/logon/bylampa.png",
          "action": "link:http://bylampa.online"
       },
       {
@@ -191,7 +191,7 @@
                "text": "Мод программы Лампа{br}В данный момент находиться в разработке и некоторые функции могут быть недоступны!!! Опубликованно только для ознакомления с программой!!!"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/akter_black.png",
+         "image": "https://voipoddsns.github.io/msx/logon/akter_black.png",
          "action": "link:http://abvidaa.ru/"
       },
       {
@@ -203,8 +203,8 @@
                "text": "Мод программы Лампа{br}В данный момент находиться в разработке и некоторые функции могут быть недоступны!!!{br}Опубликованно только для ознакомления с программой!!!"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/prisma.png",
-         "action": "panel: https://wals09.github.io/msx/prisma/template.json"
+         "image": "https://voipoddsns.github.io/msx/logon/prisma.png",
+         "action": "panel: https://voipoddsns.github.io/msx/prisma/template.json"
       },
       {
          "selection": {
@@ -215,7 +215,7 @@
                "text": "Мод программы Lampa бесплатными каналами IPTV и плагинами для просмотра медиаконтента онлайн. {br}Для просмотра необходимо ввести токен. Токен можно получить через бота в телеграмм {col:msx-blue}https://t.me/UspehTVBot"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/uspeh2.png",
+         "image": "https://voipoddsns.github.io/msx/logon/uspeh2.png",
          "action": "link:http://uspeh.sbs"
       },
       {
@@ -227,7 +227,7 @@
                "text": "Ппрограмма Lampa с предустановленными плагинами для онлайн просмотра. Возможность добавления плагинов из магазина."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/lampa.png",
+         "image": "https://voipoddsns.github.io/msx/logon/lampa.png",
          "action": "link:http://lampa.byskaz.ru/"
       },
       {
@@ -239,7 +239,7 @@
                "text": "Настроенная для просмотра контента онлайн. Благодарим уважаемого Noname."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/lampaNN.png",
+         "image": "https://voipoddsns.github.io/msx/logon/lampaNN.png",
          "action": "link: http://lam.nnmtv.pw/"
       },
       {
@@ -251,7 +251,7 @@
                "text": "Настроенная программа Lampa lite «готовая к употреблению». Благодарим уважаемого Noname"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/lampa_lite.png",
+         "image": "https://voipoddsns.github.io/msx/logon/lampa_lite.png",
          "action": "link:http://lite.nnmtv.pw/"
       },
       {
@@ -263,7 +263,7 @@
                "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
             }
          },
-         "image": "https://github.com/wals09/msx/blob/main/logo/vokino.png?raw=true",
+         "image": "https://github.com/voipoddsns/msx/blob/main/logo/vokino.png?raw=true",
          "action": "link: http://web.vokino.pro/"
       },
       {
@@ -275,7 +275,7 @@
                "text": "NetFix - приложение (на базе программы Lampa) для просмотра фильмов и сериалов онлайн! Не требуется никаких настроек. Запустил и смотри. Просмотр торрентов не предусмотрен.{br}ВАЖНО: Нужна регистрация! Нужна оплаченная подписка! Есть тестовый период"
             }
          },
-         "image": "https://github.com/wals09/repo/blob/main/netfix/icon.png?raw=true",
+         "image": "https://github.com/voipoddsns/repo/blob/main/netfix/icon.png?raw=true",
          "action": "link:http://netfix.cc"
       },
       {
@@ -287,7 +287,7 @@
                "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/atodo.png",
+         "image": "https://voipoddsns.github.io/msx/logon/atodo.png",
          "action": "menu:request:interaction:menu@http://atodo.fun/fun.html"
       },
       {
@@ -299,7 +299,7 @@
                "text": "Web версия приложения ATODO. Просмотр различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/atodo.png",
+         "image": "https://voipoddsns.github.io/msx/logon/atodo.png",
          "action": "link:http://msx.atodo.fun/"
       },
       {
@@ -323,7 +323,7 @@
                "text": "Платный онлайн кинотеатр. Требуется регистрация. Есть пробный период. {br}Приложение на этапе разработки и может работать нестабильно или с ошибками. Опубликовано для ознакомления с программой"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/tvoe.png",
+         "image": "https://voipoddsns.github.io/msx/logon/tvoe.png",
          "action": "link:https://tv-old.tvoe.live"
       },
       {
@@ -335,7 +335,7 @@
                "text": "Портал MOVIELAB на базе Media Station X. Просмотр видео контента on-line"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/movielab.png",
+         "image": "https://voipoddsns.github.io/msx/logon/movielab.png",
          "action": "menu:https://movielab.fun/msx/menu.json"
       },
       {
@@ -347,7 +347,7 @@
                "text": "Bеб-браузер, адаптированный для просмотра специальных интернет-страниц с автоматически обновляемыми плейлистами, предоставляет возможность прямо с браузера смотреть фильмы, ТВ-каналы, слушать музыку, радиостанции"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/fork_com.png",
+         "image": "https://voipoddsns.github.io/msx/logon/fork_com.png",
          "action": "link:http://browser.appfxml.com/"
       },
       {
@@ -359,7 +359,7 @@
                "text": "Онлайн кинотеатр. Фильмы, мультфильмы и сериалы в отличном качестве. {br}{col:gold}Требуется регистрация и аккаунт VIP | PRO"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/filmix.png",
+         "image": "https://voipoddsns.github.io/msx/logon/filmix.png",
          "action": "link:http://filmix.tv/"
       },
       {
@@ -371,7 +371,7 @@
                "text": "Oнлайн-кинотеатр с фильмами и сериалами по подписке Яндекс Плюс или за отдельную плату."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/kinopoisk.png",
+         "image": "https://voipoddsns.github.io/msx/logon/kinopoisk.png",
          "action": "link:https://smarttv-app.ott.yandex.ru/"
       },
       {
@@ -383,7 +383,7 @@
                "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме. Нужна регистрация и подписка"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/kinopub.png",
+         "image": "https://voipoddsns.github.io/msx/logon/kinopub.png",
          "action": "link:http://kpms.cc/bootstrap.html"
       },
       {
@@ -395,7 +395,7 @@
                "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме. Нужна регистрация и подписка.{br}Если предидущий не запустился попробуйте запустить этот"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/kinopub_green.png",
+         "image": "https://voipoddsns.github.io/msx/logon/kinopub_green.png",
          "action": "link:https://cdnservices.link"
       },
       {
@@ -405,10 +405,10 @@
             "data": {
                "headline": "X-SMART TV",
                "text": "Цифровая медиа платформа XSMART — это интернет каталог в виде приложения, где собрана информация о фильмах и сериалах, актерах и режиссерах. Вся информация в каталоге взята из открытых источников и предоставляются исключительно в ознакомительных целях.",
-               "image": "https://wals09.github.io/msx/xsmart/capture.gif"
+               "image": "https://voipoddsns.github.io/msx/xsmart/capture.gif"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/xsmart.png",
+         "image": "https://voipoddsns.github.io/msx/logon/xsmart.png",
          "action": "link:http://app.xsmart.tv"
       },
       {
@@ -420,7 +420,7 @@
                "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/deeplex.png",
+         "image": "https://voipoddsns.github.io/msx/logon/deeplex.png",
          "action": "link:http://smart.deeplex.cc/"
       },
       {
@@ -432,7 +432,7 @@
                "text": "ИмперияBOOM представляет собой упорядоченные ссылки на медиа-контент: фильмы, сериалы, мультфильмы, IPTV, радио и т.п."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/impire_boom.png",
+         "image": "https://voipoddsns.github.io/msx/logon/impire_boom.png",
          "action": "link:http://web.imboom.ru/"
       },
       {
@@ -444,7 +444,7 @@
                "text": "Просмотр видео контента из многих источников. Поиск контента (фильмы, сериалы, мультфильмы, аниме, тв-передачи).Выбора качества. KBC каналы. VIP подписка на три устройства "
             }
          },
-         "image": "https://wals09.github.io/msx/logon/kinoboom.png",
+         "image": "https://voipoddsns.github.io/msx/logon/kinoboom.png",
          "action": "execute:info:extended:http://kb-team.club/msx/enter.php"
       },
       {
@@ -456,7 +456,7 @@
                "text": " Фильмы и Мультфильмы. Крупнейшая база на любой вкус, обновляется ежедневно, новинки появляются сразу после премьеры в кинотеатре."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/getstv.png",
+         "image": "https://voipoddsns.github.io/msx/logon/getstv.png",
          "action": "panel:http://lg.getstv.ru/msx/msx.json"
       },
       {
@@ -468,7 +468,7 @@
                "text": " Онлайн кинотеатр (vPlay мод). Доступ к сервису за донат"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/tutkino.jpg",
+         "image": "https://voipoddsns.github.io/msx/logon/tutkino.jpg",
          "action": "link:http://web.tutkino.fun/"
       },
       {
@@ -480,7 +480,7 @@
                "text": " Онлайн кинотеатр (Lampa_lite мод). Доступ к сервису за донат"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/tutkinolite.jpg",
+         "image": "https://voipoddsns.github.io/msx/logon/tutkinolite.jpg",
          "action": "link:http://lite.tutkino.fun/"
       },
       {
@@ -492,7 +492,7 @@
                "text": "Только WebOS. Нужна подписка{br}Оригинальные сериалы, тысячи фильмов и более 180 ТВ-каналов. Удобный интерфейс, одновременный просмотр на 5 устройствах, система рекомендаций и детский профиль с безопасным контентом. Добро пожаловать в мир захватывающих историй!"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/kion.png",
+         "image": "https://voipoddsns.github.io/msx/logon/kion.png",
          "action": "link:https://kion.ru/EPG/smarttvlg/index.html"
       },
       {
@@ -504,7 +504,7 @@
                "text": "Только WebOS. Нужна подписка{br}Смотрите фильмы, сериалы, мультфильмы, ТВ-каналы и спортивные трансляции. Ежедневное обновление каталога, популярные новинки и классика кино — всё в одном месте."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/okko.png",
+         "image": "https://voipoddsns.github.io/msx/logon/okko.png",
          "action": "link:http://lge.okko.tv"
       },
       {
@@ -516,7 +516,7 @@
                "text": "Pоссийский онлайн-сервис для хостинга и просмотра видео"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/rutube.png",
+         "image": "https://voipoddsns.github.io/msx/logon/rutube.png",
          "action": "link:https://rutube.ru/tv-release/rutube.server-22.0.0/webos/"
       },
       {
@@ -528,7 +528,7 @@
                "text": "«Яндекс Видео» — сервис поиск по видеороликам от Яндекса с возможностью просмотра большинства найденных роликов на странице результатов поиска. Поиск производится на сторонних видеохостингах и новостных интернет-ресурсах."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/yandex.png",
+         "image": "https://voipoddsns.github.io/msx/logon/yandex.png",
          "action": "link:https://yandex.ru/video/tvapp/?ui=tvapp"
       },
       {
@@ -540,7 +540,7 @@
                "text": "Только WebOS{col}{br}Hеофициальное приложение для webOS"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/tiktok.png",
+         "image": "https://voipoddsns.github.io/msx/logon/tiktok.png",
          "action": "link:https://tv.tiktok.com/webos"
       },
       {
@@ -552,8 +552,8 @@
                "text": "Шоу любимых блогеров, свежие фильмы и сериалы, любимые телеканалы, прямые эфиры, мультфильмы для детей, спортивные трансляции, музыкальные новинки и многое другое "
             }
          },
-         "image": "https://wals09.github.io/msx/logon/vk.png",
-         "action": "panel:https://wals09.github.io/msx/vkvideo/vk_template.json"
+         "image": "https://voipoddsns.github.io/msx/logon/vk.png",
+         "action": "panel:https://voipoddsns.github.io/msx/vkvideo/vk_template.json"
       },
       {
          "selection": {
@@ -564,7 +564,7 @@
                "text": "Pоссийская государственная мультимедийная онлайн-платформа, разработанная крупнейшим государственным медиахолдингом «ВГТРК»"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/smotrim.png",
+         "image": "https://voipoddsns.github.io/msx/logon/smotrim.png",
          "action": "link:https://tv.smotrim.ru"
       },
       {
@@ -576,7 +576,7 @@
                "text": "Oнлайн-сервис для хостинга и просмотра видео"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/youtube.png",
+         "image": "https://voipoddsns.github.io/msx/logon/youtube.png",
          "action": "link:https://www.youtube.com/tv#/"
       },
       {
@@ -588,7 +588,7 @@
                "text": "Oтдельная версия популярного видеохостинга Youtube, нацеленная исключительно на детей."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/ytkids.png",
+         "image": "https://voipoddsns.github.io/msx/logon/ytkids.png",
          "action": "link:https://www.youtube.com/tv/kids"
       },
       {
@@ -600,8 +600,8 @@
                "text": "Смотрим мультфильмы онлайн. Коллекция мультфильмов советских времен и не только. Самые лучшие мультики из вашего детства!"
             }
          },
-         "image": "https://wals09.github.io/msx/logon/multiki.png",
-         "action": "content:https://wals09.github.io/msx/welcome.json"
+         "image": "https://voipoddsns.github.io/msx/logon/multiki.png",
+         "action": "content:https://voipoddsns.github.io/msx/welcome.json"
       },
       {
          "selection": {
@@ -612,8 +612,8 @@
                "text": "Подборки IPTV каналов из интернета в открытом доступе.{br} Работают так как есть. Работают пока работают."
             }
          },
-         "image": "https://wals09.github.io/msx/logon/relax.png",
-         "action": "content: https://wals09.github.io/msx/bonus/relax.json",
+         "image": "https://voipoddsns.github.io/msx/logon/relax.png",
+         "action": "content: https://voipoddsns.github.io/msx/bonus/relax.json",
          "properties": {
             "trigger:back": "player:stop"
          }
@@ -629,7 +629,7 @@
             }
          },
          "image": "https://yt3.googleusercontent.com/ytc/AIdro_kUkL-a59qSwEq6Dc-Il979Khwahh1_URZsficN8tYV=s160-c-k-c0x00ffffff-no-rj",
-         "action": "content:https://raw.githubusercontent.com/wals09/prog/main/avtoradio/translation.json"
+         "action": "content:https://raw.githubusercontent.com/voipoddsns/prog/main/avtoradio/translation.json"
       },
       {
          "offset": "0,2.5,11,0",
@@ -643,7 +643,7 @@
                "text": " Альтернативные MSX магазины / лаунчеры"
             } 
          },
-         "action": "panel:https://wals09.github.io/msx/alterstore/template.json",
+         "action": "panel:https://voipoddsns.github.io/msx/alterstore/template.json",
          "properties": {
             "trigger:back": "player:stop"
            }
