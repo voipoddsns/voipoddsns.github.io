@@ -1,0 +1,183 @@
+#EXTM3U url-tvg="http://iptvx.one/epg/epg.xml.gz"
+
+#EXTINF:-1 group-title="СПОРТ 🏆",Eurosport 1 HD
+#EXTVLCOPT:http-user-agent=ExoPlayer2/2.37
+http://edge02.odtv.az/o7/eurosport/playlist.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Eurosport 2 
+#EXTVLCOPT:http-user-agent=ExoPlayer2/2.37
+http://edge02.odtv.az/o3/eurosport2/playlist.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Матч -HD
+https://livetv.mylifeisgood.net.ru/channels/matchhd_nocensored.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Футбол 1
+http://str05.arendroland.space/2321/video.m3u8?token=8f14466a3a13d535cd2a207a9643a6c3
+#EXTINF:-1 group-title="СПОРТ 🏆",Футбол 2
+http://str05.arendroland.space/6026/video.m3u8?token=8f14466a3a13d535cd2a207a9643a6c3
+#EXTINF:-1 group-title="СПОРТ 🏆",Футбол 3
+http://185.57.68.33/110/mpegts
+#EXTINF:-1 group-title="СПОРТ 🏆",Viasat Sport
+#EXTVLCOPT:http-user-agent=ExoPlayer2/2.37
+http://edge02.odtv.az/o7/viasatsport/playlist.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆", Беларусь 5 
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5int/playlist.m3u8 
+#EXTINF:-1 group-title="СПОРТ 🏆", Беларусь 5 HD
+https://edge55.dc.beltelecom.by/ngtrk/_definst_/smil:belarus5int.smil/chunklist_w278966610_b1460000_sleng.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",tvainua*Q Sport
+http://88.135.128.20:7272/ipKJnd6cVw1Nu7a
+#EXTINF:-1 group-title="СПОРТ 🏆",Qazsport HD
+https://bkm.beetv.kz/btv/live/hls/000003038.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",VIASAT SPORT HD
+https://bkm.beetv.kz/btv/live/hls/000000135.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Eurosport 1 HD
+https://bkm.beetv.kz/btv/live/hls/000002478.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Eurosport 2 HD
+https://bkm.beetv.kz/btv/live/hls/000002479.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Удар HD
+https://bkm.beetv.kz/btv/live/hls/000007802.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Q Arena
+https://bkm.beetv.kz/btv/live/hls/000007615.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Q Live 3
+https://bkm.beetv.kz/btv/live/hls/000008445.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Insport TEST
+https://bkm.beetv.kz/btv/live/hls/000006983.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Q Live 1
+https://bkm.beetv.kz/btv/live/hls/000008725.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Q Live 2
+https://bkm.beetv.kz/btv/live/hls/000008726.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Q Live 4
+https://bkm.beetv.kz/btv/live/hls/000008727.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Intennis TEST
+https://bkm.beetv.kz/btv/live/hls/000008487.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Inhockey TEST
+https://bkm.beetv.kz/btv/live/hls/000007832.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Точка отрыва
+https://bkm.beetv.kz/btv/live/hls/000003208.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",SETANTA SPORTS KZ
+https://bkm.beetv.kz/btv/live/hls/000002649.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Setanta Qazaqstan HD KZ
+https://bkm.beetv.kz/btv/live/hls/000004619.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Setanta Sports 1 HD RU
+https://bkm.beetv.kz/btv/live/hls/000004498.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Setanta Sports 2 HD RU
+https://bkm.beetv.kz/btv/live/hls/000004499.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Setanta Sports 1 HD KZ
+https://bkm.beetv.kz/btv/live/hls/000006998.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Setanta Sports 2 HD KZ
+https://bkm.beetv.kz/btv/live/hls/000006899.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Q League
+https://bkm.beetv.kz/btv/live/hls/000006969.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Setanta Sports UA
+http://194.33.181.28:9010/udp/238.255.51.27:1234
+#EXTINF:-1 group-title="СПОРТ 🏆",Eurosport 1 hd
+http://iptv-hls.idc.md:8200/hls/260/live1.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Eurosport 1 HD
+http://stream01.vnet.am/Eurosport/tracks-v1a2/mono.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",X-Stream
+http://iptv.prosto.tv:7000/ch313/video.m3u8?secret=cledwwov
+#EXTINF:-1 group-title="СПОРТ 🏆",Бокс ТВ HD
+http://stream01.vnet.am/BoksTv/mono.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Sport 4
+http://88.135.128.20:7272/Wetd63YgcVe23Jk
+#EXTINF:-1 group-title="СПОРТ 🏆",XSPORT HD
+http://de.kineskop.club/site2/371/1009756_4d769fafe4ae9f48_0_0_fs2.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",XSport + HD
+http://de.kineskop.club/site2/1418/1009756_5b94478c60d3be67_0_0_fs2.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Премьер HD
+http://185.37.150.46:8092/Nash_futbol_HD/tracks-v1a1/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Бокс ТВ
+http://sc.id-tv.kz/BoksTV_36_37.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Матч! Планета
+http://sc.id-tv.kz/MatchPlaneta_36_37.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Viasat Nature
+http://sc.id-tv.kz/ViasatNature_34_35.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Viasat History
+http://sc.id-tv.kz/ViasatHistory_34_35.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Viasat Explore
+http://sc.id-tv.kz/ViasatExplorer_34_35.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",MMA-TV.COM
+http://sc.id-tv.kz/M-1_34_35.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",KHL Prime
+http://sc.id-tv.kz/FHD_KHL_34_35.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",KHL
+http://sc.id-tv.kz/KHL_36_37.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Eurosport 2
+http://sc.id-tv.kz/Eurosport_2HD_34_35.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Eurosport 1
+http://sc.id-tv.kz/Eurosport_1HD_34_35.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Idman TV HD (Азербайджан)
+http://146.59.85.40:89/idman_az/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Trace Sport Stars
+http://95.67.12.82:9067
+#EXTINF:-1 group-title="СПОРТ 🏆",Golf Channel (Чехия)
+http://78.130.250.2:8023/play/a02q/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Premier Sports 5 HD
+http://202.21.104.6:88/sps-plus/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Premier Sports 3 HD
+http://202.21.104.6:88/sps-world/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",ESPN
+http://181.78.8.90:16123/play/ch16
+#EXTINF:-1 group-title="СПОРТ 🏆",Tennis Channel HD (США)
+http://tennischannel-intl-samsung-uk.amagi.tv/playlist720_p.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Turkmen Sport
+http://217.174.225.146/hls/ch004_720/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Sports Grid
+https://sportsgrid-tribal.amagi.tv/playlist1080p.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",IMPACT! Wrestling
+https://d2p372oxiwmcn1.cloudfront.net/hls/main.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Red Bull TV
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_1660.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 group-title="СПОРТ 🏆",CANAL MOTOR
+http://digicom.hls.iptvdc.com/canalmotor/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",WORLD POKER TOUR HD
+https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=1346
+#EXTINF:-1 group-title="СПОРТ 🏆",Tennis Channel
+https://tennischannel-intl-samsung-uk.amagi.tv/playlist720_p.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Tennis Channel r
+https://tennischannel-intl-samsung-uk.amagi.tv/playlist.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Wrestling
+https://d2p372oxiwmcn1.cloudfront.net/hls/main.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Real Madrid
+https://stream.ads.ottera.tv/playlist.m3u8?network_id=1545
+#EXTINF:-1 group-title="СПОРТ 🏆",Edge Sport
+https://edgesport-samsunguk.amagi.tv/playlist.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Arena Sport 1 HD
+http://78.130.250.2:8023/play/a02o/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",AutoMotorSport HD
+http://78.130.250.2:8023/play/a018/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",CANAL+ Sport (CZ)
+http://78.130.250.2:8023/play/a02v/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",CANAL+ Sport 2
+http://78.130.250.2:8023/play/a02w/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Nova Sport 1 HD
+http://78.130.250.2:8023/play/a009/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Nova Sport 1 HD au
+http://78.130.250.2:8023/play/a02k/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Nova Sport 2 HD
+http://78.130.250.2:8023/play/a004/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",FIGHT BOX
+http://146.59.54.163/Fightbox-HD/index.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Polsat SPORT
+http://178.219.128.68:64889/POLSSPORHD
+#EXTINF:-1 group-title="СПОРТ 🏆",Polsat Sport NEWS
+http://178.219.128.68:64889/POLSSPORNEWSHD
+#EXTINF:-1 group-title="СПОРТ 🏆",Band Sportsᴴᴰ
+http://209.222.97.92:16484
+#EXTINF:-1 group-title="СПОРТ 🏆",Band Sportsᴴᴰ
+http://209.222.97.92:16484
+#EXTINF:-1 group-title="СПОРТ 🏆",Motorsport revue HD
+https://stream.polar.cz/vctv/vctvlive-1/playlist.m3u8
+#EXTINF:-1 group-title="СПОРТ 🏆",Sky Sports Action
+https://7pal.short.gy/ssportsat
+#EXTINF:-1 group-title="СПОРТ 🏆",Sky Sports Golf
+https://7pal.short.gy/ssportsgf
+#EXTINF:-1 group-title="СПОРТ 🏆",Sky Sports Premier League
+https://7pal.short.gy/ssportspl
+#EXTINF:-1 group-title="СПОРТ 🏆",Sky Sports F1
+https://7pal.short.gy/ssportsf1
+#EXTINF:-1 group-title="СПОРТ 🏆",Sky Sports Football
+https://7pal.short.gy/ssportsfb
+#EXTINF:-1 group-title="СПОРТ 🏆",Sky Sports Main Event
+https://7pal.short.gy/skspmaine
+#EXTINF:-1 group-title="СПОРТ 🏆",Sky Sports News
+https://7pal.short.gy/ssportsnw
+
+
