@@ -1,0 +1,13 @@
+#EXTM3U
+#EXTINF:-1 group-title="Простоквашино" tvg-logo="https://mults.info/screen/troe_iz_prostokvashino.jpg",Трое из Простоквашино
+https://mults.info/mp4/troe_iz_prostokvashino.mp4
+#EXTINF:-1 group-title="Простоквашино" tvg-logo="https://mults.info/screen/kanikuly_v_prostokvashino.jpg",Каникулы в Простоквашино
+https://mults.info/mp4/kanikuly_v_prostokvashino.mp4
+#EXTINF:-1 group-title="Простоквашино" tvg-logo="https://mults.info/screen/zima_v_prostokvashino.jpg",Зима в Простоквашино
+https://mults.info/mp4/zima_v_prostokvashino.mp4
+#EXTINF:-1 group-title="Простоквашино" tvg-logo="https://mults.info/screen/djadja_fedor_pes_i_kot.jpg",Дядя Федор Пес и Кот
+https://mults.info/mp4/mama_i_papa.mp4
+#EXTINF:-1 group-title="Простоквашино" tvg-logo="https://mults.info/screen/djadja_fedor_pes_i_kot.jpg",Матроскин и Шарик
+https://mults.info/mp4/matroskin_i_sharik.mp4
+#EXTINF:-1 group-title="Простоквашино" tvg-logo="https://mults.info/screen/djadja_fedor_pes_i_kot.jpg",Митя и Мурка
+https://mults.info/mp4/mitja_i_murka.mp4
