@@ -1,0 +1,67 @@
+{
+   "type": "list",
+   "headline": "Prisma TV",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,8,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "3,0,4,2",
+            "offset": "0,0.3,0,0",
+            "headline": "",
+            "text": "{col:white}«Prisma TV {col:red}(ws){col}{col:white}»{col}{br}Мод программы Лампа, альтернативный дизайн, встроенные плагины он-лайн. Для просмотра торрентов необходим торрсервер"
+         },
+         {
+            "id": "text2",
+            "type": "space",
+            "layout": "3,2,4,2",
+            "offset": "0,0.3,0,0",
+            "headline": "",
+            "text": "{col:white}«Prisma TV {col:red}(kim){col}{col:white}»{col}{br}Зеркало программы {col:white}«Prisma TV» {col} c таким же функционалом"
+         },
+         {
+            "id": "text3",
+            "type": "space",
+            "layout": "3,4,4,2",
+            "offset": "0,0.3,0,0",
+            "headline": "",
+            "text": "{col:white}«Prisma TV {col:red}(cam){col}{col:white}»{col}{br}Зеркало программы {col:white}«Prisma TV» {col} c таким же функционалом"
+         }
+      ]
+   },
+   "template": {
+      "type": "panel",
+      "layout": "0,0,2,2",
+      "offset": "0,0.3,0,0",
+      "area": "0,0,3,4",
+      "imageFiller": "cover",
+      "color": "transparent"
+   },
+   "items": [
+      {
+         "badge": "Prisma TV {col:red}(ws)",
+         "image": "https://wals09.github.io/msx/logon/prisma.png",
+         "action": "link: http://prisma.ws"
+      },
+      {
+         "badge": "Prisma TV{col:red}(kim)",
+         "image": "https://wals09.github.io/msx/logon/prisma.png",
+         "action": "link: http://prisma.kim"
+      },
+      {
+         "badge": "PrismaTV{col:red}(cam)",
+         "image": "https://wals09.github.io/msx/logon/prisma.png",
+         "action": "link: http://pris.cam"
+      }
+   ]
+}

@@ -1,0 +1,225 @@
+{
+   "type": "list",
+   "headline": "Общие каналы",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "preload": "none",
+   "overlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,3,12,3",
+            "offset": "-1.25,-0.35,2,1",
+            "color": "msx-black-soft"
+         },
+         {
+            "id": "preview",
+            "type": "space",
+            "layout": "1,0,11,3",
+                        "offset": "0,0,0,-0.95",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,1,1",
+      "area": "0,0,12,3",
+      "offset": "0,3,0,0",
+      "imageWidth": 0.83,
+      "trigger:back": "player:stop",
+      "progress": -1,
+      "titleFooter": "Загрузка..",
+      "color": "msx-glass",
+      "imageFiller": "cover",
+      "properties": {
+         "button:speed:display": "true",
+         "button:speed:icon": "",
+         "button:speed:action": "execute:http://kb-team.club/msx/iptv/favs.php?action=add&plug=iptvk&cid={context:favs_id}&device=d41d8cd98f00",
+         "button:content:icon": "fullscreen",
+         "button:content:action": "player:commit:message:tizen:display:area:0,0,1,1",
+         "button:restart:icon": "info-outline",
+         "button:restart:action": "panel:request:interaction:program@http://kb-team.club/msx/iptv/player.php?plugin=iptvk&channel={context:channel}&shift={context:shift}",
+         "button:rewind:display": "false",
+         "button:forward:display": "false",
+         "button:restart:display": "true",
+         "button:play_pause:display": "false",
+         "trigger:back": "player:stop",
+         "label:extension": "{ico:msx-white:access-time} {now:time:hh:mm:ss}",
+         "label:position": "...",
+         "label:duration": "...",
+         "control:type": "extended",
+         "trigger:load": "interaction:load:http://kb-team.club/msx/iptv/player.php?plugin=iptvk&channel={context:channel}&shift={context:shift}",
+         "live:channel": "{context:channel}",
+         "live:program": "-1"
+      },
+      "selection": {
+         "important": true,
+         "action": "update:content:overlay:preview",
+         "data": {
+            "headline": "",
+            "text": "",
+            "live": []
+         }
+      },
+      "live": {
+         "type": "setup",
+         "action": "execute:service:http://kb-team.club/msx/iptv/iptvk.php?channel={context:playerLabel}&id={context:channel}&sid={context:id}&shift={context:shift}&type=list"
+      }
+   },
+   "items": [
+      {
+         "id": "channel_1",
+         "channel": "391",
+         "titleHeader": "",
+         "headline": "Россия",
+         "playerLabel": "Россия 1",
+         "image": "https://hisense.clan.su/_nw/0/54291963.png",
+         "action": "video: http://stream02.vnet.am/Rossia1/tracks-v1a1/mono.m3u8"
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://gas-kvas.com/grafic/uploads/posts/2023-09/1695906065_gas-kvas-com-p-kartinki-les-48.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Relax",
+               "text": "{col:msx-white}Лес {col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Лес ",
+         "image": "https://i1.sndcdn.com/artworks-C8hcDBSG4W2FDet1-5x1GVw-t500x500.jpg",
+         "action": "video: http://iptv.prosto.tv:7000/ch330/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://live.staticflickr.com/7296/13937018640_8e5d17b63f_b.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Relax",
+               "text": "{col:msx-white}Зоо{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Зоо",
+         "image": "https://avatars.mds.yandex.net/i?id=2a00000179f220bc4407242c6d7b33b0da59-4532852-images-thumbs&n=13",
+         "action": "video: http://iptv.prosto.tv:7000/ch319/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://i.ytimg.com/vi/5ug44EbFImw/maxresdefault.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Relax",
+               "text": "{col:msx-white}Водопад {col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Водопад ",
+         "image": "https://cm.author.today/content/2022/08/19/e59ffb63955e4eefa64e6e7ad0f397e6.jpeg?height=750&width=750&rmode=max",
+         "action": "video: http://iptv.prosto.tv:7000/ch329/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://kartin.papik.pro/uploads/posts/2023-07/1688802810_kartin-papik-pro-p-kartinki-zvuk-dozhdya-24.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Relax",
+               "text": "{col:msx-white}Дожди{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Дожди",
+         "image": "https://masterpiecer-images.s3.yandex.net/737142c4618f11ee97791e2a02a7791f:upscaled",
+         "action": "video: http://iptv.prosto.tv:7000/ch304/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://wallpapercave.com/wp/wp8496578.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Relax",
+               "text": "{col:msx-white}Loupe 4K{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Loupe 4K",
+         "image": "https://i.pinimg.com/736x/22/c5/6d/22c56d0c04821d28fcecbefe7cedd131.jpg",
+         "action": "video: https://d2dw21aq0j0l5c.cloudfront.net/playlist_3840x2160.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://gas-kvas.com/grafic/uploads/posts/2023-10/1696440217_gas-kvas-com-p-kartinki-podvodnii-mir-40.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Relax",
+               "text": "{col:msx-white}Подводный мир{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Подводный мир",
+         "image": "https://avatars.mds.yandex.net/i?id=2268dbd8aad0287652b779d9e3332956-5220772-images-thumbs&n=13",
+         "action": "video: http://iptv.prosto.tv:7000/ch305/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "background": "https://s2.best-wallpaper.net/wallpaper/1600x1200/1910/Winter-thick-snow-trees-forest-white-world_1600x1200.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Relax",
+               "text": "{col:msx-white}Зима{col}{br}Невероятная красота природы и видео путешествия для расслабления, сна, медитации, йоги, массажа и спа."
+            }
+         },
+         "playerLabel": "Зима",
+         "image": "https://ландшафт-пенза.рф/wp-content/uploads/2020/01/79789916_753231711753783_8973320594941288760_n.jpg",
+         "action": "video: https://iptv.prosto.tv/ch327/video.m3u8",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "selection": {
+            "headline": "",
+            "important": true,
+            "background": "https://picsum.photos/seed/msx_24764bb8_item28/1920/1080#msx-keep-ratio",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "",
+               "text": "{col:msx-white}"
+            }
+         },
+         "image": "",
+         "action": "content: https://wals09.github.io/msx/test/demo.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}29th Item"
+         }
+      }
+   ]
+}

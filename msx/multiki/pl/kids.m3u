@@ -1,0 +1,121 @@
+#EXTM3U url-tvg="http://iptvx.one/epg/epg.xml.gz"
+
+
+#EXTINF:-1 group-title="Дети",Plus Plus
+http://149.5.17.34:20041/play/a06q
+#EXTINF:-1 group-title="Дети",PIXEL HD
+http://149.5.17.34:20041/play/a05s
+#EXTINF:-1 group-title="Дети",PIXEL
+http://185.37.150.40:8092/Piksel/playlist.m3u8
+#EXTINF:-1 group-title="Дети",МАМА
+http://185.37.150.40:8092/Mama/playlist.m3u8
+#EXTINF:-1 group-title="Дети",УНИКУМ
+http://185.37.150.40:8092/Detskiy/playlist.m3u8
+#EXTINF:-1 group-title="Дети",КАРУСЕЛЬ
+http://185.37.150.40:8092/Karusel/playlist.m3u8
+#EXTINF:-1 group-title="Дети",МУЛЬТИЛАНДИЯ
+http://185.37.150.40:8092/Multimaniya/playlist.m3u8
+#EXTINF:-1 group-title="Дети",МУЛЬТ HD
+http://185.37.150.40:8092/TLUMHD/playlist.m3u8
+#EXTINF:-1 group-title="Дети",Капитан Фантастика
+http://185.37.150.40:8092/Ginger_HD/playlist.m3u8
+#EXTINF:-1 group-title="Дети",СТС Kids
+http://45.159.74.13/DisneyChannel/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Дети",Кнопка ТВ
+http://api.alpaca.t62a.com/hls/9116/stream0.m3u8
+#EXTINF:-1 group-title="Дети",Мама
+#EXTVLCOPT:http-user-agent=ExoPlayer2/2.37
+http://edge02.odtv.az/o2/mamatv/playlist.m3u8
+#EXTINF:-1 group-title="Дети",КiноКазка
+http://78.26.128.59:9876/play/402/index.m3u8
+#EXTINF:-1 group-title="Дети",TiJi
+http://78.26.128.59:9876/play/110/index.m3u8
+#EXTINF:-1 group-title="Дети",QuizTV
+http://78.26.128.59:9876/play/521/index.m3u8
+#EXTINF:-1 group-title="Дети",DuckTV+
+http://78.26.128.59:9876/play/a03q/index.m3u8
+#EXTINF:-1 group-title="Дети",Niki Junior
+http://78.26.128.59:9876/play/327/index.m3u8
+#EXTINF:-1 group-title="Дети",Niki Kids
+http://78.26.128.59:9876/play/509/index.m3u8
+#EXTINF:-1 group-title="Дети",TVIQ Інтерактивний канал
+http://78.26.128.59:9876/play/219/index.m3u8
+#EXTINF:-1 group-title="Дети",Всі мультики Сімпсони
+https://tv.2222.one/ch1.m3u8
+#EXTINF:-1 group-title="Дети",Популярні мульты и серіали 
+https://tv.2222.one/ch9.m3u8
+#EXTINF:-1 group-title="Дети",МУЛЬТИМАНИЯ
+https://void.greenhosting.ru/Multimania_Mpeg4/video.m3u8
+#EXTINF:-1 group-title="Дети",Cartoon Network 
+http://89.254.128.5:22280/cartoon_network/video.m3u8
+#EXTINF:-1 group-title="Дети",Nicktoons
+http://89.254.128.5:22280/nicktoons/index.m3u8
+#EXTINF:-1 group-title="Дети",Nicktoons HD
+https://stream01.vnet.am/Boomerang/mono.m3u8
+#EXTINF:-1 group-title="Дети",Детское кино International
+https://v2.catcast.tv/content/38720/index.m3u8
+#EXTINF:-1 group-title="Дети",Детское кино International
+https://v2.catcast.tv/content/38720/index.m3u8
+#EXTINF:-1 group-title="Дети",HGTN
+https://v2.catcast.tv/content/34251/index.m3u8
+#EXTINF:-1 group-title="Дети",УНИКУМ
+https://bkm.beetv.kz/btv/live/hls/000000048.m3u8
+#EXTINF:-1 group-title="Дети",РЫЖИЙ
+https://bkm.beetv.kz/btv/live/hls/000001445.m3u8
+#EXTINF:-1 group-title="Дети",МУЛЬТ
+https://bkm.beetv.kz/btv/live/hls/000001207.m3u8
+#EXTINF:-1 group-title="Дети",КАРУСЕЛЬ
+https://bkm.beetv.kz/btv/live/hls/000000781.m3u8
+#EXTINF:-1 group-title="Дети",ДЕТСКИЙ МИР
+https://bkm.beetv.kz/btv/live/hls/000000049.m3u8
+#EXTINF:-1 group-title="Дети",БОБЕР
+https://bkm.beetv.kz/btv/live/hls/000001478.m3u8
+#EXTINF:-1 group-title="Дети",О!
+https://bkm.beetv.kz/btv/live/hls/000002928.m3u8
+#EXTINF:-1 group-title="Дети",TIJI
+https://bkm.beetv.kz/btv/live/hls/000000174.m3u8
+#EXTINF:-1 group-title="Дети",NICK JR
+https://bkm.beetv.kz/btv/live/hls/000000449.m3u8
+#EXTINF:-1 group-title="Дети",GULLI GIRL
+https://bkm.beetv.kz/btv/live/hls/000000284.m3u8
+#EXTINF:-1 group-title="Дети",Nickelodeon
+https://bkm.beetv.kz/btv/live/hls/000000036.m3u8
+#EXTINF:-1 group-title="Дети",NICKELODEON
+https://bkm.beetv.kz/btv/live/hls/000000499.m3u8
+#EXTINF:-1 group-title="Дети",Nicktoons
+https://bkm.beetv.kz/btv/live/hls/000004365.m3u8
+#EXTINF:-1 group-title="Дети",TiJi KZ
+https://bkm.beetv.kz/btv/live/hls/000008019.m3u8
+#EXTINF:-1 group-title="Дети",СТС Kids
+https://bkm.beetv.kz/btv/live/hls/000003892.m3u8
+#EXTINF:-1 group-title="Дети",В ГОСТЯХ У СКАЗКИ
+https://bkm.beetv.kz/btv/live/hls/000002762.m3u8
+#EXTINF:-1 group-title="Дети",Cartoon Network
+https://bkm.beetv.kz/btv/live/hls/000000015.m3u8
+#EXTINF:-1 group-title="Дети",Мультиландия
+http://109.248.236.21:4433/udp/238.1.1.26:1234
+#EXTINF:-1 group-title="Дети",Мульт
+http://109.248.236.21:4433/udp/238.1.1.29:1234
+#EXTINF:-1 group-title="Дети",Карусель 
+http://109.248.236.21:4433/udp/238.1.1.45:1234
+#EXTINF:-1 group-title="Дети",Карусель HD
+http://109.248.236.21:4433/udp/238.1.1.175:1234
+#EXTINF:-1 group-title="Дети",О!
+http://109.248.236.21:4433/udp/238.1.1.93:1234
+#EXTINF:-1 group-title="Дети",О! HD
+http://109.248.236.21:4433/udp/238.1.1.178:1234
+#EXTINF:-1 group-title="Дети",В гостях у сказки
+http://109.248.236.21:4433/udp/238.1.1.98:1234
+#EXTINF:-1 group-title="Дети",Tiji TV KZ
+http://109.248.236.21:4433/udp/238.1.1.121:1234
+#EXTINF:-1 group-title="Дети",Мульт HD
+http://stream01.vnet.am/Mult/mono.m3u8
+#EXTINF:-1 group-title="Дети",Детский мир SD
+http://stream01.vnet.am/CartoonNetwork/mono.m3u8
+
+#EXTINF:-1 group-title="РЕЛАКС- расслабление",Loupe TV
+https://d2dw21aq0j0l5c.cloudfront.net/playlist_1920x1080.m3u8
+#EXTINF:-1 group-title="РЕЛАКС- расслабление",World HD
+http://185.57.68.33:8091/232/tracks-v1a1/index.m3u8
+#EXTINF:-1 group-title="РЕЛАКС- расслабление",Deluxe Lounge HD
+https://stream.ads.ottera.tv/cl/231009cki5o24nsepl2jh7b2eg/1920x1080_5359200_5_f.m3u8

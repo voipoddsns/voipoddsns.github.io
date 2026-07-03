@@ -1,0 +1,89 @@
+{
+   "name": "МУЛЬТИКИ",
+   "version": "1.0.0",
+   "background": "https://wals09.github.io/msx/img/bg.jpg",
+   "headline": "Мульт-ПОДБОРКИ",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "menu": [
+      {
+         "type": "separator"
+      },
+      {
+         "image": "https://mults.info/img/collection.png",
+         "label": "Bсе мультики.",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/list1.m3u"
+      },
+      {
+         "type": "separator"
+      },
+      {
+         "label": "Братья Пилоты",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/piloty.m3u"
+      },
+      {
+         "label": "Леопольд...",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/leopold.m3u"
+      },
+      {
+         "label": "Незнайка...",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/neznayka.m3u"
+      },
+      {
+         "label": "Весёлая карусель",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/karusel.m3u"
+      },
+      {
+         "label": "Ну, погоди!",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/nu_pogodi.m3u"
+      },
+      {
+         "label": "38 попугаев",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/38_popugaev.m3u"
+      },
+      {
+         "label": "Возвр. блудного попугая",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/vozvr_bl_popugaya.m3u"
+      },
+      {
+         "label": "Трое из Простоквашино",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/prostokvashino.m3u"
+      },
+      {
+         "label": "Гена и Чебурашка",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/cheburashka.m3u"
+      },
+      {
+         "label": "В.Пух/Обезьянки",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/pooh_obezyanki.m3u"
+      },
+      {
+         "label": "Айболит",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/aibolit.m3u"
+      },
+      {
+         "label": "Три богатыря",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/tri_bogatyrya.m3u"
+      },
+      {
+         "label": "Тигренок/Умка/Енот",
+         "extensionLabel": "",
+         "data": "user:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://wals09.github.io/msx/multiki/pl/tigrenok_umka_enot.m3u"
+      },
+      {
+         "type": "separator"
+      }
+   ]
+}

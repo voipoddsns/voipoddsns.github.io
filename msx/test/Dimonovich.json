@@ -1,0 +1,138 @@
+{
+   "type": "list",
+   "headline": "Content By Dimonovich",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,3,12,3",
+            "offset": "-1.25,-0.33,2,1",
+            "color": "msx-black-soft"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,11,3",
+            "offset": "-1,0,1,0",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,2,3",
+      "offset": "0,3,0,0",
+      "area": "0,0,12,3",
+      "color": "msx-glass",
+      "imageHeight": 2.2,
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}Плейлист ТВ ",
+         "selection": {
+            "important": true,
+            "background": "https://bogatyr.club/uploads/posts/2023-06/1686919676_bogatyr-club-p-belie-abstraktnie-oboi-foni-vkontakte-15.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Плейлист ТВ",
+               "text": "Подборка плейлистов iptv различных провайдеров из интернета"
+            }
+         },
+         "image": "https://obrii.com.ua/wp-content/uploads/2023/12/xt-kopyya-768x768.jpg.pagespeed.ic.qICsbJyexQ.jpg",
+         "action": "content:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://github.com/Dimonovich/TV/raw/Dimonovich/FREE/TV",
+         "properties": {
+            "image:extension": "| {col:msx-white}First Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Фильмы HD ",
+         "selection": {
+            "important": true,
+            "background": "https://wallpapercave.com/wp/wp10536346.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Фильмы HD",
+               "text": "Подборка фильмов разных жанров"
+            }
+         },
+         "image": "https://pic.rutubelist.ru/user/91/90/9190f559e9870d29aa5c1348fe3f588d.jpg",
+         "action": "content:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://raw.githubusercontent.com/Dimonovich/TV/Dimonovich/FREE/FILMS",
+         "properties": {
+            "image:extension": "| {col:msx-white}Second Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Зарубежное ТВ",
+         "selection": {
+            "important": true,
+            "background": "https://cdn1.ozone.ru/s3/multimedia-7/6021630283.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Зарубежное ТВ",
+               "text": "Подборка плейлистов iptv зарубежных провайдеров из интернета"
+            }
+         },
+         "image": "https://fastly.4sqi.net/img/general/600x600/67017726_XwVvf6R7RdKt-GiR-fisVqupnuNV1IEJ7O59_3in-as.jpg",
+         "action": "content:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://raw.githubusercontent.com/Dimonovich/TV/Dimonovich/FREE/ZARUB",
+         "properties": {
+            "image:extension": "| {col:msx-white}Third Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Веб камеры ",
+         "selection": {
+            "important": true,
+            "background": "https://bogatyr.club/uploads/posts/2023-06/1686919726_bogatyr-club-p-belie-abstraktnie-oboi-foni-vkontakte-79.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Веб камеры",
+               "text": "IPTV трансляции вэб камер мира"
+            }
+         },
+         "image": "https://avatars.mds.yandex.net/i?id=284a97a66c843946ef3438aa734bc6f5_l-5500489-images-thumbs&n=13",
+         "action": "content:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://raw.githubusercontent.com/Dimonovich/TV/Dimonovich/FREE/CAMERA",
+         "properties": {
+            "image:extension": "| {col:msx-white}Fourth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Radio - Genres",
+         "selection": {
+            "important": true,
+            "background": "https://avatars.mds.yandex.net/get-mpic/4331935/img_id946339073159590971.jpeg/orig",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Radio - Genres",
+               "text": "Слушать радио онлайн по жанрам. Выбирайте любимые жанры музыки: Рок, Поп, Джаз или Ретро. Прямой эфир радиостанций в хорошем качестве."
+            }
+         },
+         "image": "https://thumbnailer.mixcloud.com/unsafe/600x600/extaudio/6/e/f/2/5ad7-784a-477b-987a-e2a2ad4c1774",
+         "action": "content:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://raw.githubusercontent.com/Dimonovich/TV/Dimonovich/FREE/RADIO_GENRES.m3u",
+         "properties": {
+            "image:extension": "| {col:msx-white}Fifth Item"
+         }
+      },
+      {
+         "titleHeader": "{col:msx-white}Radio",
+         "selection": {
+            "important": true,
+            "background": "https://bogatyr.club/uploads/posts/2023-06/1686919679_bogatyr-club-p-belie-abstraktnie-oboi-foni-vkontakte-46.jpg",
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": " Radio",
+               "text": "Интернет трансляции различных радиостанций"
+            }
+         },
+         "image": "https://i.pinimg.com/736x/69/b3/8b/69b38b55a102aebbefc9a948943bc0b4--interview-html.jpg",
+         "action": "content:http://msx.benzac.de/services/m3u.php/msx/m3u.php?type=video&mode=extended&url=https://raw.githubusercontent.com/Dimonovich/TV/Dimonovich/FREE/RADIO.m3u",
+         "properties": {
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      }
+   ]
+}

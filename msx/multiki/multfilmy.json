@@ -1,0 +1,90 @@
+{
+   "type": "list",
+   "headline": "МУЛЬТИКИ",
+   "transparent": 2,
+   "preload": "next",
+   "underlay": {
+      "action": "[quiet|delay:backdrop:1:interaction:load:http://msx.benzac.de/interaction/backdrop.html]",
+      "data": {
+         "url": "none"
+      },
+      "items": [
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "0,0,6,3",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,4,3",
+      "area": "0,3,12,3",
+      "wrapperColor": "msx-glass",
+      "imageHeight": 1.83,
+      "color": "msx-glass",
+      "imageFiller": "cover",
+      "truncation": "titleHeader|titleFooter",
+      "titleHeader": "",
+      "titleFooter": "",
+      "description": "No description available.",
+      "backdrop": "none",
+      "image": "none",
+      "selection": {
+         "important": true,
+         "action": "data",
+         "data": {
+            "actions": [
+               {
+                  "action": "invalidate:content:underlay:text"
+               },
+               {
+                  "action": "delay:text:1:update:content:underlay:text",
+                  "data": {
+                     "headline": "{context:titleHeader}",
+                     "text": "{context:titleFooter}{br}{br}{context:description}"
+                  }
+               },
+               {
+                  "action": "delay:backdrop:1:interaction:load:http://msx.benzac.de/interaction/backdrop.html",
+                  "data": {
+                     "url": "{context:backdrop}",
+                     "type": 1
+                  }
+               }
+            ]
+         }
+      },
+      "properties": {
+         "image:extension": "| {context:titleHeader}"
+      }
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}МУЛЬТФИЛЬМЫ",
+         "titleFooter": "Приложение не содержит медиа-контента, а предоставляет ссылку на первоисточник",
+         "description": "Коллекция мультфильмов советских времен и не только. Самые лучшие мультики из вашего детства!",
+         "backdrop": "https://wals09.github.io/msx/img/mult.jpg",
+         "image": "https://wals09.github.io/msx/img/mult.jpg",
+         "action": "menu: https://wals09.github.io/msx/multiki/menu.json"
+      },
+      {
+         "titleHeader": "{col:msx-white}ДЕТСКОЕ ТВ",
+         "titleFooter": "Приложение не содержит медиа-контента, а предоставляет ссылку на первоисточник",
+         "description": "Подборка телевизионных каналов с контентом для детей",
+         "backdrop": "https://cdn.segodnya.ua/i/original/media/image/604/424/2d1/6044242d1815e.jpg.webp",
+         "image": "https://fonoteka.top/uploads/posts/2021-05/1621531336_21-phonoteka_org-p-masha-i-medved-fon-dlya-prezentatsii-30.jpg",
+         "action": "menu: https://wals09.github.io/msx/multiki/kids.tv.json"
+      },
+      {
+         "titleHeader": "{col:msx-white}АУДИОСКАЗКИ",
+         "titleFooter": "Приложение не содержит медиа-контента, а предоставляет ссылку на первоисточник",
+         "description": "Коллекция аудиосказок советских времен и не только, доступны как детские аудиосказки, так и постановки для взрослых. Все они оцифрованы с советских детских грампластинок и кассет, восстановлены из записей Гостелерадиофонда.",
+         "backdrop": "https://wals09.github.io/msx/img/audioskazki.jpg",
+         "image": "https://wals09.github.io/msx/img/audioskazki.jpg",
+         "action": "menu: https://wals09.github.io/msx/multiki/audio_menu.json"
+      }
+   ]
+}

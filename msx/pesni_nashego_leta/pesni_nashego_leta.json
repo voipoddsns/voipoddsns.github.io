@@ -1,0 +1,148 @@
+{
+   "headline": "Песни Нашего Времени",
+   "type": "list",
+   "image": "https://yt3.googleusercontent.com/ytc/AIdro_m089KDtxfLfVdca5pR3pCkUHpQvGfq51PiVj0R0bOaIQ=s160-c-k-c0x00ffffff-no-rj",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,8,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         }
+      ]
+   },
+   "template": {
+      "type": "panel",
+      "layout": "0,0,8,1",
+      "offset": "0,0.3,0,0",
+      "area": "0,0,8,4"
+   },
+   "items": [
+      {
+         "color": "transparent",
+         "imageWidth": 1,
+         "titleHeader": "Хиты лета 2024! LIVE из студии Авторадио",
+         "image": "https://yt3.googleusercontent.com/sYv-HusjbUWz4p7hP-k7jQGWRD9QJTmsWDNOwQgfFWQpv0ihi8yPmkNR59MF6vZTfnzuuSc_8A=s160-c-k-c0x00ffffff-no-rj",
+         "playerLabel": "Хиты лета 2024!",
+      "action": "content:https://raw.githubusercontent.com/wals09/prog/main/avtoradio/avtoradio.json",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1,
+         "titleHeader": "Памяти Юрия Шатунова. Лучшие песни",
+         "image": "https://yt3.googleusercontent.com/sYv-HusjbUWz4p7hP-k7jQGWRD9QJTmsWDNOwQgfFWQpv0ihi8yPmkNR59MF6vZTfnzuuSc_8A=s160-c-k-c0x00ffffff-no-rj",
+         "playerLabel": "Памяти Юрия Шатунова",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=MIMz8Zp0Gr0",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1,
+         "titleHeader": "Юрий Антонов в юбилейном концерте \"50 лет на сцене\".",
+         "image": "https://yt3.googleusercontent.com/ytc/AIdro_mEvyyORDaw9DwN4PrjwAr_qe3EHCz8YdvCr6zHkRYDrw=s160-c-k-c0x00ffffff-no-rj",
+         "playerLabel": "Юрий Антонов",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=c8HrkXlluP4",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1,
+         "titleHeader": "Григорий ЛЕПС - ЛУЧШИЕ ПЕСНИ /ВИДЕОАЛЬБОМ/",
+         "image": "https://yt3.googleusercontent.com/ytc/AIdro_m53hYlucga8oGmSVWfFC88Nn04Vy5GpbYDKJ1fUcMo6w=s160-c-k-c0x00ffffff-no-rj",
+         "playerLabel": " Григорий ЛЕПС ",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=VHRx2puAWMQ",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1,
+         "titleHeader": "Александр Розенбаум и «Старая армия» – концерт «Накрышник»",
+         "image": "https://yt3.googleusercontent.com/NFFzCaAK787crjNX8BCa3QyXGgoyn1WVA61ykG13RhoO7ZkO0oBeLFE2dqQxxtqkqjTVbaLj4A=s160-c-k-c0x00ffffff-no-rj",
+         "playerLabel": "Александр Розенбаум и «Старая армия»",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=_ZMEEDUM96Q",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1.4,
+         "titleHeader": "СНОВА ОСЕНЬ..... 🍂🍁Владимир Ждамиров , Татьяна Буланова , Жека и др.",
+         "image": "https://i.ytimg.com/vi/sZmZ9eOJihc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBKSfzQOkxKtkJ3ELv63tznXjFgcg",
+         "playerLabel": "СНОВА ОСЕНЬ..... 🍂🍁",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=_ZMEEDUM96Q",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1.4,
+         "titleHeader": "🚩Михаил Шуфутинский. Лучшие песни",
+         "image": "https://i.ytimg.com/vi/elpuaz6fE4U/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAtFT_jHrL9BWA4j5DZ-k8BKSgZaA",
+         "playerLabel": "🚩Михаил Шуфутинский.",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=elpuaz6fE4U",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1.4,
+         "titleHeader": "РЕСТОРАННЫЕ ХИТЫ 🎤😍🎶🌟 Ирина Круг, Г. Лепс, С. Заявьялов,. Жека, гр. Воровайки - Подпеваем вместе!",
+         "image": "https://i.ytimg.com/vi/ddmHChM55x0/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC7lIHhN3XQ92xi3sQzRc3Ivrvijg",
+         "playerLabel": "РЕСТОРАННЫЕ ХИТЫ 🎤😍🎶🌟",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=ddmHChM55x0",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1.4,
+         "titleHeader": "ПРОШЛА МОЯ ЛЮБОВЬ 💔 Песни о любви",
+         "image": "https://i.ytimg.com/vi/DkKC8uB_bq4/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB3Mfa-jxG7A0gGHFDKpOy6BGpzbA",
+         "playerLabel": "ПРОШЛА МОЯ ЛЮБОВЬ 💔",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=DkKC8uB_bq4",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1.4,
+         "titleHeader": "ЛЕГЕНДЫ РУССКОГО ШАНСОНА 🔥🔥🔥",
+         "image": "https://i.ytimg.com/vi/CkPbGB_LJgw/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAtb-dCf71xIUeP9pynsBumSqz99w",
+         "playerLabel": "ЛЕГЕНДЫ РУССКОГО ШАНСОНА 🔥🔥🔥",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=CkPbGB_LJgw",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "color": "transparent",
+         "imageWidth": 1.4,
+         "titleHeader": "Игорь ТАЛЬКОВ - Кумиры 90-х Видеоальбом",
+         "image": "https://i.ytimg.com/vi/dlIDgTSGoQQ/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAffNQsh9_BrODzQEprCKM2bQ_BKg",
+         "playerLabel": "Игорь ТАЛЬКОВ",
+         "action": "video:plugin:http://msx.benzac.de/plugins/youtube.html?id=dlIDgTSGoQQ",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      }
+   ]
+}

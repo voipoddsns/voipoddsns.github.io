@@ -1,0 +1,20 @@
+#EXTM3U
+#EXTINF:-1 group-title="Айболит" tvg-logo="https://mults.info/screen/limpopo.jpg",Лимпопо
+https://mults.info/mp4/limpopo.mp4
+#EXTINF:-1 group-title="Айболит" tvg-logo="https://mults.info/screen/aibolit_i_barmaley.jpg",Айболит и Бармалей
+https://mults.info/mp4/aibolit_i_barmaley.mp4
+#EXTINF:-1 group-title="Айболит" tvg-logo="https://mults.info/screen/aibolit_i_ego_zveri.jpg",Айболит и его звери (ч1)
+https://mults.info/mp4/aibolit_i_ego_zveri.mp4
+#EXTINF:-1 group-title="Айболит" tvg-logo="https://mults.info/screen/aibolit_barmalej_i_morskie_piraty.jpg",Бармалей и морские пираты (ч2)
+https://mults.info/mp4/aibolit_barmalej_i_morskie_piraty.mp4
+#EXTINF:-1 group-title="Айболит" tvg-logo="https://mults.info/screen/aibolit_varvara_zlaya_sestra_aibolita.jpg",Варвара - злая сестра Айболита (ч3)
+https://mults.info/mp4/aibolit_varvara_zlaya_sestra_aibolita.mp4
+#EXTINF:-1 group-title="Айболит" tvg-logo="https://mults.info/screen/aibolit_kovarnyj_plan_barmaleya.jpg",Коварный план Бармалея (ч4)
+https://mults.info/mp4/aibolit_kovarnyj_plan_barmaleya.mp4
+#EXTINF:-1 group-title="Айболит" tvg-logo="https://mults.info/screen/aibolit_speshit_na_pomosh.jpg",Айболит спешит на помощь (ч5)
+https://mults.info/mp4/aibolit_speshit_na_pomosh.mp4
+#EXTINF:-1 group-title="Айболит" tvg-logo="https://mults.info/screen/aibolit_krokodil_i_solnce.jpg",Крокодил и солнце (ч6)
+https://mults.info/mp4/aibolit_krokodil_i_solnce.mp4
+#EXTINF:-1 group-title="Айболит" tvg-logo="https://mults.info/screen/aibolit_spasibo_doktor.jpg",Спасибо доктор!
+https://mults.info/mp4/aibolit_spasibo_doktor.mp4
+

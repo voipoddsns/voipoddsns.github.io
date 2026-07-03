@@ -1,0 +1,43 @@
+{
+   "type": "list",
+   "headline": "Темы WALS_msx",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,8,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,6,2",
+            "offset": "0,0.5,0,0",
+            "headline": "",
+            "text": "{br}Портал {col:white}WALS_msx{col} предоставляет возможность применить различные темы интерфейса. Доступны как статические так и динамические темы"
+         }
+      ]
+   },
+   "template": {
+      "layout": "0,0,6,1",
+      "offset": "0,1.3,0,0",
+      "area": "1,1,6,4",
+      "imageFiller": "cover",
+      "color": "transparent"
+   },
+   "items": [
+      {
+         "label": "Выбрать статическую тему интерфейса",
+         "action": "content:https://wals09.github.io/msx/setting_emo.json"
+      },
+      {
+         "label": "Выбрать динамическую тему интерфейса",
+         "action": "content:https://wals09.github.io/msx/setting_live.json"
+      }
+   ]
+}

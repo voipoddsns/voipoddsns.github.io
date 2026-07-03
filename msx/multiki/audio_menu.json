@@ -1,0 +1,101 @@
+{
+   "headline": "Аудиосказки",
+   "menu": [
+      {
+         "background": "https://i.gifer.com/6zjx.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Cказки по мультфильмам",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/mult.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/3lFW.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Музыкальные сказки ",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/muzikalnie.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/S5fM.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки Пушкина ",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/pushkin.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/5dTG.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки Носова",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/nosov.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/CTa.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки К. Чуковского",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/chukovskiy.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/7DM.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки Бажова",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/bazgov.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/1KDj.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Русские народные сказки",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/russkie.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/8Yv8.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Восточные сказки",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/vostochnie.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/618.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки Андерсена",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09github.io/msx/multiki/audio/andersen.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/IrS.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки Астрид Линдгрен",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/lindgren.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/6Yer.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки братьев Гримм",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/grimm.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/5j3N.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки Киплинга",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/kipling.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/7S1a.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки Перро",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/perro.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/YTT2.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Сказки в стихах",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/v_stihah.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/CTb.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Колыбельные для детей",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/kolybelnie.m3u8"
+      },
+      {
+         "background": "https://i.gifer.com/6ABh.gif",
+         "icon": "msx-white-soft:music-note",
+         "label": "Радионяня",
+         "data": "user:http://msx.benzac.de/services/m3u.php?type=audio&mode=extended&url=https://wals09.github.io/msx/multiki/audio/radionyanya.m3u8"
+      }
+   ]
+}
