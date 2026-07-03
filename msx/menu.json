@@ -263,7 +263,7 @@
                "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
             }
          },
-         "image": "https://github.com/voipoddsns/msx/blob/main/logo/vokino.png?raw=true",
+         "image": "https://voipoddsns.github.io/msx/logo/vokino.png",
          "action": "link: http://web.vokino.pro/"
       },
       {
@@ -275,7 +275,7 @@
                "text": "NetFix - приложение (на базе программы Lampa) для просмотра фильмов и сериалов онлайн! Не требуется никаких настроек. Запустил и смотри. Просмотр торрентов не предусмотрен.{br}ВАЖНО: Нужна регистрация! Нужна оплаченная подписка! Есть тестовый период"
             }
          },
-         "image": "https://github.com/voipoddsns/repo/blob/main/netfix/icon.png?raw=true",
+         "image": "https://voipoddsns.github.io/msx/logo/NetFix.png",
          "action": "link:http://netfix.cc"
       },
       {
