@@ -1,0 +1,621 @@
+{
+   "type": "list",
+   "background": "https://static.tildacdn.com/tild6632-3233-4236-a166-613266623434/wallhaven-kw7pd7.png",
+   "headline": "Все",
+   "logo": "https://voipoddsns.github.io/msx/logo/msy.png",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "dictionary": "https://voipoddsns.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,11,3",
+            "offset": "-1,1,1,0",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,1,1",
+      "area": "0,0,12,3",
+      "offset": "0,2.5,0,0",
+      "trigger:back": "player:stop",
+      "color": "msx-glass",
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "focus": true,
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "DRM-play",
+               "text": "IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, stalker-portal, медиатеки. Тестовый плейлист для ознакомления с функциями плеера."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/drm.png",
+         "action": "link:http://ott.drm-play.com"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "OTT-FOSS",
+               "text": "IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, медиатеки."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/foss.png",
+         "action": "link:http://ott.prog4food.eu.org/f/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "OTT-PLAY",
+               "text": "IPTV player. Возможность просмотра своих плейлистов,сталкер-порталов,медиатек. Сохранение, перенос настроек"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/ott-play.png",
+         "action": "link:http://ott-play.com/f/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "ICVA",
+               "text": "IPTV player от разработчиков LAMPA. Возможность просмотра своих плейлистов."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon//icva.png",
+         "action": "link:http://icva.mx/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Ottplayer",
+               "text": "Cервис, позволяющий собрать все ваше IP-телевидение в один плейлист, настроить порядок каналов, получить электронный программный гид."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/ottplayer.png",
+         "action": "link:http://widget.ottplayer.tv"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oneplayer",
+               "text": "Mультиплатформенный плеер для воспроизведения m3u плейлистов в общепринятом формате, подходит для воспроизведения аудио, видео, радио, live плейлистов. "
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/one_player.png",
+         "action": "link:http://webos.oneplayer.me"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "LAMPA",
+               "text": "Приложение-каталог. Не содержит медиаконтента, но легко трансформируется в онлайн кинотеатр с возможностью просмотра торрентов и iptv"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/lampa.png",
+         "action": "link:http://lampa.mx"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "LAMPA land",
+               "text": "Мод программы Лампа{br}Программа уже настроенная для он-лайн просмотра и просмотра iptv"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/lampa_land/icon.png",
+         "action": "link:http://lampa.land"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Lampset (Набор Ламп 😁)",
+               "text": "Подборка приложения \"LAMPA\" с альтернативными адресами на случай \"падения\" оригинальной или для постоянного использования. {br} Воспользуйтесь сохранением и переносом настроек на сайте {col:msx-blue}cub.red {col}что-бы не настраивать приложение заново."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/lampset.png",
+         "action": "panel: https://voipoddsns.github.io/msx/lampset/template.json",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Lampa UnCensored",
+               "text": "Мод программы Лампа{br}c установленым магазином плагинов и другими «плюшками»"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/bylampa.png",
+         "action": "link:http://bylampa.online"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Akter Black",
+               "text": "Мод программы Лампа{br}В данный момент находиться в разработке и некоторые функции могут быть недоступны!!! Опубликованно только для ознакомления с программой!!!"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/akter_black.png",
+         "action": "link:http://abvidaa.ru/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Prisma TV",
+               "text": "Мод программы Лампа{br}В данный момент находиться в разработке и некоторые функции могут быть недоступны!!!{br}Опубликованно только для ознакомления с программой!!!"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/prisma.png",
+         "action": "panel: https://voipoddsns.github.io/msx/prisma/template.json"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Lampa-UspehTV",
+               "text": "Мод программы Lampa бесплатными каналами IPTV и плагинами для просмотра медиаконтента онлайн. {br}Для просмотра необходимо ввести токен. Токен можно получить через бота в телеграмм {col:msx-blue}https://t.me/UspehTVBot"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/uspeh2.png",
+         "action": "link:http://uspeh.sbs"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "LAMPA NoName",
+               "text": "Настроенная для просмотра контента онлайн. Благодарим уважаемого Noname."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/lampaNN.png",
+         "action": "link: http://lam.nnmtv.pw/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Lampa lite {col:yellow}|{col} NoName",
+               "text": "Настроенная программа Lampa lite «готовая к употреблению». Благодарим уважаемого Noname"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/lampa_lite.png",
+         "action": "link:http://lite.nnmtv.pw/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Lampa by Skaz",
+               "text": "Ппрограмма Lampa с предустановленными плагинами для онлайн просмотра. Возможность добавления плагинов из магазина."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/lampa.png",
+         "action": "link:http://lampa.byskaz.ru"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "NetFix",
+               "text": "NetFix - приложение (на базе программы Lampa) для просмотра фильмов и сериалов онлайн! Не требуется никаких настроек. Запустил и смотри. Просмотр торрентов не предусмотрен.{br}ВАЖНО: Нужна регистрация! Нужна оплаченная подписка! Есть тестовый период"
+            }
+         },
+         "image": "https://github.com/voipoddsns/repo/blob/main/netfix/icon.png?raw=true",
+         "action": "link:http://netfix.cc"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "VoKINO",
+               "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
+            }
+         },
+         "image": "https://github.com/voipoddsns/msx/blob/main/logo/vokino.png?raw=true",
+         "action": "link: http://web.vokino.pro/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "ATODO",
+               "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/atodo.png",
+         "action": "menu:request:interaction:menu@http://atodo.fun/fun.html"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "ATODO-web",
+               "text": "Web версия приложения ATODO. Просмотр различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/atodo.png",
+         "action": "link:http://msx.atodo.fun/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "ZONA msx",
+               "text": "MSX версия приложения ZONA. Просмотра различного медиаконтента: фильмов, сериалов, аниме"
+            }
+         },
+         "image": "https://msx.zona.ms/assets/logo_512_512.png",
+         "action": "link:https://msx.zona.ms"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "TVOЁ",
+               "text": "Платный онлайн кинотеатр. Требуется регистрация. Есть пробный период. {br}Приложение на этапе разработки и может работать нестабильно или с ошибками. Опубликовано для ознакомления с программой"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/tvoe.png",
+         "action": "link:https://tv-old.tvoe.live"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "MOVIELAB",
+               "text": "Портал MOVIELAB на базе Media Station X. Просмотр видео контента on-line"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/movielab.png",
+         "action": "menu:https://movielab.fun/msx/menu.json"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Forkplayer",
+               "text": "Bеб-браузер, адаптированный для просмотра специальных интернет-страниц с автоматически обновляемыми плейлистами, предоставляет возможность прямо с браузера смотреть фильмы, ТВ-каналы, слушать музыку, радиостанции"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/fork_com.png",
+         "action": "link:http://browser.appfxml.com/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Filmix Smart",
+               "text": "Онлайн кинотеатр. Фильмы, мультфильмы и сериалы в отличном качестве. {br}{col:gold}Требуется регистрация и аккаунт VIP | PRO"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/filmix.png",
+         "action": "link:http://filmix.tv/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "КИНОПОИСК {col:yellow}(WebOS){col}",
+               "text": "Oнлайн-кинотеатр с фильмами и сериалами по подписке Яндекс Плюс или за отдельную плату."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kinopoisk.png",
+         "action": "link:https://smarttv-app.ott.yandex.ru/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "KinoPUB",
+               "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме. Нужна регистрация и подписка"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kinopub.png",
+         "action": "link:http://kpms.cc/bootstrap.html"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Kinopub_sdnSL",
+               "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме. Нужна регистрация и подписка.{br}Если предидущий не запустился попробуйте запустить этот"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kinopub_green.png",
+         "action": "link:https://cdnservices.link"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "X-SMART TV",
+               "text": "Цифровая медиа платформа XSMART — это интернет каталог в виде приложения, где собрана информация о фильмах и сериалах, актерах и режиссерах. Вся информация в каталоге взята из открытых источников и предоставляются исключительно в ознакомительных целях.",
+               "image": "https://voipoddsns.github.io/msx/xsmart/capture.gif"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/xsmart.png",
+         "action": "link:http://app.xsmart.tv"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "DEEPLEX",
+               "text": "Приложение для просмотра различного медиаконтента: фильмов, сериалов, аниме, а так же просмотр торрентов."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/deeplex.png",
+         "action": "link:http://smart.deeplex.cc/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "IMPIRE BOOM",
+               "text": "ИмперияBOOM представляет собой упорядоченные ссылки на медиа-контент: фильмы, сериалы, мультфильмы, IPTV, радио и т.п."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/impire_boom.png",
+         "action": "link:http://web.imboom.ru/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "KINOBOOM",
+               "text": "Просмотр видео контента из многих источников. Поиск контента (фильмы, сериалы, мультфильмы, аниме, тв-передачи).Выбора качества. KBC каналы. VIP подписка на три устройства "
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kinoboom.png",
+         "action": "execute:info:extended:http://kb-team.club/msx/enter.php"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "GetsTV",
+               "text": " Фильмы и Мультфильмы. Крупнейшая база на любой вкус, обновляется ежедневно, новинки появляются сразу после премьеры в кинотеатре."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/getstv.png",
+         "action": "panel:http://lg.getstv.ru/msx/msx.json"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Tutkino",
+               "text": " Онлайн кинотеатр (vPlay мод). Доступ к сервису за донат"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/tutkino.jpg",
+         "action": "link:http://web.tutkino.fun/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Tutkino Lite",
+               "text": " Онлайн кинотеатр (Lampa_lite мод). Доступ к сервису за донат"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/tutkinolite.jpg",
+         "action": "link:http://lite.tutkino.fun/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "KION",
+               "text": "Только WebOS. Нужна подписка{br}Оригинальные сериалы, тысячи фильмов и более 180 ТВ-каналов. Удобный интерфейс, одновременный просмотр на 5 устройствах, система рекомендаций и детский профиль с безопасным контентом. Добро пожаловать в мир захватывающих историй!"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kion.png",
+         "action": "link:https://kion.ru/EPG/smarttvlg/index.html"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "OKKO",
+               "text": "Только WebOS. Нужна подписка{br}Смотрите фильмы, сериалы, мультфильмы, ТВ-каналы и спортивные трансляции. Ежедневное обновление каталога, популярные новинки и классика кино — всё в одном месте."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/okko.png",
+         "action": "link:http://lge.okko.tv"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "RUTUBE-WEB",
+               "text": "Pоссийский онлайн-сервис для хостинга и просмотра видео"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/rutube.png",
+         "action": "link:https://rutube.ru/tv-release/rutube.server-22.0.0/webos/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Яндекс Видео",
+               "text": "«Яндекс Видео» — сервис поиск по видеороликам от Яндекса с возможностью просмотра большинства найденных роликов на странице результатов поиска. Поиск производится на сторонних видеохостингах и новостных интернет-ресурсах."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/yandex.png",
+         "action": "link:https://yandex.ru/video/tvapp/?ui=tvapp"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "TikTok {col:yellow}",
+               "text": "Только WebOS{col}{br}Hеофициальное приложение для webOS"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/tiktok.png",
+         "action": "link:https://tv.tiktok.com/webos"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "VK Video",
+               "text": "Шоу любимых блогеров, свежие фильмы и сериалы, любимые телеканалы, прямые эфиры, мультфильмы для детей, спортивные трансляции, музыкальные новинки и многое другое "
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/vk.png",
+         "action": "panel:https://voipoddsns.github.io/msx/vkvideo/vk_template.json"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "СМОТРИМ-WEB",
+               "text": "Pоссийская государственная мультимедийная онлайн-платформа, разработанная крупнейшим государственным медиахолдингом «ВГТРК»"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/smotrim.png",
+         "action": "link:https://tv.smotrim.ru"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "YouTUBE",
+               "text": "Oнлайн-сервис для хостинга и просмотра видео"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/youtube.png",
+         "action": "link:https://www.youtube.com/tv#/"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "YOUTUBE KIDS",
+               "text": "Oтдельная версия популярного видеохостинга Youtube, нацеленная исключительно на детей."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/ytkids.png",
+         "action": "link:https://www.youtube.com/tv/kids"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "МУЛЬТИКИ",
+               "text": "Смотрим мультфильмы онлайн. Коллекция мультфильмов советских времен и не только. Самые лучшие мультики из вашего детства!"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/multiki.png",
+         "action": "content:https://voipoddsns.github.io/msx/welcome.json"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "RELAX",
+               "text": "Подборки IPTV каналов из интернета в открытом доступе.{br} Работают так как есть. Работают пока работают."
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/relax.png",
+         "action": "content: https://voipoddsns.github.io/msx/bonus/relax.json",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "selection": {
+            "image": "https://cdn.dribbble.com/users/3547568/screenshots/14395014/music_jpeg_4x.jpg",
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Песни Нашего Времени",
+               "text": "Видеоподборки yotube-каналов"
+            }
+         },
+         "image": "https://cdn.dribbble.com/users/3547568/screenshots/14395014/music_jpeg_4x.jpg",
+         "action": "panel:https://voipoddsns.github.io/msx/pesni_nashego_leta/pesni_nashego_leta.json"
+      },
+      {
+         "selection": {
+            "image": "https://cdn.dribbble.com/users/3547568/screenshots/14395014/music_jpeg_4x.jpg",
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Дискотека 80-х",
+               "text": "Интернет-трансляции, ТВ-версии выступления звёзд на «Дискотеке 80-х» Yotube-каналa Avtoradio @Disco80s"
+            }
+         },
+         "image": "https://yt3.googleusercontent.com/ytc/AIdro_kUkL-a59qSwEq6Dc-Il979Khwahh1_URZsficN8tYV=s160-c-k-c0x00ffffff-no-rj",
+         "action": "content:https://raw.githubusercontent.com/voipoddsns/prog/main/avtoradio/translation.json"
+      }
+   ]
+}
+
+
