@@ -1,0 +1,90 @@
+{
+   "headline": "ПОДБОРКИ",
+   "background": "http://msx.benzac.de/img/bg1.jpg",
+   "menu": [
+       {
+         "icon": "movie-filter",
+         "label": "Новинки",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/1"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Премьера дня",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/23"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Популярное",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/0"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Битва на мечах",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/100006"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Нежная подборка",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/317"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Дорамы на экранах",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/553"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Самые пьяные фильмы",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/455"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Романтическое настроение",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/100015"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Лучшее фильмы 2023 года",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/100014"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Лысое кино",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/562"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Лучшее сo Шварценеггером",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/591"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Крутые парни",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/100012"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Время веселиться",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/575"
+      },
+      {
+         "icon": "movie-filter",
+         "label": "Цари и боги",
+         "background": "http://msx.benzac.de/img/bg1.jpg",
+         "data": "https://movielab.fun/msx/catalog/556"
+      }
+   ]
+}

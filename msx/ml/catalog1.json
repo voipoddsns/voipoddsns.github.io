@@ -1,0 +1,130 @@
+{
+   "type": "list",
+   "headline": "Новинки",
+   "transparent": 1,
+   "preload": "next",
+   "underlay": {
+      "action": "[quiet|delay:backdrop:1:interaction:load:http://msx.benzac.de/interaction/backdrop.html]",
+      "data": {
+         "url": "none"
+      }
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,2,3",
+      "area": "0,0,12,3",
+      "wrapperColor": "msx-glass",
+      "imageHeight": 1.83,
+      "color": "msx-glass",
+      "imageFiller": "cover",
+      "truncation": "titleFooter",
+      "titleHeader": "",
+      "titleFooter": "",
+      "description": "No description available.",
+      "backdrop": "none",
+      "image": "none",
+      "selection": {
+         "important": true,
+         "action": "data",
+         "data": {
+            "actions": [
+               {
+                  "action": "invalidate:content:underlay:text"
+               },
+               {
+                  "action": "delay:text:1:update:content:underlay:text",
+                  "data": {
+                     "headline": "{context:titleHeader}",
+                     "text": "{context:titleFooter}{br}{br}{context:description}"
+                  }
+               },
+               {
+                  "action": "delay:backdrop:1:interaction:load:http://msx.benzac.de/interaction/backdrop.html",
+                  "data": {
+                     "url": "{context:backdrop}",
+                     "type": 1
+                  }
+               }
+            ]
+         }
+      },
+      "properties": {
+         "image:extension": "| {context:titleHeader}"
+      }
+   },
+   "items": [
+      {
+         "titleHeader": "{col:msx-white}Девушка Миллера",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd1.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/5009236/9684886d550100e59d0751703f1dcc04/1708288261.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=5009236"
+      },
+      {
+         "titleHeader": "{col:msx-white}Моя прекрасная свадьба",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd2.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/5376381/17d71ed35f884e7cddc68feeff7ea217/1707852061.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=5376381"
+      },
+      {
+         "titleHeader": "{col:msx-white}Мармелад",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd3.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/5071324/2e8ddf775c696e1db7aff5c8a21c6af0/1708095061.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=5071324"
+      },
+      {
+         "titleHeader": "{col:msx-white}Стальная хватка",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd4.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/5005446/d351756a450459f6d3a2df214dbeb605/1707811561.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=5005446"
+      },
+      {
+         "titleHeader": "{col:msx-white}Моя жена – киллер",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd5.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/4987450/56551bce9b97016b040b8879eb92ab65/1705069441.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=4987450"
+      },
+      {
+         "titleHeader": "{col:msx-white}Кривая дорога",
+         "description": "Lorem ipsum dolor sit amet, sit no hinc quot doctus.",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd6.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/4477116/bea52a46a647487ac617a7399e8dde88/1706884921.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=4477116"
+      },
+      {
+         "titleHeader": "{col:msx-white}Дворец",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd7.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/4472264/6d16d869983342cb7f48949d35e6e021/1704291001.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=4472264"
+      },
+      {
+         "titleHeader": "{col:msx-white}Аквамен и потерянное царство",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd8.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/1234997/fc6749a43f4e4e0b0199cf73a21061cf/1706034901.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=1234997"
+      },
+      {
+         "titleHeader": "{col:msx-white}Вонка",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd9.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/1013343/d4930306809a7d90aead0acf1268a43f/1705765981.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=1013343"
+      },
+      {
+         "titleHeader": "{col:msx-white}Голодные игры: Баллада о змеях и певчих птицах",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd10.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/1289334/91c4da546e9104c19605d0705f635a4e/1705069261.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=1289334"
+      },
+      {
+         "titleHeader": "{col:msx-white}Тролли 3",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd11.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/4740371/23be7fb6464dd703c4dffaf819345056/1704918121.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=4740371"
+      },
+      {
+         "titleHeader": "{col:msx-white}Капитан Марвел 2",
+         "backdrop": "https://maxaon09.github.io/msx/ml/bd12.jpg",
+         "image": "https://api-base.tech/340-500/Images/Main/Poster/1287544/534b25b8db18ea9965fef929404264f1/1703811361.jpg",
+         "action": "content:https://movielab.fun/msx/movie?movie_id=1287544"
+      }
+   ]
+}

@@ -1,0 +1,109 @@
+{
+   "compress": true,
+   "type": "list",
+   "background": "https://static.tildacdn.com/tild6632-3233-4236-a166-613266623434/wallhaven-kw7pd7.png",
+   "headline": "Все",
+   "logo": "https://wals09.github.io/msx/logo/msy.png",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "1,0,15,3",
+            "offset": "-1,1,1,0",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,2,2",
+      "area": "0,1,16,4",
+      "offset": "0,2.5,0,0",
+      "trigger:back": "player:stop",
+      "color": "msx-glass",
+      "imageFiller": "cover"
+   },
+   "items": [
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "MSX NoName Launcher",
+               "text": "Может не  работать на старых весиях MSX и старых устройствах"
+            }
+         },
+         "image": "https://wals09.github.io/msx/logo/noname.jpg",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/noname _launch.json"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "NoName Portal",
+               "text": "Запуск web приложений."
+            }
+         },
+         "image": "https://wals09.github.io/msx/logo/noname.jpg",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/noname.json"
+      },
+      {
+         "badge": "MSXPlayer v4",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "MSXPlayer - V4",
+               "text": "Может не  работать на старых весиях MSX и старых устройствах"
+            }
+         },
+         "image": "https://wals09.github.io/msx/alterstore/msx-icon.png",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/msxplayer_v4.json"
+      },
+      {
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "APPFXML STORE",
+               "text": "Лаунчер-магазин приложений APPFXML STORE"
+            }
+         },
+         "image": "https://msx.appfxml.com/msx/appfxmlstore_m.png",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/appfxml.json"
+      },
+      {
+         "badge": "TV RU",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "TV RU Portal",
+               "text": "Запуск web приложений."
+            }
+         },
+         "image": "https://wals09.github.io/msx/alterstore/msx-icon.png",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/tvru.json"
+      },
+      {
+         "badge": "MSX CC UA",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "MSX CC UA Portal",
+               "text": "Запуск web приложений"
+            }
+         },
+         "image": "https://wals09.github.io/msx/alterstore/msx-icon.png",
+         "action": "panel:https://wals09.github.io/msx/alterstore/panel/msx_cc_ua.json"
+      }
+   ]
+}

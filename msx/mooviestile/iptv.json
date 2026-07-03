@@ -1,0 +1,124 @@
+{
+   "compress": true,
+   "type": "list",
+   "background": "content:https://wals09.github.io/kf/img/bac.jpg",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "dictionary": "https://wals09.github.io/msx/dictionary.json",
+   "headline": "IPTV приложения",
+   "transparent": 2,
+   "preload": "next",
+   "underlay": {
+      "action": "[quiet|delay:backdrop:1:interaction:load:http://msx.benzac.de/interaction/backdrop.html]",
+      "data": {
+         "url": "none"
+      },
+      "items": [
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "0,2,16,3",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "default",
+      "layout": "0,0,2,2",
+      "area": "0,4,16,4",
+      "wrapperColor": "msx-glass",
+      "imageHeight": 1.83,
+      "color": "msx-glass",
+      "imageFiller": "cover",
+      "truncation": "titleFooter",
+      "transparent": 1,
+      "titleHeader": "",
+      "titleFooter": "",
+      "description": "No description available.",
+      "backdrop": "none",
+      "image": "none",
+      "selection": {
+         "important": true,
+         "action": "data",
+         "data": {
+            "actions": [
+               {
+                  "action": "invalidate:content:underlay:text"
+               },
+               {
+                  "action": "delay:text:0:update:content:underlay:text",
+                  "data": {
+                     "headline": "{context:titleHeader}",
+                     "text": "{context:titleFooter}{context:description}"
+                  }
+               },
+               {
+                  "action": "delay:backdrop:0:interaction:load:http://msx.benzac.de/interaction/backdrop.html",
+                  "data": {
+                     "url": "{context:backdrop}",
+                     "type": 1
+                  }
+               }
+            ]
+         }
+      },
+      "properties": {
+         "image:extension": "| {context:titleHeader}"
+      }
+   },
+   "items": [
+      {
+         "titleHeader": "",
+         "description": "{col:white}DRM-play{col} {br}IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, stalker-portal, медиатеки. Тестовый плейлист для ознакомления с функциями плеера.",
+         "backdrop": "https://object.pscloud.io/cms/cms/Uploads/tv_oled_cx_04_cinema_desktop_qumnP2.jpg",
+         "image": "https://wals09.github.io/msx/logon/drm.png",
+         "action": "link:http://ott.drm-play.com"
+      },
+      {
+         "titleHeader": "",
+         "description": "{col:white}OTT-PLAY{col}{br}Возможность просмотра своих плейлистов,сталкер-порталов,медиатек. Сохранение, перенос настроек. Необходим свой плейлист.",
+         "backdrop": "https://avatars.mds.yandex.net/i?id=cc75e236f8e11a4c095ee51e1ce7718cef2c941f-8981832-images-thumbs&n=13",
+         "image": "https://wals09.github.io/msx/logon/ott-play.png",
+         "action": "link:http://ott-play.com/f/"
+      },
+      {
+         "titleHeader": "",
+         "description": "{col:white}Ott-play FOSS{col}{br}IPTV плеер с поддержкой плейлистов в формате m3u, m3u8, медиатеки. Необходим свой плейлист.",
+         "backdrop": "https://www.healio.com/~/media/slack-news/stock-images/fm_im/t/tv-watching_adobe.jpeg",
+         "image": "https://wals09.github.io/msx/logon/foss.png",
+         "action": "link:http://ott.prog4food.eu.org/f/"
+      },
+      {
+         "titleHeader": "",
+         "description": "{col:white}ICVA{col}{br}IPTV player от разработчиков LAMPA. Возможность просмотра своих плейлистов. Необходим свой плейлист.",
+         "backdrop": "https://slickdeals.net/blog/wp-content/uploads/2021/02/4k-tv-hero-soccer.jpg",
+         "image": "https://wals09.github.io/msx/logon/icva.png",
+         "action": "link:http://icva.mx/"
+      },
+      {
+         "description": "{col:white}Ottplayer{col}{br}Cервис, позволяющий собрать все ваше IP-телевидение в один плейлист, настроить порядок каналов, получить электронный программный гид. Необходим свой плейлист.",
+         "backdrop": "https://i.ytimg.com/vi/8EW8ZOBvd1s/maxresdefault.jpg",
+         "image": "https://wals09.github.io/msx/logon/ottplayer.png",
+         "action": "link:http://widget.ottplayer.tv"
+      },
+      {
+         "titleHeader": "",
+         "description": "{col:white}Lampa-UspehTV{col}{br}Мод программы Lampa бесплатными каналами IPTV и плагинами для просмотра медиаконтента онлайн. {br}Для просмотра необходимо ввести токен. Токен можно получить через бота в телеграмм {col:msx-blue}https://t.me/UspehTVBo",
+         "backdrop": "https://avatars.dzeninfra.ru/get-zen_doc/235990/pub_5c21282b18dfea00aacbe8ae_5c2128d63fb84400aaa3992d/scale_1200",
+         "image": "https://wals09.github.io/msx/logon/uspeh2.png",
+         "action": "link:http://uspeh.sbs"
+      },
+      {
+         "description": "{col:white}Oneplayer{col}{br}Mультиплатформенный плеер для воспроизведения m3u плейлистов в общепринятом формате, подходит для воспроизведения аудио, видео, радио, live плейлистов. Необходим свой плейлист.",
+         "backdrop": "https://sun9-57.userapi.com/impg/ifJEs89KwbTqo45kXWj1mzwWuPeROMO5tt6_og/Syn5hI-KBoo.jpg?size=604x436&quality=96&sign=a4a332d7749a540fbc550c2e3850b391&type=album",
+         "image": "https://wals09.github.io/msx/logon/one_player.png",
+         "action": "link:http://webos.oneplayer.me"
+      },
+      {
+         "description": "{col:white}RELAX{col}{br}Тематическая подборка IPTV каналов из интернета в открытом доступе.",
+         "backdrop": "https://static.nv.ua/shared/system/Article/posters/003/020/887/original/65ed6ab4002cd0b365b5f3e3a1ccf32d.jpg?q=85&stamp=20250116175159&w=600",
+         "image": "https://wals09.github.io/msx/logon/relax.png",
+         "action": "content: https://wals09.github.io/msx/bonus/relax.json"
+      }
+   ]
+}
