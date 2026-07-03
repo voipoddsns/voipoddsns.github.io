@@ -1,0 +1,740 @@
+{
+   "type": "list",
+   "extension": "{col:msx-white}{ico:msx-white:event} {now:date:D, M d, yyyy}{tb}{ico:msx-white:access-time} {now:time:hh:mm}",
+   "dictionary": "https://voipoddsns.github.io/msx/dictionary.json",
+   "preload": "next",
+   "captionUnderlay": 1,
+   "underlay": {
+      "items": [
+         {
+            "type": "space",
+            "round": false,
+            "layout": "0,0,12,1",
+            "offset": "-1,0,2,-0.8",
+            "color": "red"
+         },
+         {
+            "id": "text",
+            "type": "space",
+            "layout": "4,0,5,1",
+            "offset": "-1.25,-0.6,2,0 ",
+            "headline": "",
+            "text": ""
+         }
+      ]
+   },
+   "template": {
+      "type": "separate",
+      "layout": "0,0,2,3",
+      "offset": "-0,0.5,0,0 ",
+      "alignment": "title-center",
+      "color": "msx-glass"
+   },
+   "items": [
+      {
+         "title": "Тема оформления",
+         "color": "transparent",
+         "image": "https://voipoddsns.github.io/msx/logon/tema.png",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "{col:msx-white}Выбор темы оформления WALS_MSX"
+            }
+         },
+         "action": "panel:https://voipoddsns.github.io/msx/tema/panel_tems.json",
+         "properties": {
+            "trigger:back": "player:stop"
+         }
+      },
+      {
+         "focus": true,
+         "title": "DRM-play",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "IPTV плеер"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/drm.png",
+         "action": "link:http://ott.drm-play.com",
+         "properties": {
+            "image:extension": "| {col:msx-white}First Item"
+         }
+      },
+      {
+         "title": "OTT-FOSS",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "IPTV плеер "
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/foss.png",
+         "action": "link:http://ott.prog4food.eu.org/f/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Second Item"
+         }
+      },
+      {
+         "title": "OTT-PLAY",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "IPTV плеер "
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/ott-play.png",
+         "action": "link:http://ott-play.com/f/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Third Item"
+         }
+      },
+      {
+         "title": "ICVA",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "IPTV player от разработчиков LAMPA"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon//icva.png",
+         "action": "link:http://icva.mx/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Fourth Item"
+         }
+      },
+      {
+         "title": "Ottplayer",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "IPTV плеер "
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/ottplayer.png",
+         "action": "link:http://widget.ottplayer.tv",
+         "properties": {
+            "image:extension": "| {col:msx-white}27th Item"
+         }
+      },
+      {
+         "title": "Oneplayer",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "IPTV плеер "
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/one_player.png",
+         "action": "link:http://webos.oneplayer.me",
+         "properties": {
+            "image:extension": "| {col:msx-white}27th Item"
+         }
+      },
+      {
+         "title": "LAMPA",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Приложение-каталог. Oнлайн, торрент, iptv"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/lampa.png",
+         "action": "link:http://lampa.mx",
+         "properties": {
+            "image:extension": "| {col:msx-white}Fifth Item"
+         }
+      },
+      {
+         "title": "Akter Black",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Мод программы Лампа. Oнлайн, торрент, iptv"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/akter_black.png",
+         "action": "link:http://abvidaa.ru/",
+         "properties": {
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      },
+      {
+         "title": "Prisma TV",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Мод программы Лампа. Oнлайн, торрент, iptv"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/prisma.png",
+         "action": "panel: https://voipoddsns.github.io/msx/prisma/template.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}27th Item"
+         }
+      },
+      {
+         "title": "Lampa UnCensored",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн, торрент, iptv"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/bylampa.png",
+         "action": "link:http://bylampa.online",
+         "properties": {
+            "image:extension": "| {col:msx-white}27th Item"
+         }
+      },
+      {
+         "title": "Lampset",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Приложения \"LAMPA\" с альтернативными адресами"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/lampset.png",
+         "action": "panel: https://voipoddsns.github.io/msx/lampset/template.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "title": "Lampa-UspehTV",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Мод программы Lampa"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/uspeh2.png",
+         "action": "link:http://uspeh.sbs",
+         "properties": {
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      },
+      {
+         "title": "Lampa NoName",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Lampa NoName"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/lampaNN.png",
+         "action": "link: http://lam.nnmtv.pw/"
+      },
+      {
+         "title": "Lampa lite NoName",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Lampa lite {col:yellow}|{col} NoName"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/lampa_lite.png",
+         "action": "link:http://lite.nnmtv.pw/"
+      },
+      {
+         "title": "NetFix",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Фильмы, сериалы, аниме"
+            }
+         },
+         "image": "https://github.com/voipoddsns/repo/blob/main/netfix/icon.png?raw=tru",
+         "action": "link:http://netfix.cc"
+      },
+      {
+         "title": "VoKINO",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Фильмы, сериалы, аниме, просмотр торрентов"
+            }
+         },
+         "image": "https://github.com/voipoddsns/msx/blob/main/logo/vokino.png?raw=true",
+         "action": "link: http://web.vokino.pro/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "title": "ATODO",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Фильмы, сериалы, аниме, просмотр торрентов"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/atodo.png",
+         "action": "menu:request:interaction:menu@http://atodo.fun/fun.html",
+         "properties": {
+            "image:extension": "| {col:msx-white}Seventh Item"
+         }
+      },
+      {
+         "title": "ATODO-web",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Web версия приложения ATODO"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/atodo.png",
+         "action": "link:http://msx.atodo.fun/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Eighth Item"
+         }
+      },
+      {
+         "title": "ZONA msx",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Фильмы, сериалы, аниме"
+            }
+         },
+         "image": "https://msx.zona.ms/assets/logo_512_512.png",
+         "action": "link:https://msx.zona.ms",
+         "properties": {
+            "image:extension": "| {col:msx-white}Ninth Item"
+         }
+      },
+      {
+         "title": "TVOЁ",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Платный онлайн кинотеатр.(⚠️ТЕСТ⚠️)"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/tvoe.png",
+         "action": "link:https://tv-old.tvoe.live",
+         "properties": {
+            "image:extension": "| {col:msx-white}17th Item"
+         }
+      },
+      {
+         "title": "MOVIELAB",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "MOVIELAB на базе Media Station X. Online"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/movielab.png",
+         "action": "menu:https://movielab.fun/msx/menu.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}Tenth Item"
+         }
+      },
+      {
+         "title": "Forkplayer",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Bеб-браузер, адаптированный для просмотра медиа"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/fork_com.png",
+         "action": "link:http://browser.appfxml.com/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Eleventh Item"
+         }
+      },
+      {
+         "title": "Filmix Smart",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Онлайн кинотеатр по подписке"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/filmix.png",
+         "action": "link:http://filmix.tv/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Eleventh Item"
+         }
+      },
+      {
+         "title": "КИНОПОИСК {col:yellow}(WebOS){col}",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр по подписке Яндекс Плюс"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kinopoisk.png",
+         "action": "link:https://smarttv-app.ott.yandex.ru/",
+         "properties": {
+            "image:extension": "| {col:msx-white}Twelfth Item"
+         }
+      },
+      {
+         "title": "DEEPLEX",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр по подписке"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/deeplex.png",
+         "action": "link:http://smart.deeplex.cc/",
+         "properties": {
+            "image:extension": "| {col:msx-white}20th Item"
+         }
+      },
+      {
+         "title": "KinoPUB",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр по подписке"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kinopub.png",
+         "action": "link:http://kpms.cc/bootstrap.html",
+         "properties": {
+            "image:extension": "| {col:msx-white}21st Item"
+         }
+      },
+      {
+         "title": "KinoPUB",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр по подписке"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kinopub_green.png",
+         "action": "link:https://cdnservices.link",
+         "properties": {
+            "image:extension": "| {col:msx-white}21st Item"
+         }
+      },
+      {
+         "title": "X-SMART TV",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр, нужна регистрация"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/xsmart.png",
+         "action": "link:http://app.xsmart.tv",
+         "properties": {
+            "image:extension": "| {col:msx-white}22nd Item"
+         }
+      },
+      {
+         "title": "IMPIRE BOOM",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр по подписке"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/impire_boom.png",
+         "action": "link:http://web.imboom.ru/",
+         "properties": {
+            "image:extension": "| {col:msx-white}23rd Item"
+         }
+      },
+      {
+         "title": "KINOBOOM",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр по подписке"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kinoboom.png",
+         "action": "execute:info:extended:http://kb-team.club/msx/enter.php",
+         "properties": {
+            "image:extension": "| {col:msx-white}24th Item"
+         }
+      },
+      {
+         "title": "Tutkino ",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр за донат. (vPlay мод)"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/tutkino.jpg",
+         "action": "link:http://web.tutkino.fun/",
+         "properties": {
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      },
+      {
+         "title": "Tutkino lite",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр за донат. (Lampa_lite мод)"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/tutkinolite.jpg",
+         "action": "link:http://lite.tutkino.fun/",
+         "properties": {
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      },
+      {
+         "title": "GetsTV",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр, нужна регистрация"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/getstv.png",
+         "action": "panel:http://lg.getstv.ru/msx/msx.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      },
+      {
+         "title": "KION",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр по подписке"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/kion.png",
+         "action": "link:https://kion.ru/EPG/smarttvlg/index.html",
+         "properties": {
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      },
+      {
+         "title": "OKKO",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Oнлайн-кинотеатр по подписке"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/okko.png",
+         "action": "link:http://lge.okko.tv",
+         "properties": {
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      },
+      {
+         "title": "RUTUBE-WEB",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Онлайн-сервис для хостинга и просмотра видео"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/rutube.png",
+         "action": "link:https://rutube.ru/tv-release/rutube.server-22.0.0/webos/",
+         "properties": {
+            "image:extension": "| {col:msx-white}13th Item"
+         }
+      },
+      {
+         "title": "Яндекс Видео",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Поиск по видеороликам от Яндекса"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/yandex.png",
+         "action": "link:https://yandex.ru/video/tvapp/?ui=tvapp",
+         "properties": {
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      },
+      {
+         "title": "TikTok",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Hеофициальное приложение для webOS"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/tiktok.png",
+         "action": "link:https://tv.tiktok.com/webos",
+         "properties": {
+            "image:extension": "| {col:msx-white}14th Item"
+         }
+      },
+      {
+         "title": "VK Video",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Блогеры, фильмы, сериалы, телеканалы, мультфильмы и т.п"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/vk.png",
+         "action": "panel:https://voipoddsns.github.io/msx/vkvideo/vk_template.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}15th Item"
+         }
+      },
+      {
+         "title": "СМОТРИМ-WEB",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Российская мультимедийная онлайн-платформа «ВГТРК»"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/smotrim.png",
+         "action": "link:https://tv.smotrim.ru",
+         "properties": {
+            "image:extension": "| {col:msx-white}16th Item"
+         }
+      },
+      {
+         "title": "YouTUBE",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Сервис для хостинга и просмотра видео"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/youtube.png",
+         "action": "link:https://www.youtube.com/tv#/",
+         "properties": {
+            "image:extension": "| {col:msx-white}17th Item"
+         }
+      },
+      {
+         "title": "YOUTUBE KIDS",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Версия видеохостинга Youtube для детей"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/ytkids.png",
+         "action": "link:https://www.youtube.com/tv/kids",
+         "properties": {
+            "image:extension": "| {col:msx-white}18th Item"
+         }
+      },
+      {
+         "title": "МУЛЬТИКИ",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Смотрим мультфильмы онлайн"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/multiki.png",
+         "action": "content:https://voipoddsns.github.io/msx/welcome.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}19th Item"
+         }
+      },
+      {
+         "title": "RELAX",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "IPTV каналы из интернета"
+            }
+         },
+         "image": "https://voipoddsns.github.io/msx/logon/relax.png",
+         "action": "content: https://voipoddsns.github.io/msx/bonus/relax.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}Sixth Item"
+         }
+      },
+      {
+         "title": "Дискотекa 80-х",
+         "selection": {
+            "image": "https://cdn.dribbble.com/users/3547568/screenshots/14395014/music_jpeg_4x.jpg",
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "«Дискотекa 80-х» Yotube-каналa Avtoradio @Disco80s"
+            }
+         },
+         "image": "https://yt3.googleusercontent.com/ytc/AIdro_kUkL-a59qSwEq6Dc-Il979Khwahh1_URZsficN8tYV=s160-c-k-c0x00ffffff-no-rj",
+         "action": "content:https://raw.githubusercontent.com/voipoddsns/prog/main/avtoradio/translation.json",
+         "properties": {
+            "image:extension": "| {col:msx-white}17th Item"
+         }
+      },
+      {
+         "title": "AlterSTORE",
+         "color": "msx-glass",
+         "selection": {
+            "important": true,
+            "action": "update:content:underlay:text",
+            "data": {
+               "headline": "Альтернативные MSX магазины|лаунчеры"
+            }
+         },
+         "image": "https://rileyjames.co.uk/wp-content/uploads/2019/07/Online-Store-Logo.jpg",
+         "action": "panel:https://voipoddsns.github.io/msx/alterstore/template.json",
+         "properties": {
+            "trigger:back": "player:stop",
+            "image:extension": "| {col:msx-white}26th Item"
+         }
+      }
+   ]
+}
+
+

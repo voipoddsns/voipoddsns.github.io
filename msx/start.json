@@ -1,0 +1,9 @@
+{    
+    "name": "WALS_MSX",
+    "version": "2.3",
+    "dictionary": "https://voipoddsns.github.io/msx/dictionary.json",
+    "parameter": "menu: https://voipoddsns.github.io/msx/mooviestile/menu_ms.json",
+    "launcher": {
+      "image": "https://voipoddsns.github.io/msx/img/wals.png"
+   }   
+}

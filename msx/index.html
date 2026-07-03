@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="htrCuokPjj4HuUew5J7x2ajkxmQ6_wD1hpEo8iPS-hc" />
+    <link rel="stylesheet" href="informer/speed/style.css">
+    <title>Internet Speed Test</title>
+</head>
+    <div class="navbar">
+         <div id="ww_cc29ba0c28edc" v='1.3' loc='auto' a='{"t":"responsive","lang":"ru","ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"#14222e","cl_font":"#FFFFFF","cl_cloud":"rgba(230,254,254,1)","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","cl_odd":"#0000000a"}'><a href="https://weatherwidget.org/ru/" id="ww_cc29ba0c28edc_u" target="_blank">Бесплатный HTML погодный информер для сайта</a></div>
+         <script async src="https://app3.weatherwidget.org/js/?id=ww_cc29ba0c28edc"></script>
+      </div>
+
+<html>
+<br><br><br><br><br><br>
+<body>
+    <div class="container">
+        <div class="loader-widget">
+            <h1>Скорость интернета</h1>
+            <span class="loader hide"></span>
+            <div class="loader-content">
+                <div class="content hide">24<small>Mbps</small></div>
+                <button>Проверить</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="informer/speed/script.js"></script>
+	   <style>
+      @font-face {
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 300;
+      src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UN_r8OUuhs.ttf) format('truetype');
+      }
+      .ip {
+      font-size: 16px;
+      color: #fff;
+      text-align: center;
+      }
+      .ip p {
+      margin: 0;
+      color: #fff;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      cursor: default;
+      }
+      #ip-address {
+      font-size: 25px;
+      font-size: 4vw;
+      }
+   </style>
+   <br/>  <br/>
+   <div class="ip">
+      <p> Ваш IP:</p>
+      <div id="ip-address"></div>  
+    </div>
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+   <script>
+      $(document).ready(function() {
+      	$.getJSON('https://jsonip.com?callback=?', function (data) {
+            $('#ip-address').text(data.ip);
+        });	
+      });
+   </script>  
+
+
+
+   <style>.btn-group2 button{
+      position: relative; 
+      left: 37%;
+      }
+      .btn-group2 button {
+      background-color:#223140;  /* Green background */
+      border: 0.2px solid #7ed6d4; /* Green border */
+      border-radius: 24px;
+      color: White; /* White text */
+      font-size: 20px;
+      padding: 10px ; /* Some padding */
+      cursor: pointer; /* Pointer/hand icon */
+      float: left; /* Float the buttons side by side */
+      }
+      /* Clear floats (clearfix hack) */
+      .btn-group2:after {
+      content: "";
+      clear: both;
+      display: table;
+      }
+      .btn-group2 button:not(:last-child) {
+      border-right: none; /* Prevent double borders */
+      }
+      /* Add a background color on hover */
+      .btn-group2 button:hover {
+      background-color: #1f3c4e;
+      }
+   </style>
+
+   <body>
+      <div class="btn-group2" style="width:100%">
+      <form value="Reload Page">
+         <button style="width:25%" >Проверить IP</button>
+      </form>
+      </div>
+   </body>
+
+</html>
