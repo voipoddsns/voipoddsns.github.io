@@ -52,7 +52,7 @@ var servers = [
 	'Kz.lampa.lang',
 	'Lampalands.ru',
 	'yumata.github.io/lampa/',
-	'lampa.maxvol.pro/',
+	'lampa.maxvol.pro',
 	'lampa.app',
 	'lampa.run',
 	'lampa.stream',
