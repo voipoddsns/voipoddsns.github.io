@@ -42,7 +42,7 @@ Lampa.Lang.add({
 // 🔥 СЕРВЕРА
 // =====================
 var servers = [
-	'vi3000.com',
+	'vi3000.top',
 	'bylampa.online',
 	'lampaua.mooo.com',
 	'lampa.mx',
@@ -52,6 +52,7 @@ var servers = [
 	'Kz.lampa.lang',
 	'Lampalands.ru',
 	'yumata.github.io/lampa/',
+	'https://lampa.maxvol.pro/',
 	'lampa.app',
 	'lampa.run',
 	'lampa.stream',
