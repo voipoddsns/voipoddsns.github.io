@@ -275,11 +275,134 @@
         });
     }
 
+
+    // Главный экран и списки: бейдж качества прямо на постере.
+    var gridPending = {};
+
+    function getCardElement(component) {
+        if (!component) return null;
+        var element = component.html || component.card || component.render;
+        if (typeof element === 'function') {
+            try { element = element.call(component, true); } catch (e) { element = null; }
+        }
+        if (element && element.jquery) element = element[0];
+        return element && element.nodeType === 1 ? element : null;
+    }
+
+    function renderGridBadge(element, quality, isCamrip) {
+        if (!element || !window.$) return;
+        var $card = $(element);
+        var $view = $card.find('.card__view').first();
+        if (!$view.length) $view = $card;
+        var $badge = $view.find('.surs-quality-card').first();
+
+        if (!quality) {
+            $badge.remove();
+            return;
+        }
+
+        if (!$badge.length) {
+            $badge = $('<div class="surs-quality-card"></div>');
+            var $icons = $view.find('.card__icons').first();
+            if ($icons.length) $icons.after($badge);
+            else $view.append($badge);
+        }
+
+        $badge.text(quality);
+        $badge.toggleClass('camrip', !!isCamrip);
+    }
+
+    function processGridCard(component) {
+        if (!component || !component.data) return;
+
+        var card = component.data;
+        var element = getCardElement(component);
+        if (!element) return;
+
+        // На главном экране показываем качество только для фильмов, не сериалов и персон.
+        var type = card.media_type || card.type;
+        if (type === 'tv' || type === 'person' || card.first_air_date && !card.release_date && !card.original_title) {
+            renderGridBadge(element, null, false);
+            return;
+        }
+
+        var id = card.id || card.imdb_id || card.title || card.name;
+        if (!id) return;
+
+        var key = 'movie_' + String(id);
+        var cached = readCache(key);
+        if (cached) {
+            renderGridBadge(element, cached.quality, cached.isCamrip);
+            return;
+        }
+
+        renderGridBadge(element, '…', false);
+
+        // Если несколько одинаковых карточек видны одновременно, выполняем один запрос.
+        if (gridPending[key]) {
+            gridPending[key].push({ element: element });
+            return;
+        }
+
+        gridPending[key] = [{ element: element }];
+
+        getBestRelease(card, function (result) {
+            var subscribers = gridPending[key] || [];
+            delete gridPending[key];
+
+            var cacheValue = result && result.quality
+                ? result
+                : { quality: null, isCamrip: false };
+
+            writeCache(key, cacheValue);
+
+            subscribers.forEach(function (subscriber) {
+                renderGridBadge(subscriber.element, cacheValue.quality, cacheValue.isCamrip);
+            });
+
+            log('Главная карточка ' + id + ': ' + (cacheValue.quality || 'качество не найдено'));
+        });
+    }
+
+    function installGridHook() {
+        try {
+            if (!Lampa.Maker || typeof Lampa.Maker.map !== 'function') {
+                log('Lampa.Maker.map недоступен; бейджи на главном экране не подключены');
+                return;
+            }
+
+            var maker = Lampa.Maker.map('Card');
+            if (!maker || !maker.Card || typeof maker.Card.onVisible !== 'function') {
+                log('Обработчик Card.onVisible недоступен; бейджи на главном экране не подключены');
+                return;
+            }
+
+            if (maker.Card.__sursQualityHooked) return;
+
+            var originalOnVisible = maker.Card.onVisible;
+            maker.Card.onVisible = function () {
+                var result = originalOnVisible.apply(this, arguments);
+                try { processGridCard(this); }
+                catch (e) { log('Ошибка обработки карточки главного экрана: ' + e.message); }
+                return result;
+            };
+            maker.Card.__sursQualityHooked = true;
+            log('Подключено отображение качества на карточках главного экрана');
+        } catch (e) {
+            log('Не удалось подключить карточки главного экрана: ' + e.message);
+        }
+    }
+
     function installStyles() {
         if (document.getElementById('surs-quality-style')) return;
         var style = document.createElement('style');
         style.id = 'surs-quality-style';
-        style.textContent = '.full-start__status.surs_quality.camrip{color:#ff3333!important;}';
+        style.textContent = [
+            '.full-start__status.surs_quality.camrip{color:#ff3333!important;}',
+            '.surs-quality-card{position:absolute;z-index:8;top:.45em;left:.45em;padding:.22em .45em;border-radius:.3em;background:rgba(20,150,220,.95);color:#fff;font-size:.85em;font-weight:700;line-height:1.25;box-shadow:0 1px 4px rgba(0,0,0,.45);pointer-events:none;}',
+            '.surs-quality-card.camrip{background:rgba(220,35,35,.97);color:#fff;}',
+            '.card__view{position:relative;}'
+        ].join('\\n');
         (document.head || document.documentElement).appendChild(style);
     }
 
@@ -289,6 +412,7 @@
             return false;
         }
         installStyles();
+        installGridHook();
         Lampa.Listener.follow('full', function (event) {
             if (!event || event.type !== 'complite') return;
             var render = getRender(event);
