@@ -399,7 +399,7 @@
         style.id = 'surs-quality-style';
         style.textContent = [
             '.full-start__status.surs_quality.camrip{color:#ff3333!important;}',
-            '.surs-quality-card{position:absolute;z-index:8;top:.45em;left:.45em;padding:.22em .45em;border-radius:.3em;background:rgba(20,150,220,.95);color:#fff;font-size:.85em;font-weight:700;line-height:1.25;box-shadow:0 1px 4px rgba(0,0,0,.45);pointer-events:none;}',
+            '.surs-quality-card{position:absolute;z-index:8;left:.45em;bottom:.45em;top:auto;padding:.22em .45em;border-radius:.3em;background:rgba(20,150,220,.95);color:#fff;font-size:.85em;font-weight:700;line-height:1.25;box-shadow:0 1px 4px rgba(0,0,0,.45);pointer-events:none;}',
             '.surs-quality-card.camrip{background:rgba(220,35,35,.97);color:#fff;}',
             '.card__view{position:relative;}'
         ].join('\\n');
