@@ -4,7 +4,7 @@
     if (window.card_quality_plugin) return;
     window.card_quality_plugin = true;
 
-    var API = 'https://jacred.xyz/api/v1.0/torrents';
+    var API = 'https://jacred.lampach.cloud/api/v1.0/torrents';
     var CACHE_KEY = 'card_quality_cache_v1';
     var TTL = 7 * 24 * 60 * 60 * 1000; // 7 дней
     var MAX_PARALLEL = 2;
