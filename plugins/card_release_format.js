@@ -17,14 +17,21 @@
     // ---------- форматы (от худшего к лучшему) ----------
     // rank — для выбора лучшего среди найденных раздач
     var FORMATS = [
-        { id: 'cam',   label: 'CAMRip', rank: 1, re: /camrip|cam-?rip|hdcam|\bcam\b|камрип|экранка/ },
-        { id: 'ts',    label: 'TS',     rank: 2, re: /telesync|hdts|\bts\b|\bpdvd\b|телесинк/ },
-        { id: 'tc',    label: 'TC',     rank: 3, re: /telecine|\bhdtc\b|\btc\b|телесин/ },
-        { id: 'scr',   label: 'SCR',    rank: 4, re: /dvd-?scr|screener|\bscr\b|скринер/ },
-        { id: 'hdtv',  label: 'HDTV',   rank: 5, re: /hdtv|tvrip|satrip|dvbrip/ },
-        { id: 'web',   label: 'WEB-DL', rank: 6, re: /web-?dl|web-?rip|webdlrip|\bweb\b/ },
-        { id: 'bdrip', label: 'BDRip',  rank: 7, re: /bdrip|brrip|bd-?rip|blu-?ray|bluray/ },
-        { id: 'remux', label: 'REMUX',  rank: 8, re: /remux/ }
+        { id: 'cam',   label: 'CAMRip', rank: 1,  re: /camrip|cam-?rip|hdcam|\bcam\b|камрип|экранка/i },
+        { id: 'ts',    label: 'TS',     rank: 2,  re: /telesync|hdts|\bts\b|\bpdvd\b|телесинк/i },
+        { id: 'tc',    label: 'TC',     rank: 3,  re: /telecine|\bhdtc\b|\btc\b|телесин/i },
+        { id: 'scr',   label: 'SCR',    rank: 4,  re: /dvd-?scr|screener|\bscr\b|скринер/i },
+        { id: 'wp',    label: 'WP',     rank: 5,  re: /workprint|\bwp\b/i },
+        { id: 'vhs',   label: 'VHSRip', rank: 6,  re: /vhs-?rip|\bvhs\b/i },
+        { id: 'tv',    label: 'TVRip',  rank: 7,  re: /tvrip|satrip|dvbrip|dtsv|\btv\b|iptv-?rip/i },
+        { id: 'hdtv',  label: 'HDTV',   rank: 8,  re: /hdtv|hdtvrip/i },
+        { id: 'dvd',   label: 'DVDRip', rank: 9,  re: /dvd-?rip|dvd-?9|dvd-?5|dvdscrrip/i },
+        { id: 'hdup',  label: 'HD-Upscale', rank: 10, re: /upscale|апскейл/i },
+        { id: 'web',   label: 'WEB-DL', rank: 11, re: /web-?dl|web-?rip|webdlrip|\bweb\b|amzn-?web|nf-?web|dsny-?web|apple-?tv/i },
+        { id: 'hdrip', label: 'HDRip',  rank: 12, re: /hd-?rip/i },
+        { id: 'bdrip', label: 'BDRip',  rank: 13, re: /bdrip|brrip|bd-?rip/i },
+        { id: 'bluray',label: 'Blu-Ray',rank: 14, re: /blu-?ray|bluray|bdmv|\bbd\b/i },
+        { id: 'remux', label: 'REMUX',  rank: 15, re: /remux/i }
     ];
 
     // Проверяем от лучшего к худшему, чтобы "BD Remux" не распознался как "BDRip"
