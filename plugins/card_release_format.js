@@ -7,7 +7,7 @@
     // ---------- НАСТРОЙКИ ----------
     // Адрес JacRed по умолчанию. Если в настройках парсера Lampa указан свой адрес
     // (Настройки -> Парсер), плагин возьмёт его оттуда.
-    var DEFAULT_JACRED = 'https://jacred.lampach.cloud';
+    var DEFAULT_JACRED = 'https://jacred.su';
     var USE_LAMPA_PARSER_URL = true;
 
     var CACHE_KEY = 'card_release_format_cache_v2';
