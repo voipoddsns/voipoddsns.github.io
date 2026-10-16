@@ -17,21 +17,29 @@
     // ---------- форматы (от худшего к лучшему) ----------
     // rank — для выбора лучшего среди найденных раздач
     var FORMATS = [
-        { id: 'cam',   label: 'CAMRip', rank: 1,  re: /camrip|cam-?rip|hdcam|\bcam\b|камрип|экранка/i },
-        { id: 'ts',    label: 'TS',     rank: 2,  re: /telesync|hdts|\bts\b|\bpdvd\b|телесинк/i },
-        { id: 'tc',    label: 'TC',     rank: 3,  re: /telecine|\bhdtc\b|\btc\b|телесин/i },
-        { id: 'scr',   label: 'SCR',    rank: 4,  re: /dvd-?scr|screener|\bscr\b|скринер/i },
-        { id: 'wp',    label: 'WP',     rank: 5,  re: /workprint|\bwp\b/i },
-        { id: 'vhs',   label: 'VHSRip', rank: 6,  re: /vhs-?rip|\bvhs\b/i },
-        { id: 'tv',    label: 'TVRip',  rank: 7,  re: /tvrip|satrip|dvbrip|dtsv|\btv\b|iptv-?rip/i },
-        { id: 'hdtv',  label: 'HDTV',   rank: 8,  re: /hdtv|hdtvrip/i },
-        { id: 'dvd',   label: 'DVDRip', rank: 9,  re: /dvd-?rip|dvd-?9|dvd-?5|dvdscrrip/i },
-        { id: 'hdup',  label: 'HD-Upscale', rank: 10, re: /upscale|апскейл/i },
-        { id: 'web',   label: 'WEB-DL', rank: 11, re: /web-?dl|web-?rip|webdlrip|\bweb\b|amzn-?web|nf-?web|dsny-?web|apple-?tv/i },
-        { id: 'hdrip', label: 'HDRip',  rank: 12, re: /hd-?rip/i },
-        { id: 'bdrip', label: 'BDRip',  rank: 13, re: /bdrip|brrip|bd-?rip/i },
-        { id: 'bluray',label: 'Blu-Ray',rank: 14, re: /blu-?ray|bluray|bdmv|\bbd\b/i },
-        { id: 'remux', label: 'REMUX',  rank: 15, re: /remux/i }
+        { id: 'cam',      label: 'CAMRip',      rank: 1,  re: /camrip|cam-?rip|hdcam|\bcam\b|камрип|экранка/i },
+        { id: 'ts',       label: 'TS',          rank: 2,  re: /telesync|hdts|\bts\b|\bpdvd\b|телесинк/i },
+        { id: 'tc',       label: 'TC',          rank: 3,  re: /telecine|\bhdtc\b|\btc\b|телесин/i },
+        { id: 'scr',      label: 'SCR',         rank: 4,  re: /dvd-?scr|screener|\bscr\b|скринер/i },
+        { id: 'wp',       label: 'WP',          rank: 5,  re: /workprint|\bwp\b/i },
+        { id: 'vhs',      label: 'VHSRip',      rank: 6,  re: /vhs-?rip|\bvhs\b/i },
+        { id: 'ld',       label: 'LaserDisc',   rank: 7,  re: /ldrip|\bld\b|laserdisc/i },
+        { id: 'tv',       label: 'TVRip',       rank: 8,  re: /tvrip|satrip|dvbrip|dtsv|\btv\b|iptv-?rip/i },
+        { id: 'hdtv',     label: 'HDTV',        rank: 9,  re: /hdtv|hdtvrip/i },
+        { id: 'dvd',      label: 'DVDRip',      rank: 10, re: /dvd-?rip|dvd-?9|dvd-?5|dvdscrrip/i },
+        { id: 'hdup',     label: 'HD-Upscale',  rank: 11, re: /upscale|апскейл|ai-?upscale|remastered/i },
+        { id: 'webrip',   label: 'WEB-Rip',     rank: 12, re: /web-?rip|webrip|\bpdtv\b/i },
+        { id: 'web',      label: 'WEB-DL',      rank: 13, re: /web-?dl|webdl|amzn-?web|nf-?web|dsny-?web|apple-?tv|hmax-?web|sho-?web|itunes/i },
+        { id: 'hdrip',    label: 'HDRip',       rank: 14, re: /hd-?rip/i },
+        { id: 'brrip',    label: 'BRRip',       rank: 15, re: /brrip|bdr-?rip/i }, // Рип с готового BDRip (качество чуть хуже оригинального BDRip)
+        { id: 'bdrip',    label: 'BDRip',       rank: 16, re: /bdrip|bd-?rip/i },
+        { id: 'webdlmux', label: 'WEB-DL MUX',  rank: 17, re: /web-?dl-?mux|web-?mux/i }, // Гибриды с лучшим звуком/субтитрами
+        { id: '3d',       label: '3D Blu-Ray',  rank: 18, re: /\b3d\b|hsbs|half-?sbs|hou|half-?ou|mvc/i },
+        { id: 'bluray',   label: 'Blu-Ray',     rank: 19, re: /blu-?ray|bluray|bdmv|\bbd\b|iso-?bd/i },
+        { id: 'webremux', label: 'WEB-REMUX',   rank: 20, re: /web-?remux|hybrid-?web/i }, // Перепаковка WEB-DL без перекодирования видео
+        { id: 'uhdbdrip', label: 'UHD BDRip',   rank: 21, re: /uhd-?bdrip|4k-?bdrip|2160p-?bdrip/i },
+        { id: 'remux',    label: 'REMUX',       rank: 22, re: /remux|bd-?remux/i },
+        { id: 'uhdremux', label: 'UHD REMUX',   rank: 23, re: /uhd-?remux|4k-?remux|2160p-?remux/i }
     ];
 
     // Проверяем от лучшего к худшему, чтобы "BD Remux" не распознался как "BDRip"
