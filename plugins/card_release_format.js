@@ -6,7 +6,7 @@
 
     // ---------- НАСТРОЙКИ ----------
     var DEFAULT_JACRED = 'https://crab.rip';
-    var USE_LAMPA_PARSER_URL = false;
+    var USE_LAMPA_PARSER_URL = true;
 
     var CACHE_KEY = 'card_release_format_cache_v3';
     var TTL = 7 * 24 * 60 * 60 * 1000;        // 7 дней — для устоявшихся релизов
