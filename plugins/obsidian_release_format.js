@@ -234,18 +234,40 @@
 
     // ---------- відображення ----------
     function makeBadge(f, res) {
-        var el = document.createElement('div');
-        el.className = 'card-rf card-rf--' + f.g;
-        el.textContent = f.label + (opt('resolution') && res && f.rank >= 9 ? ' ' + res : '');
+        var el = document.createElement('span');
+        // Класи Obsidian: розмір, тінь і noir-режим успадковуються від його якості
+        el.className = 'metadata__quality metadata__format metadata__format--' + f.g;
+        var label = document.createElement('span');
+        label.className = 'metadata__quality-label';
+        label.textContent = f.label + (opt('resolution') && res && f.rank >= 9 ? ' ' + res : '');
+        el.appendChild(label);
         return el;
     }
 
     function place(html, f, res) {
-        if (html.querySelector('.card-rf')) return;
-        var view = html.querySelector('.card__view');
-        if (!view) return;
-        view.appendChild(makeBadge(f, res));
-        html.setAttribute('data-crf-has', '1');
+        if (html.querySelector('.metadata__format, .card-rf')) return;
+
+        var bottom = html.querySelector('.card__metadata .metadata__bottom');
+
+        if (bottom) {
+            // Картка Obsidian: додаємо поруч із якістю/рейтингом
+            var badge = makeBadge(f, res);
+            var anchor = bottom.querySelector('.metadata__quality') || bottom.querySelector('.metadata__rating');
+            if (anchor && anchor.parentNode) {
+                anchor.parentNode.insertBefore(badge, anchor.nextSibling);
+            } else {
+                (bottom.children[0] || bottom).appendChild(badge);
+            }
+            html.setAttribute('data-crf-has', '1');
+        } else {
+            // Картка без метаданих Obsidian: простий бейдж у куті постера
+            var view = html.querySelector('.card__view');
+            if (!view) return;
+            var el = document.createElement('div');
+            el.className = 'card-rf card-rf--' + f.g;
+            el.textContent = f.label + (opt('resolution') && res && f.rank >= 9 ? ' ' + res : '');
+            view.appendChild(el);
+        }
     }
 
     function processCard(html, data) {
@@ -333,19 +355,25 @@
     function addStyles() {
         var style = document.createElement('style');
         style.textContent = '' +
+            // Кольори в палітрі Obsidian (як у його якості TS/HD/4K)
+            '.metadata__format{white-space:nowrap}' +
+            '.metadata__format--cam{color:#ef5350}' +
+            '.metadata__format--scr{color:#ff9800}' +
+            '.metadata__format--tv{color:#42a5f5}' +
+            '.metadata__format--web{color:#66bb6a}' +
+            '.metadata__format--bd{color:#ffc107}' +
+            '.metadata__format--remux{color:#ce93d8}' +
             // Рідна якість Obsidian ховається лише за опцією і лише коли формат знайдено
-            'body.crf--replace .card[data-crf-has] .metadata__quality{display:none!important}' +
-            // Оригінальний стиль бейджа. Зверху зліва, щоб не перекривати метадані Obsidian внизу
+            'body.crf--replace .card[data-crf-has] .metadata__quality:not(.metadata__format){display:none!important}' +
+            // Запасний бейдж для карток без метаданих Obsidian
             '.card__view{position:relative}' +
-            '.card-rf{position:absolute;left:.4em;top:.4em;z-index:3;' +
-            'padding:.15em .45em;border-radius:.3em;font-size:.95em;font-weight:700;line-height:1.3;' +
-            'background:rgba(0,0,0,.78);border:2px solid;letter-spacing:.02em;pointer-events:none;white-space:nowrap}' +
-            // У серіалів зліва зверху вже стоїть значок Obsidian, тому бейдж нижче
-            '.card--obsidian.card--tv .card-rf{top:3.2em}' +
-            '.card-rf--cam{color:#f44336;border-color:#f44336}' +
+            '.card-rf{position:absolute;left:.4em;bottom:.4em;z-index:3;padding:.15em .45em;border-radius:.3em;' +
+            'font-size:.95em;font-weight:700;line-height:1.3;background:rgba(0,0,0,.78);border:2px solid;' +
+            'letter-spacing:.02em;pointer-events:none;white-space:nowrap}' +
+            '.card-rf--cam{color:#ef5350;border-color:#ef5350}' +
             '.card-rf--scr{color:#ff9800;border-color:#ff9800}' +
-            '.card-rf--tv{color:#29b6f6;border-color:#29b6f6}' +
-            '.card-rf--web{color:#4caf50;border-color:#4caf50}' +
+            '.card-rf--tv{color:#42a5f5;border-color:#42a5f5}' +
+            '.card-rf--web{color:#66bb6a;border-color:#66bb6a}' +
             '.card-rf--bd{color:#ffc107;border-color:#ffc107}' +
             '.card-rf--remux{color:#ce93d8;border-color:#ce93d8}';
         document.head.appendChild(style);
