@@ -10,7 +10,7 @@
     // ---------- НАЛАШТУВАННЯ ЗА ЗАМОВЧУВАННЯМ ----------
     var DEFAULTS = {
         enabled: true,                 // показувати формат релізу
-        replace: true,                 // ховати рідну якість Obsidian (TS/HD/4K), якщо формат знайдено
+        replace: false,                // ховати рідну якість Obsidian (TS/HD/4K), якщо формат знайдено
         resolution: true,              // дописувати 1080p / 4K
         jacred: 'https://crab.rip'     // адреса JacRed
     };
@@ -234,40 +234,18 @@
 
     // ---------- відображення ----------
     function makeBadge(f, res) {
-        var el = document.createElement('span');
-        // metadata__quality — щоб успадкувати розмір/тінь Obsidian і його noir-стилі
-        el.className = 'metadata__quality metadata__format metadata__format--' + f.g;
-        var label = document.createElement('span');
-        label.className = 'metadata__quality-label';
-        label.textContent = f.label + (opt('resolution') && res && f.rank >= 9 ? ' ' + res : '');
-        el.appendChild(label);
+        var el = document.createElement('div');
+        el.className = 'card-rf card-rf--' + f.g;
+        el.textContent = f.label + (opt('resolution') && res && f.rank >= 9 ? ' ' + res : '');
         return el;
     }
 
     function place(html, f, res) {
-        if (html.querySelector('.metadata__format, .card-rf')) return;
-
-        var badge = makeBadge(f, res);
-        var bottom = html.querySelector('.card__metadata .metadata__bottom');
-
-        if (bottom) {
-            // Obsidian-картка: вставляємо поруч із якістю/рейтингом
-            var q = bottom.querySelector('.metadata__quality');
-            var anchor = q || bottom.querySelector('.metadata__rating');
-            if (anchor && anchor.parentNode) {
-                anchor.parentNode.insertBefore(badge, anchor.nextSibling);
-            } else {
-                var host = bottom.children[0] || bottom;
-                host.appendChild(badge);
-            }
-            html.setAttribute('data-crf-has', '1');
-        } else {
-            // Звичайна картка: абсолютний бейдж у куті постера
-            var view = html.querySelector('.card__view');
-            if (!view) return;
-            badge.className = 'card-rf card-rf--' + f.g;
-            view.appendChild(badge);
-        }
+        if (html.querySelector('.card-rf')) return;
+        var view = html.querySelector('.card__view');
+        if (!view) return;
+        view.appendChild(makeBadge(f, res));
+        html.setAttribute('data-crf-has', '1');
     }
 
     function processCard(html, data) {
@@ -355,24 +333,19 @@
     function addStyles() {
         var style = document.createElement('style');
         style.textContent = '' +
-            '.metadata__format{white-space:nowrap}' +
-            '.metadata__format--cam{color:#ef5350}' +
-            '.metadata__format--scr{color:#ff9800}' +
-            '.metadata__format--tv{color:#42a5f5}' +
-            '.metadata__format--web{color:#66bb6a}' +
-            '.metadata__format--bd{color:#ffc107}' +
-            '.metadata__format--remux{color:#ce93d8}' +
-            // Повна заміна рідної якості Obsidian, коли формат знайдено
-            'body.crf--replace .card[data-crf-has] .metadata__quality:not(.metadata__format){display:none!important}' +
-            // Бейдж для карток без метаданих Obsidian
+            // Рідна якість Obsidian ховається лише за опцією і лише коли формат знайдено
+            'body.crf--replace .card[data-crf-has] .metadata__quality{display:none!important}' +
+            // Оригінальний стиль бейджа. Зверху зліва, щоб не перекривати метадані Obsidian внизу
             '.card__view{position:relative}' +
-            '.card-rf{position:absolute;left:.4em;bottom:.4em;z-index:3;padding:.15em .45em;border-radius:.3em;' +
-            'font-size:.95em;font-weight:700;line-height:1.3;background:rgba(0,0,0,.78);border:2px solid;' +
-            'letter-spacing:.02em;pointer-events:none;white-space:nowrap}' +
-            '.card-rf--cam{color:#ef5350;border-color:#ef5350}' +
+            '.card-rf{position:absolute;left:.4em;top:.4em;z-index:3;' +
+            'padding:.15em .45em;border-radius:.3em;font-size:.95em;font-weight:700;line-height:1.3;' +
+            'background:rgba(0,0,0,.78);border:2px solid;letter-spacing:.02em;pointer-events:none;white-space:nowrap}' +
+            // У серіалів зліва зверху вже стоїть значок Obsidian, тому бейдж нижче
+            '.card--obsidian.card--tv .card-rf{top:3.2em}' +
+            '.card-rf--cam{color:#f44336;border-color:#f44336}' +
             '.card-rf--scr{color:#ff9800;border-color:#ff9800}' +
-            '.card-rf--tv{color:#42a5f5;border-color:#42a5f5}' +
-            '.card-rf--web{color:#66bb6a;border-color:#66bb6a}' +
+            '.card-rf--tv{color:#29b6f6;border-color:#29b6f6}' +
+            '.card-rf--web{color:#4caf50;border-color:#4caf50}' +
             '.card-rf--bd{color:#ffc107;border-color:#ffc107}' +
             '.card-rf--remux{color:#ce93d8;border-color:#ce93d8}';
         document.head.appendChild(style);
