@@ -6,11 +6,9 @@
 (function () {
   "use strict";
 
-  // защита от двойной загрузки плагина (иначе всё рисуется дважды)
   if (window.__obsidian_plugin_loaded) return;
   window.__obsidian_plugin_loaded = true;
 
-  /* ---------- helpers ---------- */
   const isObject = (v) => typeof v === "object" && v !== null;
 
   function debounce(fn, wait) {
@@ -102,7 +100,6 @@
         }
         data[k] = { timestamp: now, value };
         touch(k);
-        // жёсткий лимит размера, даже если sweep давно не выполнялся
         if (order.length > maxSize) trim(now);
         save();
       },
@@ -151,11 +148,8 @@
     active: 0,
     maxParallel: DEFAULTS.queue.maxParallel,
     maxSize: DEFAULTS.queue.maxSize,
-    // onDrop вызывается, если очередь переполнена — иначе callback карточки
-    // никогда бы не сработал и цепочка запросов зависла бы.
     add(task, onDrop) {
       if (this._q.length >= this.maxSize) {
-        console.warn("Queue full");
         if (typeof onDrop === "function") onDrop();
         return;
       }
@@ -184,7 +178,6 @@
       }
     },
     clear() {
-      // Do not reset active: in-flight requests still call their done callbacks.
       this._q = [];
     },
   };
@@ -195,27 +188,19 @@
   function JACRED_URL() {
     let host = String(Lampa.Storage.get("jac.red") || "jac.red").trim();
     if (!host) host = "jac.red";
-
-    // Support both "jac.red" and "https://jac.red/" formats.
     host = host.replace(/^https?:\/\//i, "").replace(/\/+$/, "");
     return "https://" + host;
   }
 
-  const JACRED_OLD_CACHE_KEY = "obsidian_jacred_cache"; // старый формат, чистим один раз
-  const JACRED_NEG_TTL = 6 * 60 * 60 * 1000;            // «не найдено» помним 6 часов
+  const JACRED_OLD_CACHE_KEY = "obsidian_jacred_cache";
+  const JACRED_NEG_TTL = 6 * 60 * 60 * 1000;
   const JACRED_PROXY_LIST = [
     "https://api.allorigins.win/raw?url=",
     "https://cors.bwa.workers.dev/",
   ];
   const JACRED_PROXY_TIMEOUT = 5000;
-  // Экранки / плохие источники (камера, телесинк, скринеры)
-  const JACRED_CAM_RE = /\b(ts|hd[-. ]?ts|telesync|cam[-. ]?rip|camrip|hd[-. ]?cam|hdcam|cam|tc|hd[-. ]?tc|telecine|dvd[-. ]?scr|dvdscr|screener|pdvd|workprint)\b/i;
-  // Нормальные источники: если в названии есть любой из них — это не камрип,
-  // даже если рядом попалось слово вроде "cam" или "ts" (например, в названии фильма).
-  const JACRED_GOOD_RE = /\b(web[-. ]?dl(?:[-. ]?rip)?|web[-. ]?rip|webrip|bd[-. ]?rip|bdrip|br[-. ]?rip|brrip|bd[-. ]?remux|bdremux|remux|blu[-. ]?ray|hdtv(?:[-. ]?rip)?|sat[-. ]?rip|satrip|tv[-. ]?rip|tvrip|dvd[-. ]?rip|dvdrip|hd[-. ]?rip|hdrip|uhd)\b/i;
+  const JACRED_CAM_RE = /\b(ts|hdts|telesync|camrip|hdcam|cam|tc)\b/i;
 
-  // Кеш на createCache: данные в памяти, запись в Storage — раз в 500 мс
-  // (раньше весь объект перезаписывался в Storage на каждый ответ).
   const qualityCache = createCache(
     cfg.qualityCache.key, cfg.qualityCache.size, cfg.qualityCache.time
   );
@@ -231,12 +216,6 @@
     qualityCache.set(key, Object.assign({}, data, { at: Date.now() }));
   }
 
-  /**
-   * Прямой запрос, затем прокси по очереди. Если источник завис дольше
-   * JACRED_PROXY_TIMEOUT — запускаем следующий, но не отменяем предыдущий
-   * (кто ответит первым — тот и победил). Каждый источник продвигает цепочку
-   * не более одного раза (раньше таймер + ошибка могли «перепрыгнуть» прокси).
-   */
   function jacredFetch(url, callback) {
     const sources = [url].concat(
       JACRED_PROXY_LIST.map((p) => p + encodeURIComponent(url))
@@ -294,7 +273,7 @@
       const q = t.quality;
       if (typeof q !== "number" || q === 0) continue;
 
-      if (JACRED_CAM_RE.test(title) && !JACRED_GOOD_RE.test(title)) {
+      if (JACRED_CAM_RE.test(title)) {
         if (q >= 720 && q > camripQ) { camrip = t; camripQ = q; }
       } else {
         if (q > bestQ) { best = t; bestQ = q; }
@@ -315,21 +294,15 @@
     return null;
   }
 
-  // Одинаковые карточки (один фильм в нескольких рядах) делят один запрос.
   const jacredPending = {};
 
-  /**
-   * fetchQualityFromJacRed(item, callback)
-   * callback({ quality, uhd, camrip } | null)
-   * Вызывать ТОЛЬКО для видимых карточек (onVisible).
-   */
   function fetchQualityFromJacRed(item, callback) {
     const type = item.media_type || (item.first_air_date || item.name ? "tv" : "movie");
     const cacheKey = type + "_" + item.id;
     const cached = jacredCacheGet(cacheKey);
     if (cached) { callback(cached.quality ? cached : null); return; }
 
-    const year = (item.release_date || item.first_air_date || "").slice(0, 4);
+    const year = String(item.release_date || item.first_air_date || "").slice(0, 4);
     if (!year || isNaN(year)) { callback(null); return; }
 
     if (jacredPending[cacheKey]) { jacredPending[cacheKey].push(callback); return; }
@@ -357,7 +330,7 @@
     if (!strategies.length) { finish(null); return; }
 
     let idx = 0;
-    let hadError = false; // сетевые сбои не должны кешироваться как «качества нет»
+    let hadError = false;
 
     const tryNext = () => {
       if (idx >= strategies.length) {
@@ -392,7 +365,7 @@
           jacredCacheSet(cacheKey, result);
           finish(result);
         });
-      }, () => finish(null)); // очередь переполнена — без кеширования
+      }, () => finish(null));
     };
     tryNext();
   }
@@ -441,9 +414,6 @@
     return out;
   }
 
-  /* ============================================================
-   *  Body class toggle
-   * ============================================================ */
   function toggleBodyClass(cls, on) {
     const body = document.body;
     if (!body) return;
@@ -455,11 +425,6 @@
     toggleBodyClass("obsidian--noir", noir);
     toggleBodyClass("obsidian--noir-badges", noir && cfg.noirBadges());
   }
-
-  /* ============================================================
-   *  SVG helpers
-   * ============================================================ */
-  const QUALITY_ICONS = { ts: "low", hd: "medium", "4k": "high", sd: "low", camrip: "low" };
 
   function createSvg(symbolId, className, viewBox) {
     const NS = "http://www.w3.org/2000/svg";
@@ -473,9 +438,6 @@
     return svg;
   }
 
-  /* ============================================================
-   *  Metadata rendering
-   * ============================================================ */
   function ratingClass(rating) {
     const n = parseFloat(rating);
     if (isNaN(n)) return "";
@@ -511,9 +473,10 @@
     parent.appendChild(span);
   }
 
+  const QUALITY_ICONS = { ts: "low", hd: "medium", "4k": "high", sd: "low", camrip: "low" };
+
   function renderQuality(parent, item) {
     if (!cfg.qualityEnabled()) return;
-    // never render two quality badges in one slot
     const old = parent.querySelectorAll(".metadata__quality");
     for (let i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
     const wrap = document.createElement("span");
@@ -542,7 +505,7 @@
 
   function renderYear(parent, item) {
     if (!cfg.showReleaseYear()) return;
-    const year = (item.release_date || item.first_air_date || "").slice(0, 4);
+    const year = String(item.release_date || item.first_air_date || "").slice(0, 4);
     if (!year || year === "0000") return;
     const span = document.createElement("span");
     span.className = "metadata__year";
@@ -552,7 +515,6 @@
 
   function renderMetadata(view, item, compact) {
     if (!view) return;
-    // если метаданные уже есть (повторный вызов / вторая копия плагина) — заменяем, а не дублируем
     const prev = view.querySelectorAll(".card__metadata");
     for (let i = 0; i < prev.length; i++) prev[i].parentNode.removeChild(prev[i]);
     const root = document.createElement("div");
@@ -582,7 +544,6 @@
     }
 
     renderRating(left, item);
-    // renderQuality НЕ здесь — перенесён в onVisible (чтобы не было лавины запросов)
     renderYear(right, item);
 
     bottom.appendChild(left);
@@ -595,9 +556,6 @@
     return (item.media_type || (item.first_air_date ? "tv" : "movie")) === "tv";
   }
 
-  /* ============================================================
-   *  TV card icon + episode info
-   * ============================================================ */
   function ensureTvIcon(el) {
     if (!el || el._obsidianIcon) return;
     el._obsidianIcon = true;
@@ -605,7 +563,6 @@
     el.appendChild(createSvg("sprite-tv-show", "card__type-icon", "0 0 51.802 51.801"));
   }
 
-  // Кеш последней серии в памяти: раньше каждый onVisible = новый запрос в TMDB.
   const EPISODE_TTL = 6 * 60 * 60 * 1000;
   const episodeCache = {};
   const episodePending = {};
@@ -642,7 +599,6 @@
       if (!el) return;
       ensureTvIcon(el);
 
-      // Эпизод
       if (cfg.showEpisodeNumber() && !el._obsidianEpisode) {
         el._obsidianEpisode = true;
         fetchLastEpisode(item.id, (ep, ok) => {
@@ -681,23 +637,20 @@
     const url = Lampa.TMDB.api(
       item.media_type + "/" + item.id + "/images?include_image_language=null&api_key=" + Lampa.TMDB.key()
     );
-    const req = new Lampa.Reguest();
     let timedOut = false;
     const timer = setTimeout(() => { timedOut = true; cb(null, false); }, 2000);
 
-    req.native(
+    Lampa.Network.silent(
       url,
       (resp) => {
         clearTimeout(timer);
         const file = resp && resp.posters && resp.posters[0] ? resp.posters[0].file_path : null;
-        // результат кладём в кеш даже если ответ пришёл после таймаута
         posterCache.set(key, file || NEGATIVE);
         if (file) cb(file, true);
         else if (!timedOut) cb(null, false);
       },
       () => {
         clearTimeout(timer);
-        // сетевая ошибка — не кешируем как «постера нет»
         if (!timedOut) cb(null, false);
       }
     );
@@ -715,7 +668,6 @@
     card.nativeGetPosterPath = card.getPosterPath;
     card.getPosterPath = () => card.appliedPoster || LOADING;
 
-    // Перебираем кандидатов по очереди и не зацикливаемся на битом src.
     const fallback = () => {
       if (!card.img || !card.img.parentNode) return;
       if (card.appliedPoster) failed[card.appliedPoster] = true;
@@ -774,30 +726,6 @@
       return;
     }
 
-    let inCardRender = false;
-    const origJs = Lampa.Template.js;
-
-    Lampa.Template.js = function (name, data) {
-      if (inCardRender && name === "card") name = CARD_TEMPLATE_ID;
-      return origJs.call(Lampa.Template, name, data);
-    };
-
-    ["Ratting", "Release"].forEach((mod) => {
-      const m = maker[mod];
-      if (!m) return;
-      const orig = m.onCreate;
-      m.onCreate = function () {
-        if (!isObsidianCard(this)) return orig ? orig.apply(this, arguments) : undefined;
-      };
-    });
-
-    if (maker.Callback) {
-      const origOnly = maker.Callback.onlyFocus;
-      maker.Callback.onlyFocus = function () {
-        if (!cfg.noir()) return origOnly ? origOnly.apply(this, arguments) : undefined;
-      };
-    }
-
     const origOnCreate = maker.Card.onCreate;
     maker.Card.onCreate = function () {
       const card = this;
@@ -807,12 +735,7 @@
       card.obsidian = obsidian;
       card.refreshPoster = cfg.replacePoster() && !isWide && obsidian && card.data.original_language;
 
-      inCardRender = obsidian;
-      try {
-        if (typeof origOnCreate === "function") origOnCreate.apply(card, arguments);
-      } finally {
-        inCardRender = false;
-      }
+      if (typeof origOnCreate === "function") origOnCreate.apply(card, arguments);
 
       if (card.data && (
         card.data.gender !== undefined ||
@@ -838,9 +761,7 @@
       if (card.obsidian) {
         cardHooks.onVisible.call(card);
 
-        // Качество — только когда карточка видна (не лавиной)
-        if (cfg.qualityEnabled() && !card._qualityFetched) {
-          card._qualityFetched = true;
+        if (cfg.qualityEnabled()) {
           const view = card.html.querySelector(".card__view");
           const bottom = view && view.querySelector(".metadata__bottom > div:first-child");
           if (bottom) renderQuality(bottom, card.data);
@@ -851,7 +772,6 @@
       if (typeof origOnVisible === "function") {
         result = origOnVisible.apply(card, arguments);
       }
-      // Штатный бейдж качества Lampa (тёмный) дублирует наш — убираем его.
       if (card.obsidian) stripNativeQuality(card);
       return result;
     };
@@ -867,7 +787,6 @@
       }
     };
     strip();
-    // Lampa может дорисовать бейдж позже (после ответа сети) — следим за карточкой.
     if (!card._qualityObserver && typeof MutationObserver === "function") {
       card._qualityObserver = new MutationObserver(strip);
       card._qualityObserver.observe(view, { childList: true, subtree: true });
@@ -985,10 +904,10 @@
       param: { type: "button" },
       field: { name: Lampa.Lang.translate("obsidian_clear_cache") },
       onChange: () => {
-        // Чистим и память, и Storage: иначе кеш в памяти перезапишет очищенное при следующей записи
         qualityCache.clear();
         posterCache.clear();
         for (const k in episodeCache) delete episodeCache[k];
+        for (const k in jacredPending) delete jacredPending[k];
         Lampa.Storage.set(JACRED_OLD_CACHE_KEY, {});
         requestQueue.clear();
         Lampa.Noty.show(Lampa.Lang.translate("obsidian_cache_cleared"));
@@ -996,9 +915,6 @@
     });
   }
 
-  /* ============================================================
-   *  Template + CSS + sprites
-   * ============================================================ */
   function injectTemplate() {
     const wrap = document.createElement("div");
     wrap.innerHTML = Lampa.Template.string("card");
@@ -1027,7 +943,6 @@
     holder.insertAdjacentHTML("beforeend", SPRITES);
   }
 
-  /* ---------- SPRITE SVG (из оригинала, без изменений) ---------- */
   const SPRITES = [
     '<symbol id="sprite-tv-show" viewBox="0 0 51.802 51.801" fill="none" xmlns="http://www.w3.org/2000/svg">',
     '<path d="M47.947 4.43H12.495A3.86 3.86 0 0 0 8.64 8.284v2.641h-.466a3.86 3.86 0 0 0-3.855 3.854v2.642h-.465A3.86 3.86 0 0 0 0 21.275v22.242a3.86 3.86 0 0 0 3.854 3.854h35.453a3.86 3.86 0 0 0 3.855-3.854v-2.644h.465a3.86 3.86 0 0 0 3.854-3.854v-2.641h.467a3.86 3.86 0 0 0 3.854-3.854V8.284a3.857 3.857 0 0 0-3.855-3.854m-8.75 25.987v12.99H3.963V21.385h35.234zm4.321 6.494h-.355V21.275a3.86 3.86 0 0 0-3.855-3.854H12.604v-.001H8.641v-1.266h-.357v-1.266h35.235V36.91zm4.321-6.494h-.356V14.78a3.86 3.86 0 0 0-3.854-3.854H12.604V8.394H47.84z" fill="currentColor"/>',
@@ -1039,7 +954,6 @@
     '<symbol id="rating-star" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6162 7.10981L15.8464 7.55198L16.3381 7.63428L22.2841 8.62965C22.8678 8.72736 23.0999 9.44167 22.6851 9.86381L18.4598 14.1641L18.1104 14.5196L18.184 15.0127L19.0748 20.9752C19.1622 21.5606 18.5546 22.002 18.025 21.738L12.6295 19.0483L12.1833 18.8259L11.7372 19.0483L6.34171 21.738C5.81206 22.002 5.20443 21.5606 5.29187 20.9752L6.18264 15.0127L6.25629 14.5196L5.9069 14.1641L1.68155 9.86381C1.26677 9.44167 1.49886 8.72736 2.08255 8.62965L8.02855 7.63428L8.52022 7.55198L8.75043 7.10981L11.5345 1.76241C11.8078 1.23748 12.5589 1.23748 12.8322 1.76241L15.6162 7.10981Z" stroke="currentColor" stroke-width="2.2"/></symbol>'
   ].join("");
 
-  /* ---------- CSS (из оригинала + новые классы) ---------- */
   const STYLES = `
     .card--obsidian.card--tv .card__type {
         left: 0; top: 0; padding: 0.6em; border-radius: 1.2em 0 0.4em 0;
@@ -1152,68 +1066,6 @@
     .items-line { padding-bottom: 2em; }
   `;
 
-  /* ============================================================
-   *  Autofill for rows (из оригинала)
-   * ============================================================ */
-  const AUTOFILL_COMPONENTS = ["main", "category"];
-  const raf = window.requestAnimationFrame
-    ? window.requestAnimationFrame.bind(window)
-    : (cb) => setTimeout(cb, 16);
-
-  function autofillStep(rows) {
-    try {
-      if (rows.destroyed) return;
-      const scroll = rows.scroll;
-      if (!scroll || typeof scroll.isFilled !== "function") return;
-      if (!rows.items || !rows.items.length) return;
-      if (scroll.isFilled()) return;
-      if (rows.next_wait) return;
-      if (scroll.animated && scroll.animated()) { scheduleAutofill(rows); return; }
-      if (rows.loaded && rows.loaded.length) { rows.emit("pushLoaded"); return; }
-      if ((rows._fills = (rows._fills || 0) + 1) > 20) return;
-      rows.builded_time = 0;
-      rows.emit("loadNext");
-    } catch (e) { console.warn("rows-autofill step error:", e && e.message); }
-  }
-
-  function scheduleAutofill(rows) {
-    if (rows._raf) return;
-    rows._raf = raf(() => { rows._raf = 0; autofillStep(rows); });
-  }
-
-  function attachAutofill(rows) {
-    if (!rows || typeof rows.use !== "function" || typeof rows.emit !== "function") return;
-    if (!rows._autofill_hooked) {
-      rows._autofill_hooked = true;
-      rows.use({
-        onBuild()      { scheduleAutofill(this); },
-        onPushLoaded() { scheduleAutofill(this); },
-      });
-    }
-    scheduleAutofill(rows);
-  }
-
-  function currentAutofillComponent() {
-    const a = Lampa.Activity.active();
-    if (!a || AUTOFILL_COMPONENTS.indexOf(a.component) === -1) return null;
-    return a.activity && a.activity.component;
-  }
-
-  function onActivity(ev) {
-    if (ev.type !== "create" && ev.type !== "start") return;
-    if (AUTOFILL_COMPONENTS.indexOf(ev.component) === -1) return;
-    const obj = ev.object && ev.object.activity && ev.object.activity.component;
-    if (obj) attachAutofill(obj);
-  }
-
-  function onLine(ev) {
-    if (ev.type !== "visible" && ev.type !== "append") return;
-    attachAutofill(currentAutofillComponent());
-  }
-
-  /* ============================================================
-   *  Init
-   * ============================================================ */
   let initialised = false;
 
   function init() {
@@ -1233,19 +1085,12 @@
 
       posterCache.init();
       qualityCache.init();
-      // старый кеш качества (формат без value) больше не нужен
       try {
         const old = Lampa.Storage.get(JACRED_OLD_CACHE_KEY, null);
         if (old && Object.keys(old).length) Lampa.Storage.set(JACRED_OLD_CACHE_KEY, {});
       } catch (_) {}
 
       patchCards();
-
-      if (Lampa.Platform && Lampa.Platform.screen && Lampa.Platform.screen("mobile")) {
-        Lampa.Listener.follow("activity", onActivity);
-        Lampa.Listener.follow("line", onLine);
-        attachAutofill(currentAutofillComponent());
-      }
     } catch (e) {
       initialised = false;
       console.error("Obsidian initialization error:", e);
