@@ -6,6 +6,10 @@
 (function () {
   "use strict";
 
+  // защита от двойной загрузки плагина (иначе всё рисуется дважды)
+  if (window.__obsidian_plugin_loaded) return;
+  window.__obsidian_plugin_loaded = true;
+
   /* ---------- helpers ---------- */
   const isObject = (v) => typeof v === "object" && v !== null;
 
@@ -505,6 +509,9 @@
 
   function renderQuality(parent, item) {
     if (!cfg.qualityEnabled()) return;
+    // never render two quality badges in one slot
+    const old = parent.querySelectorAll(".metadata__quality");
+    for (let i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
     const wrap = document.createElement("span");
     wrap.className = "metadata__quality";
     wrap.style.display = "none";
@@ -541,6 +548,9 @@
 
   function renderMetadata(view, item, compact) {
     if (!view) return;
+    // если метаданные уже есть (повторный вызов / вторая копия плагина) — заменяем, а не дублируем
+    const prev = view.querySelectorAll(".card__metadata");
+    for (let i = 0; i < prev.length; i++) prev[i].parentNode.removeChild(prev[i]);
     const root = document.createElement("div");
     root.className = "card__metadata";
     const bottom = document.createElement("div");
@@ -833,10 +843,31 @@
         }
       }
 
+      let result;
       if (typeof origOnVisible === "function") {
-        return origOnVisible.apply(card, arguments);
+        result = origOnVisible.apply(card, arguments);
+      }
+      // Штатный бейдж качества Lampa (тёмный) дублирует наш — убираем его.
+      if (card.obsidian) stripNativeQuality(card);
+      return result;
+    };
+  }
+
+  function stripNativeQuality(card) {
+    const view = card.html && card.html.querySelector(".card__view");
+    if (!view) return;
+    const strip = () => {
+      const list = view.querySelectorAll(".card__quality");
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].parentNode) list[i].parentNode.removeChild(list[i]);
       }
     };
+    strip();
+    // Lampa может дорисовать бейдж позже (после ответа сети) — следим за карточкой.
+    if (!card._qualityObserver && typeof MutationObserver === "function") {
+      card._qualityObserver = new MutationObserver(strip);
+      card._qualityObserver.observe(view, { childList: true, subtree: true });
+    }
   }
 
   /* ============================================================
@@ -1084,7 +1115,7 @@
     .metadata__quality--no-color { color: #ffffff !important; }
     .card--obsidian .card__marker { right: 0.4em; top: 0.4em; left: auto; bottom: auto; }
     .card--obsidian .card__icons { top: 2em; }
-    .card--obsidian .card__quality { display: none; }
+    .card--obsidian .card__quality { display: none !important; }
     .obsidian--noir .card__img {
         filter: grayscale(1); transition: filter 0.25s ease;
     }
