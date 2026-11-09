@@ -208,7 +208,11 @@
     "https://cors.bwa.workers.dev/",
   ];
   const JACRED_PROXY_TIMEOUT = 5000;
-  const JACRED_CAM_RE = /\b(ts|hdts|telesync|camrip|hdcam|cam|tc)\b/i;
+  // Экранки / плохие источники (камера, телесинк, скринеры)
+  const JACRED_CAM_RE = /\b(ts|hd[-. ]?ts|telesync|cam[-. ]?rip|camrip|hd[-. ]?cam|hdcam|cam|tc|hd[-. ]?tc|telecine|dvd[-. ]?scr|dvdscr|screener|pdvd|workprint)\b/i;
+  // Нормальные источники: если в названии есть любой из них — это не камрип,
+  // даже если рядом попалось слово вроде "cam" или "ts" (например, в названии фильма).
+  const JACRED_GOOD_RE = /\b(web[-. ]?dl(?:[-. ]?rip)?|web[-. ]?rip|webrip|bd[-. ]?rip|bdrip|br[-. ]?rip|brrip|bd[-. ]?remux|bdremux|remux|blu[-. ]?ray|hdtv(?:[-. ]?rip)?|sat[-. ]?rip|satrip|tv[-. ]?rip|tvrip|dvd[-. ]?rip|dvdrip|hd[-. ]?rip|hdrip|uhd)\b/i;
 
   // Кеш на createCache: данные в памяти, запись в Storage — раз в 500 мс
   // (раньше весь объект перезаписывался в Storage на каждый ответ).
@@ -290,7 +294,7 @@
       const q = t.quality;
       if (typeof q !== "number" || q === 0) continue;
 
-      if (JACRED_CAM_RE.test(title)) {
+      if (JACRED_CAM_RE.test(title) && !JACRED_GOOD_RE.test(title)) {
         if (q >= 720 && q > camripQ) { camrip = t; camripQ = q; }
       } else {
         if (q > bestQ) { best = t; bestQ = q; }
