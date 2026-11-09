@@ -7,7 +7,6 @@
   "use strict";
 
   /* ---------- helpers ---------- */
-  const pickRandom = (arr) => (arr && arr.length ? arr[Math.floor(Math.random() * arr.length)] : "");
   const isObject = (v) => typeof v === "object" && v !== null;
 
   function debounce(fn, wait) {
@@ -25,6 +24,7 @@
   function createCache(key, maxSize, ttl) {
     let data = {};
     let order = [];
+    let lastSweep = 0;
     const save = debounce(() => {
       try { Lampa.Storage.set(key, { v: 2, data, order }); }
       catch (e) { console.warn("Cache save error:", e); }
@@ -92,12 +92,14 @@
       },
       set(k, value) {
         const now = Date.now();
-        if (now - (this._lastSweep || 0) >= 60_000) {
+        if (now - lastSweep >= 60000) {
           if (trim(now)) save();
-          this._lastSweep = now;
+          lastSweep = now;
         }
         data[k] = { timestamp: now, value };
         touch(k);
+        // жёсткий лимит размера, даже если sweep давно не выполнялся
+        if (order.length > maxSize) trim(now);
         save();
       },
       clear() { data = {}; order = []; save(); },
@@ -114,8 +116,8 @@
       showReleaseYear: true, showEpisodeNumber: true, showGenres: true,
       replacePoster: true, noir: false, noirBadges: false,
     },
-    qualityCache: { key: "obsidian_quality_cache", size: 1000, time: 72 * 60 * 60 * 1000 },
-    posterCache:  { key: "obsidian_poster_cache",  size: 2000, time: 604_800_000 },
+    qualityCache: { key: "obsidian_jacred_cache_v2", size: 1000, time: 72 * 60 * 60 * 1000 },
+    posterCache:  { key: "obsidian_poster_cache",  size: 2000, time: 604800000 },
     queue: { maxParallel: 8, maxSize: 200 },
   };
 
@@ -145,8 +147,14 @@
     active: 0,
     maxParallel: DEFAULTS.queue.maxParallel,
     maxSize: DEFAULTS.queue.maxSize,
-    add(task) {
-      if (this._q.length >= this.maxSize) { console.warn("Queue full"); return; }
+    // onDrop вызывается, если очередь переполнена — иначе callback карточки
+    // никогда бы не сработал и цепочка запросов зависла бы.
+    add(task, onDrop) {
+      if (this._q.length >= this.maxSize) {
+        console.warn("Queue full");
+        if (typeof onDrop === "function") onDrop();
+        return;
+      }
       this._q.push(task);
       this._process();
     },
@@ -188,66 +196,83 @@
     host = host.replace(/^https?:\/\//i, "").replace(/\/+$/, "");
     return "https://" + host;
   }
-  const JACRED_CACHE_KEY = "obsidian_jacred_cache";
-  const JACRED_CACHE_TTL = 72 * 60 * 60 * 1000;
+
+  const JACRED_OLD_CACHE_KEY = "obsidian_jacred_cache"; // старый формат, чистим один раз
+  const JACRED_NEG_TTL = 6 * 60 * 60 * 1000;            // «не найдено» помним 6 часов
   const JACRED_PROXY_LIST = [
     "https://api.allorigins.win/raw?url=",
     "https://cors.bwa.workers.dev/",
   ];
   const JACRED_PROXY_TIMEOUT = 5000;
-  const JACRED_CAM_RE = /\b(ts|telesync|camrip|cam|TC|звук с TS)\b/i;
+  const JACRED_CAM_RE = /\b(ts|hdts|telesync|camrip|hdcam|cam|tc)\b/i;
+
+  // Кеш на createCache: данные в памяти, запись в Storage — раз в 500 мс
+  // (раньше весь объект перезаписывался в Storage на каждый ответ).
+  const qualityCache = createCache(
+    cfg.qualityCache.key, cfg.qualityCache.size, cfg.qualityCache.time
+  );
 
   function jacredCacheGet(key) {
-    const cache = Lampa.Storage.get(JACRED_CACHE_KEY, {});
-    const item = cache && typeof cache === "object" ? cache[key] : null;
-    if (item && typeof item.timestamp === "number" &&
-        Date.now() - item.timestamp < JACRED_CACHE_TTL) return item;
-    return null;
+    const v = qualityCache.get(key);
+    if (!v || typeof v !== "object") return null;
+    if (!v.quality && Date.now() - (v.at || 0) > JACRED_NEG_TTL) return null;
+    return v;
   }
 
   function jacredCacheSet(key, data) {
-    const stored = Lampa.Storage.get(JACRED_CACHE_KEY, {});
-    const cache = stored && typeof stored === "object" ? stored : {};
-    for (const k in cache) {
-      const stamp = cache[k] && cache[k].timestamp;
-      if (typeof stamp !== "number" || Date.now() - stamp >= JACRED_CACHE_TTL) {
-        delete cache[k];
-      }
-    }
-    cache[key] = Object.assign({}, data, { timestamp: Date.now() });
-    Lampa.Storage.set(JACRED_CACHE_KEY, cache);
+    qualityCache.set(key, Object.assign({}, data, { at: Date.now() }));
   }
 
+  /**
+   * Прямой запрос, затем прокси по очереди. Если источник завис дольше
+   * JACRED_PROXY_TIMEOUT — запускаем следующий, но не отменяем предыдущий
+   * (кто ответит первым — тот и победил). Каждый источник продвигает цепочку
+   * не более одного раза (раньше таймер + ошибка могли «перепрыгнуть» прокси).
+   */
   function jacredFetch(url, callback) {
+    const sources = [url].concat(
+      JACRED_PROXY_LIST.map((p) => p + encodeURIComponent(url))
+    );
     let settled = false;
-    let proxyIndex = 0;
-    let timer = null;
+    let started = 0;
+    let failedCount = 0;
+    const timers = [];
 
     const finish = (err, text) => {
       if (settled) return;
       settled = true;
-      if (timer) { clearTimeout(timer); timer = null; }
+      timers.forEach(clearTimeout);
       callback(err, text);
     };
 
-    const tryProxy = () => {
-      if (proxyIndex >= JACRED_PROXY_LIST.length) {
-        finish(new Error("all proxies failed"));
-        return;
-      }
-      const proxyUrl = JACRED_PROXY_LIST[proxyIndex++] + encodeURIComponent(url);
-      timer = setTimeout(() => { if (!settled) tryProxy(); }, JACRED_PROXY_TIMEOUT);
-      fetch(proxyUrl)
-        .then((r) => { if (!r.ok) throw new Error("proxy " + r.status); return r.text(); })
+    const startNext = () => {
+      if (settled || started >= sources.length) return;
+      const src = sources[started++];
+      let advanced = false;
+
+      const advance = () => {
+        if (advanced) return;
+        advanced = true;
+        startNext();
+      };
+
+      timers.push(setTimeout(() => {
+        if (settled) return;
+        if (started >= sources.length) finish(new Error("timeout"));
+        else advance();
+      }, JACRED_PROXY_TIMEOUT));
+
+      fetch(src)
+        .then((r) => { if (!r.ok) throw new Error("http " + r.status); return r.text(); })
         .then((t) => finish(null, t))
-        .catch(() => { if (!settled) tryProxy(); });
+        .catch(() => {
+          failedCount++;
+          if (failedCount >= sources.length) finish(new Error("all sources failed"));
+          else advance();
+        });
     };
 
-    timer = setTimeout(() => { if (!settled) tryProxy(); }, JACRED_PROXY_TIMEOUT);
-    fetch(url)
-      .then((r) => { if (!r.ok) throw new Error("direct " + r.status); return r.text(); })
-      .then((t) => finish(null, t))
-      .catch(() => { if (!settled) tryProxy(); });
+    startNext();
   }
 
   function jacredPickBest(torrents) {
@@ -256,7 +281,8 @@
     let camrip = null, camripQ = -1;
 
     for (const t of torrents) {
-      const title = (t.title || "").toLowerCase();
+      if (!t) continue;
+      const title = String(t.title || "").toLowerCase();
       const q = t.quality;
       if (typeof q !== "number" || q === 0) continue;
 
@@ -281,6 +307,9 @@
     return null;
   }
 
+  // Одинаковые карточки (один фильм в нескольких рядах) делят один запрос.
+  const jacredPending = {};
+
   /**
    * fetchQualityFromJacRed(item, callback)
    * callback({ quality, uhd, camrip } | null)
@@ -295,22 +324,37 @@
     const year = (item.release_date || item.first_air_date || "").slice(0, 4);
     if (!year || isNaN(year)) { callback(null); return; }
 
+    if (jacredPending[cacheKey]) { jacredPending[cacheKey].push(callback); return; }
+    jacredPending[cacheKey] = [callback];
+
+    const finish = (res) => {
+      const list = jacredPending[cacheKey] || [];
+      delete jacredPending[cacheKey];
+      list.forEach((cb) => {
+        try { cb(res); } catch (e) { console.warn("JacRed callback error:", e); }
+      });
+    };
+
     const strategies = [];
     const push = (v) => {
-      if (v && /[a-zа-яё0-9]/i.test(v)) strategies.push(v.trim());
+      if (!v || !/[a-zа-яёіїє0-9]/i.test(v)) return;
+      v = String(v).trim();
+      if (v && strategies.indexOf(v) === -1) strategies.push(v);
     };
     push(item.original_title);
     push(item.title);
     push(item.original_name);
     push(item.name);
 
-    if (!strategies.length) { callback(null); return; }
+    if (!strategies.length) { finish(null); return; }
 
     let idx = 0;
+    let hadError = false; // сетевые сбои не должны кешироваться как «качества нет»
+
     const tryNext = () => {
       if (idx >= strategies.length) {
-        jacredCacheSet(cacheKey, { quality: null });
-        callback(null);
+        if (!hadError) jacredCacheSet(cacheKey, { quality: null });
+        finish(null);
         return;
       }
       const title = strategies[idx++];
@@ -321,9 +365,9 @@
       requestQueue.add((done) => {
         jacredFetch(url, (err, text) => {
           done();
-          if (err || !text) { tryNext(); return; }
+          if (err || !text) { hadError = true; tryNext(); return; }
           let torrents;
-          try { torrents = JSON.parse(text); } catch (_) { tryNext(); return; }
+          try { torrents = JSON.parse(text); } catch (_) { hadError = true; tryNext(); return; }
 
           const best = jacredPickBest(torrents);
           if (!best) { tryNext(); return; }
@@ -338,9 +382,9 @@
             title: best.torrent.title,
           };
           jacredCacheSet(cacheKey, result);
-          callback(result);
+          finish(result);
         });
-      });
+      }, () => finish(null)); // очередь переполнена — без кеширования
     };
     tryNext();
   }
@@ -395,12 +439,7 @@
   function toggleBodyClass(cls, on) {
     const body = document.body;
     if (!body) return;
-    const list = (body.className || "").split(/\s+/).filter(Boolean);
-    const idx = list.indexOf(cls);
-    if (on && idx === -1) list.push(cls);
-    else if (!on && idx > -1) list.splice(idx, 1);
-    else return;
-    body.className = list.join(" ");
+    body.classList.toggle(cls, !!on);
   }
 
   function applyNoir() {
@@ -552,6 +591,31 @@
     el.appendChild(createSvg("sprite-tv-show", "card__type-icon", "0 0 51.802 51.801"));
   }
 
+  // Кеш последней серии в памяти: раньше каждый onVisible = новый запрос в TMDB.
+  const EPISODE_TTL = 6 * 60 * 60 * 1000;
+  const episodeCache = {};
+  const episodePending = {};
+
+  function fetchLastEpisode(id, cb) {
+    const hit = episodeCache[id];
+    if (hit && Date.now() - hit.t < EPISODE_TTL) { cb(hit.ep); return; }
+    if (episodePending[id]) { episodePending[id].push(cb); return; }
+    episodePending[id] = [cb];
+
+    const flush = (ep, ok) => {
+      const list = episodePending[id] || [];
+      delete episodePending[id];
+      if (ok) episodeCache[id] = { t: Date.now(), ep };
+      list.forEach((fn) => { try { fn(ok ? ep : undefined, ok); } catch (_) {} });
+    };
+
+    Lampa.Network.silent(
+      Lampa.TMDB.api("tv/" + id + "?api_key=" + Lampa.TMDB.key()),
+      (resp) => flush(resp && resp.last_episode_to_air ? resp.last_episode_to_air : null, true),
+      () => flush(null, false)
+    );
+  }
+
   const cardHooks = {
     onCreate() {
       if (!isTv(this.data)) return;
@@ -567,20 +631,15 @@
       // Эпизод
       if (cfg.showEpisodeNumber() && !el._obsidianEpisode) {
         el._obsidianEpisode = true;
-        Lampa.Network.silent(
-          Lampa.TMDB.api("tv/" + item.id + "?api_key=" + Lampa.TMDB.key()),
-          (resp) => {
-            if (resp && resp.last_episode_to_air) {
-              const ep = resp.last_episode_to_air;
-              const label = document.createElement("span");
-              label.className = "card__type-label";
-              label.textContent = "S" + ep.season_number + ":E" + ep.episode_number;
-              el.classList.add("episode_metadata");
-              el.appendChild(label);
-            }
-          },
-          () => { el._obsidianEpisode = false; }
-        );
+        fetchLastEpisode(item.id, (ep, ok) => {
+          if (ok === false) { el._obsidianEpisode = false; return; }
+          if (!ep || el.querySelector(".card__type-label")) return;
+          const label = document.createElement("span");
+          label.className = "card__type-label";
+          label.textContent = "S" + ep.season_number + ":E" + ep.episode_number;
+          el.classList.add("episode_metadata");
+          el.appendChild(label);
+        });
       }
     },
   };
@@ -609,50 +668,64 @@
       item.media_type + "/" + item.id + "/images?include_image_language=null&api_key=" + Lampa.TMDB.key()
     );
     const req = new Lampa.Reguest();
-    let done = false;
-    const timer = setTimeout(() => { if (!done) { done = true; cb(null, false); } }, 2000);
+    let timedOut = false;
+    const timer = setTimeout(() => { timedOut = true; cb(null, false); }, 2000);
 
     req.native(
       url,
       (resp) => {
-        if (done) return; done = true; clearTimeout(timer);
+        clearTimeout(timer);
         const file = resp && resp.posters && resp.posters[0] ? resp.posters[0].file_path : null;
-        if (file) { posterCache.set(key, file); cb(file, true); }
-        else { posterCache.set(key, NEGATIVE); cb(null, false); }
+        // результат кладём в кеш даже если ответ пришёл после таймаута
+        posterCache.set(key, file || NEGATIVE);
+        if (file) cb(file, true);
+        else if (!timedOut) cb(null, false);
       },
-      () => { if (done) return; done = true; clearTimeout(timer); posterCache.set(key, NEGATIVE); cb(null, false); }
+      () => {
+        clearTimeout(timer);
+        // сетевая ошибка — не кешируем как «постера нет»
+        if (!timedOut) cb(null, false);
+      }
     );
   }
 
   function hookPosterReplacement(card) {
     const item = card.data;
     const original = item.poster_path || item.backdrop_path;
+    const BROKEN = "./img/img_broken.svg";
+    const LOADING = "./img/img_load.svg";
+    const failed = {};
 
     card.appliedPoster = null;
     card.posterReplaced = false;
     card.nativeGetPosterPath = card.getPosterPath;
-    card.getPosterPath = () => card.appliedPoster || "./img/img_load.svg";
+    card.getPosterPath = () => card.appliedPoster || LOADING;
 
+    // Перебираем кандидатов по очереди и не зацикливаемся на битом src.
     const fallback = () => {
       if (!card.img || !card.img.parentNode) return;
-      let src = null;
+      if (card.appliedPoster) failed[card.appliedPoster] = true;
+
+      const candidates = [];
       if (typeof card.nativeGetPosterPath === "function") {
-        try { src = card.nativeGetPosterPath.call(card); } catch (_) {}
+        try { candidates.push(card.nativeGetPosterPath.call(card)); } catch (_) {}
       }
-      if (!src || src === "./img/img_load.svg") src = tmdbImageUrl(original);
-      if (!src) src = "./img/img_broken.svg";
+      candidates.push(tmdbImageUrl(original), BROKEN);
+
+      let src = BROKEN;
+      for (const c of candidates) {
+        if (c && c !== LOADING && !failed[c]) { src = c; break; }
+      }
       card.appliedPoster = src;
-      if (card.img) {
-        card.img.onerror = () => fallback();
-        card.img.src = src;
-      }
+      card.img.onerror = src === BROKEN ? null : fallback;
+      card.img.src = src;
     };
 
     const apply = (src) => {
       if (!card.img || !card.img.parentNode) return;
       card.posterReplaced = true;
       card.appliedPoster = src;
-      card.img.onerror = () => fallback();
+      card.img.onerror = fallback;
       card.img.src = src;
     };
 
@@ -660,15 +733,14 @@
 
     fetchPoster(item, (path) => {
       clearTimeout(timer);
-      if (!path) { fallback(); return; }
+      if (!path) { if (!card.posterReplaced) fallback(); return; }
       const url = tmdbImageUrl(path);
-      if (!url) { fallback(); return; }
+      if (!url) { if (!card.posterReplaced) fallback(); return; }
       if (card.img && (card.img.src || "").indexOf(url) > -1) { apply(url); return; }
       const probe = new Image();
       probe.onload = () => apply(url);
-      probe.onerror = () => fallback();
+      probe.onerror = () => { if (!card.posterReplaced) fallback(); };
       probe.src = url;
-      if (probe.complete && probe.naturalWidth > 0) probe.onload();
     });
   }
 
@@ -878,9 +950,12 @@
       param: { type: "button" },
       field: { name: Lampa.Lang.translate("obsidian_clear_cache") },
       onChange: () => {
-        Lampa.Storage.set(cfg.qualityCache.key, {});
-        Lampa.Storage.set(cfg.posterCache.key, {});
-        Lampa.Storage.set(JACRED_CACHE_KEY, {});
+        // Чистим и память, и Storage: иначе кеш в памяти перезапишет очищенное при следующей записи
+        qualityCache.clear();
+        posterCache.clear();
+        for (const k in episodeCache) delete episodeCache[k];
+        Lampa.Storage.set(JACRED_OLD_CACHE_KEY, {});
+        requestQueue.clear();
         Lampa.Noty.show(Lampa.Lang.translate("obsidian_cache_cleared"));
       },
     });
@@ -930,7 +1005,7 @@
   ].join("");
 
   /* ---------- CSS (из оригинала + новые классы) ---------- */
-  const CSS = `
+  const STYLES = `
     .card--obsidian.card--tv .card__type {
         left: 0; top: 0; padding: 0.6em; border-radius: 1.2em 0 0.4em 0;
         overflow: hidden; white-space: nowrap; color: #fff; background: rgba(0, 0, 0, 0.82);
@@ -1114,17 +1189,22 @@
       injectTemplate();
       setupSettings();
 
-    if (CSS && CSS.length > 10) {
       const style = document.createElement("style");
-      style.innerHTML = CSS;
+      style.innerHTML = STYLES;
       document.head.appendChild(style);
-    }
 
-    injectSprites();
-    applyNoir();
+      injectSprites();
+      applyNoir();
 
-    posterCache.init();
-    patchCards();
+      posterCache.init();
+      qualityCache.init();
+      // старый кеш качества (формат без value) больше не нужен
+      try {
+        const old = Lampa.Storage.get(JACRED_OLD_CACHE_KEY, null);
+        if (old && Object.keys(old).length) Lampa.Storage.set(JACRED_OLD_CACHE_KEY, {});
+      } catch (_) {}
+
+      patchCards();
 
       if (Lampa.Platform && Lampa.Platform.screen && Lampa.Platform.screen("mobile")) {
         Lampa.Listener.follow("activity", onActivity);
