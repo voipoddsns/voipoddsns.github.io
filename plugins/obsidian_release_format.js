@@ -16961,16 +16961,12 @@
           s.save());
       }));
   }
-  var i = {
+ var i = {
       apn: [""],
       api: [
         {
-          url: "https://api.apbugall.org",
-          token: "8da1c9beda9545174264dc9f63a77d",
-        },
-        {
-          url: "https://upn.stull.xyz",
-          token: "d317441359e505c343c2063edc97e7",
+          url: "https://jac.red",
+          token: "",
         },
       ],
       qualityCache: { key: "obsidian_quality_cache", size: 1e3, time: 864e5 },
@@ -17092,17 +17088,21 @@
       else {
         p[e] = [r];
         var o = (function (t) {
-          var r = n(s.apn).trim(),
-            e = n(s.api),
-            a = (r + e.url).replace(/\s+/g, "") + "?token=" + e.token;
-          return (
-            t.kinopoisk_id
-              ? (a += "&kp=" + encodeURIComponent(t.kinopoisk_id))
-              : t.imdb_id
-                ? (a += "&imdb=" + encodeURIComponent(t.imdb_id))
-                : t.id && (a += "&tmdb=" + encodeURIComponent(t.id)),
-            a
-          );
+          var e = n(s.api);
+          var base = e.url.replace(/\s+/g, "");
+          var q = "/api/v2.0/indexers/all/results/torznab/api?apikey=" + (e.token || "");
+          if (t.imdb_id) {
+            var imdb = String(t.imdb_id).replace(/^tt/, "");
+            q += "&t=movie&imdbid=" + encodeURIComponent(imdb);
+          } else if (t.original_name && t.id) {
+            q += "&t=tvsearch&tmdbid=" + encodeURIComponent(t.id);
+          } else if (t.id) {
+            q += "&t=movie&tmdbid=" + encodeURIComponent(t.id);
+          } else {
+            var name = t.title || t.name || t.original_title || t.original_name || "";
+            q += "&t=search&q=" + encodeURIComponent(name);
+          }
+          return base + q;
         })(t);
         l.add(function (t) {
           var r = !1,
@@ -17133,19 +17133,58 @@
           }, 5e3)),
             Lampa.Network.silent(
               o,
-              function (t) {
-                if ("success" === t.status && t.data) {
-                  var r,
-                    e =
-                      (r = t.data) && r.quality
-                        ? r.uhd
-                          ? "4k"
-                          : /(^|,\s*)ts(\s*,|$)/i.test(r.quality)
-                            ? "ts"
-                            : "hd"
-                        : null;
-                  e ? a(e, t.data, !1) : a(null, 0, !0);
-                } else a(null, 0, !1);
+              function (resp) {
+                try {
+                  var raw = resp && resp.data ? resp.data : resp;
+                  var xml = null;
+                  if (typeof raw === "string") {
+                    xml = raw;
+                  } else if (raw && typeof raw === "object") {
+                    if (raw.documentElement) {
+                      xml = new XMLSerializer().serializeToString(raw);
+                    } else if (raw.responseText) {
+                      xml = raw.responseText;
+                    }
+                  }
+                  if (!xml) return a(null, 0, !0);
+
+                  var parser = new DOMParser();
+                  var doc = parser.parseFromString(xml, "text/xml");
+                  var items = doc.getElementsByTagName("item");
+                  if (!items || !items.length) return a(null, 0, !1);
+
+                  var best = null;
+                  var bestScore = -1;
+
+                  for (var i = 0; i < items.length; i++) {
+                    var it = items[i];
+                    var titleEl = it.getElementsByTagName("title")[0];
+                    var title = titleEl ? (titleEl.textContent || "") : "";
+                    var seeders = 0;
+                    var attrs = it.getElementsByTagName("torznab:attr");
+                    for (var k = 0; k < attrs.length; k++) {
+                      if (attrs[k].getAttribute("name") === "seeders") {
+                        seeders = parseInt(attrs[k].getAttribute("value") || "0", 10) || 0;
+                      }
+                    }
+                    var q = null;
+                    if (/2160p|\b4k\b|uhd/i.test(title)) q = "4k";
+                    else if (/1080p|720p|\bhd\b|bluray|blu-ray|bdrip|web-?dl|web-?rip|hdtv/i.test(title)) q = "hd";
+                    else if (/\bts\b|\bcam\b|\btelesync\b|\bdvdscr\b/i.test(title)) q = "ts";
+
+                    if (!q) continue;
+                    var score = (q === "4k" ? 1000 : q === "hd" ? 500 : 100) + seeders;
+                    if (score > bestScore) {
+                      bestScore = score;
+                      best = q;
+                    }
+                  }
+
+                  if (best) a(best, { quality: best }, !1);
+                  else a(null, 0, !0);
+                } catch (err) {
+                  a(null, 0, !1);
+                }
               },
               function () {
                 a(null, 0, !1);
