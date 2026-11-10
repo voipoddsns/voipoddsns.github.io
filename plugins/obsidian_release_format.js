@@ -16971,7 +16971,7 @@
       ],
       qualityCache: { key: "obsidian_quality_cache", size: 1e3, time: 864e5 },
       posterCache: { key: "obsidian_poster_cache", size: 2e3, time: 6048e5 },
-      queue: { maxParallel: 12, maxSize: 100 },
+      queue: { maxParallel: 2, maxSize: 50 },
       ui: {
         qualityEnabled: !0,
         qualityIcon: !0,
