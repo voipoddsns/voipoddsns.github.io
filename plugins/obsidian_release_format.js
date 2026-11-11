@@ -12450,7 +12450,7 @@
                 55296 != (63488 & o)
                   ? (e[n] = f(t, n))
                   : o >= 56320 || n + 1 >= r || 56320 != (64512 & l(t, n + 1))
-                    ? (e[n] = " ")
+                    ? (e[n] = "�")
                     : ((e[n] = f(t, n)), (e[++n] = f(t, n)));
               }
               return h(e, "");
@@ -15088,7 +15088,7 @@
                 if (0 === i) a = G(o);
                 else {
                   if (1 === i || i > 4) {
-                    ((e += " "), n++);
+                    ((e += "�"), n++);
                     continue;
                   }
                   for (
@@ -15106,12 +15106,12 @@
                     (X(s, c), (n += 2), u++);
                   }
                   if (s.length !== i) {
-                    e += " ";
+                    e += "�";
                     continue;
                   }
                   var f = ut(s);
                   if (null === f) {
-                    for (var l = 0; l < i; l++) e += " ";
+                    for (var l = 0; l < i; l++) e += "�";
                     n++;
                     continue;
                   }
@@ -16959,7 +16959,8 @@
       api: [
         {
           url: "https://jac.red",
-          token: "", // впишіть apikey, якщо індексатор його вимагає
+          token: "", // apikey, якщо індексатор його вимагає
+          mode: "jackett", // "jackett" | "jacred" | "torznab"
         },
       ],
       qualityCache: { key: "obsidian_quality_cache", size: 1e3, time: 864e5 },
@@ -17041,6 +17042,8 @@
       activeCount: 0,
       maxParallel: s.queue.maxParallel,
       maxSize: i.queue.maxSize,
+      failStreak: 0,
+      pausedUntil: 0,
       add: function (t) {
         if (this.queue.length >= this.maxSize) {
           console.warn("Request queue is full, dropping task");
@@ -17063,52 +17066,136 @@
         this.queue = [];
         this.activeCount = 0;
       },
+      // circuit breaker: після 2 помилок поспіль не б'ємо по API (429/CORS),
+      // а робимо паузу 30с, 60с, 120с ... до 10 хв
+      fail: function () {
+        this.failStreak++;
+        if (this.failStreak >= 2) {
+          var delay = Math.min(6e5, 3e4 * Math.pow(2, this.failStreak - 2));
+          this.pausedUntil = Date.now() + delay;
+          console.warn("[obsidian] quality API unavailable, pause " + Math.round(delay / 1e3) + "s");
+        }
+      },
+      ok: function () {
+        this.failStreak = 0;
+        this.pausedUntil = 0;
+      },
+      paused: function () {
+        return Date.now() < this.pausedUntil;
+      },
     },
     h = null, // quality cache
     p = {}; // quality pending callbacks
 
   /* ---------- quality lookup (FIXED) ---------- */
+  // mode: "jackett" (за замовчуванням, як у вбудованому парсері Lampa, JSON),
+  //       "jacred"  (/api/v1.0/torrents, JSON),
+  //       "torznab" (XML; у браузері зазвичай блокується CORS)
   function buildQualityUrl(t) {
     var api = n(s.api);
     var base = String(api.url || "").replace(/\s+/g, "").replace(/\/+$/, "");
-    var url =
-      base +
-      "/api/v2.0/indexers/all/results/torznab/api?apikey=" +
-      encodeURIComponent(api.token || "");
-    if (t.imdb_id) {
-      url +=
-        "&t=movie&imdbid=" +
-        encodeURIComponent(String(t.imdb_id).replace(/^tt/, ""));
+    var mode = api.mode || "jackett";
+    var key = encodeURIComponent(api.token || "");
+    var title = t.title || t.name || "";
+    var orig = t.original_title || t.original_name || "";
+    var year = (t.release_date || t.first_air_date || "").slice(0, 4);
+    var url;
+
+    if (mode === "torznab") {
+      url = base + "/api/v2.0/indexers/all/results/torznab/api?apikey=" + key;
+      if (t.imdb_id) {
+        url += "&t=movie&imdbid=" + encodeURIComponent(String(t.imdb_id).replace(/^tt/, ""));
+      } else {
+        url += "&t=search&q=" + encodeURIComponent((orig || title) + (year ? " " + year : ""));
+      }
+    } else if (mode === "jacred") {
+      url =
+        base +
+        "/api/v1.0/torrents?search=" +
+        encodeURIComponent(orig || title) +
+        (year ? "&year=" + year : "");
     } else {
-      var name = t.original_title || t.original_name || t.title || t.name || "";
-      var year = (t.release_date || "").slice(0, 4);
-      url += "&t=search&q=" + encodeURIComponent(name + (year ? " " + year : ""));
+      url =
+        base +
+        "/api/v2.0/indexers/all/results?apikey=" +
+        key +
+        "&Query=" +
+        encodeURIComponent((orig || title) + (year ? " " + year : "")) +
+        "&title=" +
+        encodeURIComponent(title) +
+        "&title_original=" +
+        encodeURIComponent(orig) +
+        (year ? "&year=" + year : "") +
+        "&is_serial=" +
+        (t.original_name ? 2 : 1);
     }
+
+    // необов'язковий CORS-проксі: i.apn = ["https://your-proxy.example/"]
+    var proxy = n(s.apn);
+    if (proxy) url = String(proxy).replace(/\/?$/, "/") + url;
     return url;
   }
 
-  function parseQuality(xml) {
-    var doc = new DOMParser().parseFromString(xml, "text/xml");
-    var items = doc.getElementsByTagName("item");
+  // повертає масив {title, seeders, res} або null, якщо відповідь не розпізнана
+  function extractEntries(raw) {
+    var data = raw;
+    if (typeof raw === "string") {
+      var txt = raw.replace(/^﻿/, "").replace(/^\s+/, "");
+      if (txt.charAt(0) === "<") {
+        var doc = new DOMParser().parseFromString(txt, "text/xml");
+        var nodes = doc.getElementsByTagName("item");
+        var out = [];
+        for (var a = 0; a < nodes.length; a++) {
+          var te = nodes[a].getElementsByTagName("title")[0];
+          var attrs = nodes[a].getElementsByTagName("torznab:attr");
+          var sd = 0;
+          for (var b = 0; b < attrs.length; b++) {
+            if (attrs[b].getAttribute("name") === "seeders") {
+              sd = parseInt(attrs[b].getAttribute("value") || "0", 10) || 0;
+            }
+          }
+          out.push({ title: te ? te.textContent || "" : "", seeders: sd, res: 0 });
+        }
+        return out;
+      }
+      try {
+        data = JSON.parse(txt);
+      } catch (e) {
+        return null;
+      }
+    }
+    var arr = Array.isArray(data) ? data : data && (data.Results || data.results);
+    if (!Array.isArray(arr)) return null;
+    var res = [];
+    for (var c3 = 0; c3 < arr.length; c3++) {
+      var x = arr[c3] || {};
+      var sdr = x.Seeders != null ? x.Seeders : x.sid != null ? x.sid : x.seeders;
+      res.push({
+        title: String(x.Title || x.title || ""),
+        seeders: parseInt(sdr, 10) || 0,
+        res: parseInt(x.quality, 10) || 0, // jacred: 480/720/1080/2160
+      });
+    }
+    return res;
+  }
+
+  // false — відповідь не розпізнана (помилка), null — нічого не знайдено
+  function parseQuality(raw) {
+    var entries = extractEntries(raw);
+    if (!entries) return false;
     var best = null,
       bestScore = -1;
-    for (var j = 0; j < items.length; j++) {
-      var it = items[j];
-      var titleEl = it.getElementsByTagName("title")[0];
-      var title = titleEl ? titleEl.textContent || "" : "";
-      var seeders = 0;
-      var attrs = it.getElementsByTagName("torznab:attr");
-      for (var m = 0; m < attrs.length; m++) {
-        if (attrs[m].getAttribute("name") === "seeders") {
-          seeders = parseInt(attrs[m].getAttribute("value") || "0", 10) || 0;
-        }
-      }
-      var quality = null,
+    for (var j = 0; j < entries.length; j++) {
+      var title = entries[j].title,
+        quality = null,
         rank = 0;
-      if (/2160p|\b4k\b|\buhd\b/i.test(title)) {
+      if (entries[j].res >= 2160 || /2160p|\b4k\b|\buhd\b/i.test(title)) {
         quality = "4k";
         rank = 3;
-      } else if (/1080p|720p|\bhd\b|bluray|blu-ray|bdrip|web-?dl|web-?rip|hdtv/i.test(title)) {
+      } else if (
+        entries[j].res >= 720 ||
+        /1080p|720p|\bhd\b|bluray|blu-ray|bdrip|web-?dl|web-?rip|hdtv/i.test(title)
+      ) {
         quality = "hd";
         rank = 2;
       } else if (/\bts\b|\bcam(rip)?\b|\btelesync\b|\bdvdscr\b/i.test(title)) {
@@ -17116,7 +17203,7 @@
         rank = 1;
       }
       if (!quality) continue;
-      var score = rank * 1e6 + seeders; // якість важливіша за сіди
+      var score = rank * 1e6 + entries[j].seeders; // якість важливіша за сіди
       if (score > bestScore) {
         bestScore = score;
         best = quality;
@@ -17163,7 +17250,11 @@
         done();
       }
 
+      // API недоступне (429/CORS) — не відправляємо запит взагалі
+      if (l.paused()) return finish(null, false);
+
       timer = setTimeout(function () {
+        l.fail();
         finish(null, false);
       }, 8000);
 
@@ -17172,23 +17263,26 @@
         function (resp) {
           try {
             var raw = resp && resp.data ? resp.data : resp;
-            var xml = null;
-            if (typeof raw === "string") xml = raw;
-            else if (raw && raw.documentElement)
-              xml = new XMLSerializer().serializeToString(raw);
-            else if (raw && raw.responseText) xml = raw.responseText;
-            if (!xml) return finish(null, true);
-            var q = parseQuality(xml);
+            if (raw && typeof raw === "object" && raw.documentElement)
+              raw = new XMLSerializer().serializeToString(raw);
+            else if (raw && typeof raw === "object" && raw.responseText) raw = raw.responseText;
+            var q = parseQuality(raw);
+            if (q === false) {
+              l.fail();
+              return finish(null, false);
+            }
+            l.ok();
             finish(q, !q); // порожній результат теж кешуємо
           } catch (err) {
             finish(null, false);
           }
         },
         function () {
+          l.fail();
           finish(null, false);
         },
         false,
-        { dataType: "text" }, // torznab повертає XML, а не JSON
+        { dataType: "text" },
       );
     });
 
