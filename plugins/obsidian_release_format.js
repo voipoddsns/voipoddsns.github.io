@@ -170,159 +170,283 @@
         updateCards(cards);
     }
 
-    function addSettings() {
-        var app = window.Lampa;
-        if (!app || !app.SettingsApi) return;
+function addSettings() {
+    if (!window.Lampa || !Lampa.SettingsApi) return;
 
-        app.SettingsApi.addComponent({
-            component: 'maxsm_cards',
-            name: tr('Карточки и качество', 'Cards & quality'),
-            icon: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" ' +
-                'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
-                '<rect x="4" y="3" width="16" height="18" rx="3"/><path d="M4 15h16"/>' +
-                '<path d="M8 18.5h3"/><path d="M15 18.5h1"/></svg>'
-        });
+    var component = 'maxsm_cards';
 
-        function addToggle(name, ruTitle, enTitle, ruDesc, enDesc, onChange) {
-            app.SettingsApi.addParam({
-                component: 'maxsm_cards',
-                param: {
-                    name: name,
-                    type: 'trigger',
-                    'default': DEFAULTS[name]
-                },
-                field: {
-                    name: tr(ruTitle, enTitle),
-                    description: tr(ruDesc, enDesc)
-                },
-                onChange: function () {
-                    applyBodyClasses();
-                    if (onChange) onChange();
-                }
-            });
+    Lampa.SettingsApi.addComponent({
+        component: component,
+        name: tr('Карточки и качество', 'Cards & quality'),
+        icon: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" ' +
+            'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<rect x="4" y="3" width="16" height="18" rx="3"/><path d="M4 15h16"/>' +
+            '<path d="M8 18.5h3"/><path d="M15 18.5h1"/></svg>'
+    });
+
+    function refreshQualityCards() {
+        var cards = document.querySelectorAll('.card');
+
+        for (var i = 0; i < cards.length; i++) {
+            cards[i].removeAttribute('data-quality-added');
+            setQuality(cards[i], null);
         }
 
-        function addTitle(ruTitle, enTitle) {
-            app.SettingsApi.addParam({
-                component: 'maxsm_cards',
-                param: { type: 'title' },
-                field: { name: tr(ruTitle, enTitle) }
-            });
+        updateCards(cards);
+    }
+
+    function refreshEpisodeCards() {
+        var cards = document.querySelectorAll('.card');
+
+        for (var i = 0; i < cards.length; i++) {
+            cards[i].removeAttribute('data-mq-ep');
+            setEpisode(cards[i], null);
         }
 
-        addTitle('Оформление', 'Appearance');
-        addToggle(
-            'maxsm_mq_overlay',
-            'Оверлей на карточках',
-            'Card overlay',
-            'Жанры, название, рейтинг и год поверх постера',
-            'Genres, title, rating and year over the poster'
-        );
-        addToggle(
-            'maxsm_mq_genres',
-            'Жанры',
-            'Genres',
-            'Показывать первые два жанра',
-            'Show the first two genres'
-        );
-        addToggle(
-            'maxsm_mq_year',
-            'Год выхода',
-            'Release year',
-            '',
-            ''
-        );
-        addToggle(
-            'maxsm_mq_rating',
-            'Рейтинг',
-            'Rating',
-            'Оценка TMDB со звездой',
-            'TMDB score with a star'
-        );
-        addToggle(
-            'maxsm_mq_episode',
-            'Сезон и серия',
-            'Season and episode',
-            'Бейдж S1:E8 у сериалов',
-            'S1:E8 badge on TV shows',
-            refreshEpisodeCards
-        );
+        updateCards(cards);
+    }
 
-        addTitle('Качество', 'Quality');
-        addToggle(
-            'maxsm_mq_quality',
-            'Показывать качество',
-            'Show quality',
-            'Ищется через JacRed',
-            'Looked up via JacRed',
-            refreshQualityCards
-        );
-        addToggle(
-            'maxsm_mq_quality_tv',
-            'Качество для сериалов',
-            'Quality for TV shows',
-            '',
-            '',
-            refreshQualityCards
-        );
-        addToggle(
-            'maxsm_mq_quality_icon',
-            'Иконка качества',
-            'Quality icon',
-            '',
-            ''
-        );
-        addToggle(
-            'maxsm_mq_quality_color',
-            'Цветное качество',
-            'Colored quality',
-            '4K зелёный, HD синий и т.д.',
-            '4K green, HD blue, etc.'
-        );
+    function showNotice(ru, en) {
+        if (Lampa.Noty) Lampa.Noty.show(tr(ru, en));
+    }
 
-        addTitle('Служебное', 'Maintenance');
-
-        app.SettingsApi.addParam({
-            component: 'maxsm_cards',
-            param: { name: 'maxsm_mq_clear_cache', type: 'button' },
-            field: { name: tr('Очистить кеш', 'Clear cache') },
-            onChange: function () {
-                storageSet(QUALITY_CACHE, {});
-                storageSet(EP_CACHE, {});
-                refreshQualityCards();
-                refreshEpisodeCards();
-
-                if (app.Noty) {
-                    app.Noty.show(tr('Кеш очищен', 'Cache cleared'));
+    var sections = {
+        appearance: {
+            ru: 'Оформление',
+            en: 'Appearance',
+            items: [
+                {
+                    key: 'maxsm_mq_overlay',
+                    ru: 'Оверлей на карточках',
+                    en: 'Card overlay',
+                    ruDesc: 'Жанры, название, рейтинг и год поверх постера',
+                    enDesc: 'Genres, title, rating and year over the poster'
+                },
+                {
+                    key: 'maxsm_mq_genres',
+                    ru: 'Жанры',
+                    en: 'Genres',
+                    ruDesc: 'Показывать первые два жанра',
+                    enDesc: 'Show the first two genres'
+                },
+                {
+                    key: 'maxsm_mq_year',
+                    ru: 'Год выхода',
+                    en: 'Release year'
+                },
+                {
+                    key: 'maxsm_mq_rating',
+                    ru: 'Рейтинг',
+                    en: 'Rating',
+                    ruDesc: 'Оценка TMDB со звездой',
+                    enDesc: 'TMDB score with a star'
+                },
+                {
+                    key: 'maxsm_mq_episode',
+                    ru: 'Сезон и серия',
+                    en: 'Season and episode',
+                    ruDesc: 'Бейдж S1:E8 у сериалов (последняя вышедшая серия)',
+                    enDesc: 'S1:E8 badge on TV shows (latest aired episode)'
                 }
+            ]
+        },
+
+        quality: {
+            ru: 'Качество',
+            en: 'Quality',
+            items: [
+                {
+                    key: 'maxsm_mq_quality',
+                    ru: 'Показывать качество',
+                    en: 'Show quality',
+                    ruDesc: 'Ищется через JacRed',
+                    enDesc: 'Looked up via JacRed'
+                },
+                {
+                    key: 'maxsm_mq_quality_tv',
+                    ru: 'Качество для сериалов',
+                    en: 'Quality for TV shows'
+                },
+                {
+                    key: 'maxsm_mq_quality_icon',
+                    ru: 'Иконка качества',
+                    en: 'Quality icon'
+                },
+                {
+                    key: 'maxsm_mq_quality_color',
+                    ru: 'Цветное качество',
+                    en: 'Colored quality',
+                    ruDesc: '4K зелёный, HD синий и т.д.',
+                    enDesc: '4K green, HD blue, etc.'
+                }
+            ]
+        },
+
+        service: {
+            ru: 'Служебное',
+            en: 'Maintenance',
+            items: [
+                {
+                    action: 'clear-cache',
+                    ru: 'Очистить кеш качества',
+                    en: 'Clear quality cache'
+                },
+                {
+                    action: 'reset',
+                    ru: 'Сбросить настройки',
+                    en: 'Reset settings'
+                }
+            ]
+        }
+    };
+
+    function resolveItem(selected, items, index) {
+        if (typeof selected === 'number') {
+            return items[selected] || null;
+        }
+
+        if (selected && selected.item) selected = selected.item;
+        if (selected && selected.value && selected.value.action) selected = selected.value;
+
+        if (selected && (selected.key || selected.action)) return selected;
+
+        if (typeof index === 'number' && items[index]) {
+            return items[index];
+        }
+
+        var selectedTitle = typeof selected === 'string'
+            ? selected
+            : (selected && selected.title ? selected.title : '');
+
+        if (selectedTitle) {
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].title === selectedTitle) return items[i];
             }
-        });
+        }
 
-        app.SettingsApi.addParam({
-            component: 'maxsm_cards',
-            param: { name: 'maxsm_mq_reset', type: 'button' },
-            field: { name: tr('Сбросить настройки', 'Reset settings') },
-            onChange: function () {
-                for (var key in DEFAULTS) {
-                    if (Object.prototype.hasOwnProperty.call(DEFAULTS, key)) {
-                        storageSet(key, DEFAULTS[key]);
+        return null;
+    }
+
+    function reopenSection(sectionKey) {
+        setTimeout(function () {
+            openSection(sectionKey);
+        }, 250);
+    }
+
+    function openSection(sectionKey) {
+        var section = sections[sectionKey];
+
+        if (!section) return;
+
+        if (!Lampa.Select || !Lampa.Select.show) {
+            showNotice('Не удалось открыть подменю', 'Could not open submenu');
+            return;
+        }
+
+        var menuItems = [];
+
+        for (var i = 0; i < section.items.length; i++) {
+            var row = section.items[i];
+            var item;
+
+            if (row.key) {
+                var enabled = opt(row.key);
+
+                item = {
+                    title: (enabled ? '✓ ' : '○ ') + tr(row.ru, row.en),
+                    key: row.key
+                };
+
+                var description = tr(row.ruDesc || '', row.enDesc || '');
+                if (description) item.subtitle = description;
+            } else {
+                item = {
+                    title: tr(row.ru, row.en),
+                    action: row.action
+                };
+            }
+
+            menuItems.push(item);
+        }
+
+        Lampa.Select.show({
+            title: tr(section.ru, section.en),
+            items: menuItems,
+            onSelect: function (selected, index) {
+                var item = resolveItem(selected, menuItems, index);
+                if (!item) return;
+
+                if (item.key) {
+                    Lampa.Storage.set(item.key, !opt(item.key));
+                    applyBodyClasses();
+
+                    if (item.key === 'maxsm_mq_episode') {
+                        refreshEpisodeCards();
                     }
+
+                    if (
+                        item.key === 'maxsm_mq_quality' ||
+                        item.key === 'maxsm_mq_quality_tv'
+                    ) {
+                        refreshQualityCards();
+                    }
+
+                    reopenSection(sectionKey);
+                    return;
                 }
 
-                applyBodyClasses();
-                refreshQualityCards();
-                refreshEpisodeCards();
+                if (item.action === 'clear-cache') {
+                    Lampa.Storage.set(QUALITY_CACHE, {});
+                    Lampa.Storage.set(EP_CACHE, {});
 
-                try {
-                    if (app.Settings && app.Settings.update) app.Settings.update();
-                } catch (e) {}
+                    refreshQualityCards();
+                    refreshEpisodeCards();
 
-                if (app.Noty) {
-                    app.Noty.show(tr('Настройки сброшены', 'Settings reset'));
+                    showNotice('Кеш качества очищен', 'Quality cache cleared');
+                    reopenSection(sectionKey);
+                    return;
+                }
+
+                if (item.action === 'reset') {
+                    for (var key in DEFAULTS) {
+                        if (Object.prototype.hasOwnProperty.call(DEFAULTS, key)) {
+                            Lampa.Storage.set(key, DEFAULTS[key]);
+                        }
+                    }
+
+                    applyBodyClasses();
+                    refreshQualityCards();
+                    refreshEpisodeCards();
+
+                    showNotice('Настройки сброшены', 'Settings reset');
+                    reopenSection(sectionKey);
                 }
             }
         });
     }
+
+    function addSubmenuButton(sectionKey) {
+        var section = sections[sectionKey];
+
+        Lampa.SettingsApi.addParam({
+            component: component,
+            param: {
+                name: 'maxsm_mq_open_' + sectionKey,
+                type: 'button'
+            },
+            field: {
+                name: tr(section.ru, section.en)
+            },
+            onChange: function () {
+                openSection(sectionKey);
+            }
+        });
+    }
+
+    addSubmenuButton('appearance');
+    addSubmenuButton('quality');
+    addSubmenuButton('service');
+}
 
     // ===================== стили =====================
 
