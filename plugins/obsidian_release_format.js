@@ -1,176 +1,119 @@
 (function () {
     'use strict';
 
-    if (window.maxsmRatingsQualityPlugin) return;
-    window.maxsmRatingsQualityPlugin = true;
-
-    // ===================== настройки запросов =====================
-
-    var Q_LOGGING = false;
-    var Q_CACHE_TIME = 24 * 60 * 60 * 1000;
-    var Q_CACHE_TIME_EMPTY = 60 * 60 * 1000;
+    var Q_LOGGING = false;                        // логи в консоль (true для отладки)
+    var Q_CACHE_TIME = 24 * 60 * 60 * 1000;       // кеш найденного качества
+    var Q_CACHE_TIME_EMPTY = 60 * 60 * 1000;      // кеш "ничего не найдено"
     var QUALITY_CACHE = 'maxsm_ratings_quality_cache';
-    var REQUEST_TIMEOUT = 6000;
-    var MAX_PARALLEL = 1;
-    var REQUEST_GAP = 800;
-    var FAIL_PAUSE = 60 * 1000;
-    var QUALITY_RETRY_DELAY = 60 * 1000;
-    var QUALITY_RETRY_LIMIT = 2;
-    var MAX_QUALITY_CACHE = 500;
-    var USE_PROXY = false;
+    var REQUEST_TIMEOUT = 6000;                   // таймаут одного запроса
+    var MAX_PARALLEL = 1;                         // jac.red отвечает 429 при частых запросах
+    var REQUEST_GAP = 800;                        // пауза между запросами, мс
+    var FAIL_PAUSE = 60 * 1000;                   // пауза после 3 ошибок подряд
+    var USE_PROXY = false;                        // включать только при проблемах с CORS
 
-    var JACRED_PROTOCOL = window.location && window.location.protocol === 'https:'
-        ? 'https://'
-        : 'http://';
+    var JACRED_PROTOCOL = location.protocol === 'https:' ? 'https://' : 'http://';
 
     var PROXY_LIST = [
         { prefix: 'https://api.allorigins.win/raw?url=', encode: true },
         { prefix: 'https://cors.bwa.workers.dev/', encode: false }
     ];
 
-    var EP_CACHE = 'maxsm_ratings_episode_cache';
-    var EP_TTL = 6 * 60 * 60 * 1000;
-    var EP_GAP = 250;
-    var EP_MAX_PARALLEL = 2;
-    var EP_RETRY_DELAY = 30 * 1000;
-    var EP_RETRY_LIMIT = 1;
-    var MAX_EPISODE_CACHE = 500;
-
-    var DEFAULTS = {
-        maxsm_mq_overlay: true,
-        maxsm_mq_genres: true,
-        maxsm_mq_year: true,
-        maxsm_mq_rating: true,
-        maxsm_mq_quality: true,
-        maxsm_mq_quality_tv: true,
-        maxsm_mq_episode: true,
-        maxsm_mq_quality_icon: true,
-        maxsm_mq_quality_color: true
-    };
-
-    var started = false;
-    var readyListenerAdded = false;
-    var observer = null;
+    // ID страниц настроек. Первый сохранён прежним.
+    var COMPONENT_APPEARANCE = 'maxsm_cards';
+    var COMPONENT_QUALITY = 'maxsm_cards_quality';
+    var COMPONENT_SERVICE = 'maxsm_cards_service';
 
     function log() {
-        if (!Q_LOGGING || !window.console || !console.log) return;
+        if (!Q_LOGGING) return;
         var args = ['MAXSM-RATINGS'].concat([].slice.call(arguments));
         console.log.apply(console, args);
     }
 
-    function logError(message, error) {
-        if (!window.console || !console.error) return;
-        console.error('MAXSM-RATINGS ' + message, error || '');
-    }
+    // ===================== настройки =====================
 
-    function storageGet(name, fallback) {
-        try {
-            var app = window.Lampa;
-            if (!app || !app.Storage || !app.Storage.get) return fallback;
-
-            var value = app.Storage.get(name, fallback);
-            return value === undefined || value === null ? fallback : value;
-        } catch (e) {
-            return fallback;
-        }
-    }
-
-    function storageSet(name, value) {
-        try {
-            var app = window.Lampa;
-            if (app && app.Storage && app.Storage.set) {
-                app.Storage.set(name, value);
-            }
-        } catch (e) {
-            log('storage error:', name, e.message);
-        }
-    }
+    var DEFAULTS = {
+        maxsm_mq_overlay: true,        // оверлей на карточках
+        maxsm_mq_genres: true,         // жанры
+        maxsm_mq_year: true,           // год
+        maxsm_mq_rating: true,         // рейтинг
+        maxsm_mq_quality: true,        // качество (JacRed)
+        maxsm_mq_quality_tv: true,     // качество для сериалов
+        maxsm_mq_episode: true,        // номер сезона/серии у сериалов
+        maxsm_mq_quality_icon: true,   // иконка у качества
+        maxsm_mq_quality_color: true   // цветное качество
+    };
 
     function opt(name) {
-        var value = storageGet(name, '');
+        var value;
+
+        try {
+            value = Lampa.Storage.get(name, '');
+        } catch (e) {
+            value = '';
+        }
 
         if (value === '' || value === undefined || value === null) {
             return DEFAULTS[name];
         }
 
-        return value === true || value === 'true' || value === 1 || value === '1';
+        return value === true || value === 'true';
     }
 
     function isEn() {
-        var language = String(storageGet('language', 'ru')).toLowerCase();
-        return language.indexOf('en') === 0;
+        try {
+            return Lampa.Storage.get('language', 'ru') === 'en';
+        } catch (e) {
+            return false;
+        }
     }
 
     function tr(ru, en) {
         return isEn() ? en : ru;
     }
 
-    function getJacredBase() {
-        var raw = String(storageGet('jac.red', '') || 'jac.red').trim();
-        var hasProtocol = /^https?:\/\//i.test(raw);
-        var protocol = hasProtocol
-            ? (raw.toLowerCase().indexOf('https://') === 0 ? 'https://' : 'http://')
-            : JACRED_PROTOCOL;
+    function getJacredUrl() {
+        var url = '';
 
-        raw = raw.replace(/^https?:\/\//i, '').replace(/\/+$/, '');
+        try {
+            url = Lampa.Storage.get('jac.red') || '';
+        } catch (e) {}
 
-        return protocol + (raw || 'jac.red');
+        url = String(url || 'jac.red')
+            .replace(/^https?:\/\//i, '')
+            .replace(/\/+$/, '');
+
+        return url || 'jac.red';
     }
 
     function getJacredKey() {
-        return String(storageGet('jacred_key', '') || '').trim();
-    }
-
-    function toggleBodyClass(name, enabled) {
-        if (!document.body) return;
-
-        if (enabled) {
-            document.body.classList.add(name);
-        } else {
-            document.body.classList.remove(name);
+        try {
+            return Lampa.Storage.get('jacred_key') || '';
+        } catch (e) {
+            return '';
         }
     }
 
+    // Классы на body управляют видимостью частей оверлея без перерисовки карточек
     function applyBodyClasses() {
-        toggleBodyClass('mq-overlay-off', !opt('maxsm_mq_overlay'));
-        toggleBodyClass('mq-hide-genres', !opt('maxsm_mq_genres'));
-        toggleBodyClass('mq-hide-year', !opt('maxsm_mq_year'));
-        toggleBodyClass('mq-hide-rating', !opt('maxsm_mq_rating'));
-        toggleBodyClass('mq-hide-episode', !opt('maxsm_mq_episode'));
-        toggleBodyClass('mq-hide-quality', !opt('maxsm_mq_quality'));
-        toggleBodyClass('mq-hide-quality-tv', !opt('maxsm_mq_quality_tv'));
-        toggleBodyClass('mq-no-icon', !opt('maxsm_mq_quality_icon'));
-        toggleBodyClass('mq-no-color', !opt('maxsm_mq_quality_color'));
-    }
+        var body = document.body;
 
-    // ===================== настройки Lampa =====================
-
-    function refreshQualityCards() {
-        var cards = document.querySelectorAll('.card');
-
-        for (var i = 0; i < cards.length; i++) {
-            cards[i].removeAttribute('data-quality-added');
-            clearQualityRetry(cards[i]);
-            setQuality(cards[i], null);
+        function toggle(className, enabled) {
+            if (enabled) body.classList.add(className);
+            else body.classList.remove(className);
         }
 
-        updateCards(cards);
+        toggle('mq-overlay-off', !opt('maxsm_mq_overlay'));
+        toggle('mq-hide-genres', !opt('maxsm_mq_genres'));
+        toggle('mq-hide-year', !opt('maxsm_mq_year'));
+        toggle('mq-hide-rating', !opt('maxsm_mq_rating'));
+        toggle('mq-hide-episode', !opt('maxsm_mq_episode'));
+        toggle('mq-hide-quality', !opt('maxsm_mq_quality'));
+        toggle('mq-hide-quality-tv', !opt('maxsm_mq_quality_tv'));
+        toggle('mq-no-icon', !opt('maxsm_mq_quality_icon'));
+        toggle('mq-no-color', !opt('maxsm_mq_quality_color'));
     }
 
-    function refreshEpisodeCards() {
-        var cards = document.querySelectorAll('.card');
-
-        for (var i = 0; i < cards.length; i++) {
-            cards[i].removeAttribute('data-mq-ep');
-            cards[i].removeAttribute('data-mq-ep-key');
-            clearEpisodeRetry(cards[i]);
-            setEpisode(cards[i], null);
-        }
-
-        updateCards(cards);
-    }
-
-function addSettings() {
+    function addSettings() {
     if (!window.Lampa || !Lampa.SettingsApi) return;
 
     var component = 'maxsm_cards';
@@ -456,170 +399,100 @@ function addSettings() {
         var style = document.createElement('style');
         style.id = 'maxsm_ratings_quality';
         style.textContent =
+            // убираем стандартные подписи на карточках с оверлеем
             'body:not(.mq-overlay-off) .card--mq .card__title,' +
             'body:not(.mq-overlay-off) .card--mq .card__age,' +
             'body:not(.mq-overlay-off) .card--mq .card__vote,' +
             'body:not(.mq-overlay-off) .card--mq .card__type,' +
-            'body:not(.mq-overlay-off) .card--mq .card__quality{' +
-                'display:none!important;' +
-            '}' +
+            'body:not(.mq-overlay-off) .card--mq .card__quality{display:none!important;}' +
 
-            '.card--mq .card__view{' +
-                'position:relative;' +
-                'overflow:hidden;' +
-            '}' +
+            '.card--mq .card__view{position:relative;}' +
 
             '.mq-meta{' +
-                'position:absolute;' +
-                'left:0;' +
-                'right:0;' +
-                'bottom:0;' +
-                'z-index:5;' +
-                'box-sizing:border-box;' +
-                'padding:3.5em .85em .8em;' +
-                'border-radius:0 0 1em 1em;' +
-                'pointer-events:none;' +
+                'position:absolute;left:0;right:0;bottom:0;z-index:5;' +
+                'pointer-events:none;box-sizing:border-box;' +
+                'padding:3.2em .9em .8em;border-radius:0 0 1em 1em;' +
                 'background:linear-gradient(to top,' +
-                    'rgba(0,0,0,.94) 0%,' +
-                    'rgba(0,0,0,.72) 48%,' +
+                    'rgba(0,0,0,.92) 0%,' +
+                    'rgba(0,0,0,.72) 45%,' +
                     'rgba(0,0,0,0) 100%);' +
             '}' +
+
             'body.mq-overlay-off .mq-meta{display:none;}' +
 
             '.mq-genres{' +
-                'margin-bottom:.28em;' +
-                'overflow:hidden;' +
-                'color:rgba(255,255,255,.82);' +
-                'font-size:.78em;' +
-                'line-height:1.2;' +
-                'letter-spacing:.04em;' +
-                'text-transform:uppercase;' +
-                'white-space:nowrap;' +
-                'text-overflow:ellipsis;' +
+                'font-size:.85em;line-height:1.2;color:rgba(255,255,255,.92);' +
+                'margin-bottom:.2em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' +
             '}' +
+
             'body.mq-hide-genres .mq-genres{display:none;}' +
 
             '.mq-title{' +
-                'display:-webkit-box;' +
-                'overflow:hidden;' +
-                'color:#fff;' +
-                'font-size:1.35em;' +
-                'font-weight:500;' +
-                'line-height:1.14;' +
-                '-webkit-line-clamp:3;' +
-                '-webkit-box-orient:vertical;' +
-                'word-break:break-word;' +
-                'text-shadow:0 1px 3px rgba(0,0,0,.55);' +
+                'font-size:1.45em;line-height:1.15;font-weight:400;color:#fff;' +
+                'display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;' +
+                'overflow:hidden;word-break:break-word;' +
             '}' +
 
             '.mq-bottom{' +
-                'display:flex;' +
-                'align-items:center;' +
-                'justify-content:space-between;' +
-                'min-height:1.3em;' +
-                'margin-top:.58em;' +
-                'font-size:.94em;' +
+                'display:flex;align-items:center;justify-content:space-between;' +
+                'margin-top:.55em;font-size:.95em;' +
             '}' +
-            '.mq-left{' +
-                'display:flex;' +
-                'align-items:center;' +
-                'min-width:0;' +
-            '}' +
-            '.mq-left>*+*{margin-left:.85em;}' +
 
-            '.mq-year{' +
-                'color:rgba(255,255,255,.9);' +
-                'white-space:nowrap;' +
-                'text-shadow:0 1px 3px rgba(0,0,0,.5);' +
+            '.mq-left{' +
+                'display:flex;align-items:center;gap:.9em;min-width:0;' +
             '}' +
+
+            '.mq-year{color:rgba(255,255,255,.92);}' +
             'body.mq-hide-year .mq-year{display:none;}' +
 
             '.mq-rating{' +
-                'display:inline-flex;' +
-                'align-items:center;' +
-                'color:#62aef3;' +
-                'font-weight:600;' +
-                'white-space:nowrap;' +
+                'display:inline-flex;align-items:center;gap:.3em;color:#4a9eed;' +
             '}' +
-            '.mq-rating>*+*{margin-left:.28em;}' +
-            '.mq-rating svg{' +
-                'width:1.12em;' +
-                'height:1.12em;' +
-                'flex:none;' +
-            '}' +
+
+            '.mq-rating svg{width:1.15em;height:1.15em;flex:none;}' +
             '.mq-rating.r-mid{color:#e6c24a;}' +
-            '.mq-rating.r-low{color:#e97959;}' +
+            '.mq-rating.r-low{color:#e0603c;}' +
             'body.mq-hide-rating .mq-rating{display:none;}' +
 
             '.mq-q{' +
-                'display:none;' +
-                'align-items:center;' +
-                'color:#fff;' +
-                'font-weight:700;' +
-                'letter-spacing:.02em;' +
-                'white-space:nowrap;' +
+                'display:none;align-items:center;gap:.3em;font-weight:bold;' +
+                'white-space:nowrap;color:#fff;' +
             '}' +
+
             '.mq-q.mq-q-on{display:inline-flex;}' +
-            '.mq-q>*+*{margin-left:.3em;}' +
-            '.mq-q svg{' +
-                'width:1.12em;' +
-                'height:1.12em;' +
-                'flex:none;' +
-            '}' +
-            '.mq-q.q-4k{color:#65c878;}' +
-            '.mq-q.q-fhd{color:#49c1cf;}' +
-            '.mq-q.q-hd{color:#62aef3;}' +
-            '.mq-q.q-sd{color:#e8ad55;}' +
+            '.mq-q svg{width:1.15em;height:1.15em;flex:none;}' +
+            '.mq-q.q-4k{color:#5fb760;}' +
+            '.mq-q.q-fhd{color:#3fb8c9;}' +
+            '.mq-q.q-hd{color:#4a9eed;}' +
+            '.mq-q.q-sd{color:#e6a23c;}' +
+
             'body.mq-no-color .mq-q{color:#fff;}' +
             'body.mq-no-icon .mq-q svg{display:none;}' +
             'body.mq-hide-quality .mq-q{display:none;}' +
             'body.mq-hide-quality-tv .card--mq.mq-tv .mq-q{display:none!important;}' +
 
+            // бейдж серии вверху слева
             '.mq-ep{' +
-                'display:none;' +
-                'position:absolute;' +
-                'top:0;' +
-                'left:0;' +
-                'z-index:6;' +
-                'align-items:center;' +
-                'padding:.55em .85em .55em .75em;' +
+                'display:none;position:absolute;top:0;left:0;z-index:6;' +
+                'pointer-events:none;align-items:center;gap:.5em;' +
+                'padding:.55em .9em .55em .8em;color:#fff;font-size:1.05em;' +
+                'line-height:1;white-space:nowrap;background:rgba(0,0,0,.85);' +
                 'border-radius:1em 0 1em 0;' +
-                'background:rgba(0,0,0,.84);' +
-                'box-shadow:0 2px 8px rgba(0,0,0,.25);' +
-                'color:#fff;' +
-                'font-size:1.02em;' +
-                'line-height:1;' +
-                'white-space:nowrap;' +
-                'pointer-events:none;' +
             '}' +
+
             '.mq-ep.mq-ep-on{display:inline-flex;}' +
-            '.mq-ep>*+*{margin-left:.45em;}' +
-            '.mq-ep svg{' +
-                'width:1.3em;' +
-                'height:1.3em;' +
-                'flex:none;' +
-            '}' +
+            '.mq-ep svg{width:1.35em;height:1.35em;flex:none;}' +
             'body.mq-overlay-off .mq-ep,' +
             'body.mq-hide-episode .mq-ep{display:none;}';
 
-        (document.head || document.documentElement).appendChild(style);
+        document.head.appendChild(style);
     }
 
-    // ===================== сеть =====================
+    // ===================== сеть (XHR для старых WebOS/Tizen) =====================
 
     function httpGetJson(url, callback) {
-        var xhr;
-
-        try {
-            xhr = new XMLHttpRequest();
-        } catch (e) {
-            try {
-                callback(e);
-            } catch (callbackError) {}
-            return;
-        }
-
         var done = false;
+        var xhr = new XMLHttpRequest();
         var timer = setTimeout(function () {
             finish(new Error('timeout'));
         }, REQUEST_TIMEOUT);
@@ -630,14 +503,10 @@ function addSettings() {
             clearTimeout(timer);
 
             try {
-                if (xhr.readyState !== 4) xhr.abort();
+                xhr.abort();
             } catch (e) {}
 
-            try {
-                callback(error, data);
-            } catch (callbackError) {
-                logError('callback error', callbackError);
-            }
+            callback(error, data);
         }
 
         try {
@@ -646,7 +515,7 @@ function addSettings() {
             xhr.onreadystatechange = function () {
                 if (xhr.readyState !== 4) return;
 
-                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 1223) {
+                if (xhr.status >= 200 && xhr.status < 300) {
                     try {
                         finish(null, JSON.parse(xhr.responseText));
                     } catch (e) {
@@ -701,117 +570,99 @@ function addSettings() {
         next();
     }
 
-    // ===================== очередь JacRed =====================
+    // ===================== очередь запросов =====================
 
-    var qualityQueue = [];
-    var qualityRunning = 0;
-    var qualityLastStart = 0;
-    var qualityPausedUntil = 0;
-    var qualityFailStreak = 0;
-    var qualityPumpTimer = null;
+    var queue = [];
+    var running = 0;
+    var lastStart = 0;
+    var pausedUntil = 0;
+    var failStreak = 0;
+    var pumpTimer = null;
 
-    function enqueueQualityTask(task) {
-        qualityQueue.push(task);
-        pumpQualityQueue();
+    function enqueue(task) {
+        queue.push(task);
+        pump();
     }
 
-    function pumpQualityQueue() {
-        if (qualityRunning >= MAX_PARALLEL || !qualityQueue.length || qualityPumpTimer) {
-            return;
-        }
+    function pump() {
+        if (running >= MAX_PARALLEL || !queue.length || pumpTimer) return;
 
         var now = Date.now();
         var wait = Math.max(
-            qualityPausedUntil - now,
-            qualityLastStart + REQUEST_GAP - now,
+            pausedUntil - now,
+            lastStart + REQUEST_GAP - now,
             0
         );
 
         if (wait > 0) {
-            qualityPumpTimer = setTimeout(function () {
-                qualityPumpTimer = null;
-                pumpQualityQueue();
+            pumpTimer = setTimeout(function () {
+                pumpTimer = null;
+                pump();
             }, wait);
             return;
         }
 
-        var task = qualityQueue.shift();
-        qualityRunning++;
-        qualityLastStart = Date.now();
+        var task = queue.shift();
+        running++;
+        lastStart = Date.now();
 
         var finished = false;
 
-        function complete(failed) {
+        task(function (failed) {
             if (finished) return;
             finished = true;
-
-            qualityRunning--;
+            running--;
 
             if (failed) {
-                qualityFailStreak++;
+                failStreak++;
 
-                if (qualityFailStreak >= 3) {
-                    qualityPausedUntil = Date.now() + FAIL_PAUSE;
-                    qualityFailStreak = 0;
+                if (failStreak >= 3) {
+                    pausedUntil = Date.now() + FAIL_PAUSE;
+                    failStreak = 0;
                     log('too many errors, pause');
                 }
             } else {
-                qualityFailStreak = 0;
+                failStreak = 0;
             }
 
-            pumpQualityQueue();
-        }
-
-        try {
-            task(complete);
-        } catch (e) {
-            logError('queue task error', e);
-            complete(true);
-        }
+            pump();
+        });
     }
 
     // ===================== JacRed =====================
 
-    function translateQuality(value) {
-        var quality = Number(value);
-
-        if (!isFinite(quality) || quality <= 0) return null;
+    function translateQuality(quality) {
+        if (typeof quality !== 'number') return null;
         if (quality >= 2160) return '4K';
         if (quality >= 1080) return 'FHD';
         if (quality >= 720) return 'HD';
-
-        return 'SD';
-    }
-
-    function normalizeQuality(value) {
-        var quality = String(value || '').toUpperCase();
-
-        if (quality === '4K' || quality === 'FHD' || quality === 'HD' || quality === 'SD') {
-            return quality;
-        }
-
+        if (quality > 0) return 'SD';
         return null;
     }
 
     function searchJacred(title, year, cardId, callback) {
-        var userId = String(storageGet('lampac_unic_id', '') || '');
         var key = getJacredKey();
+        var userId = '';
 
-        var url = getJacredBase() + '/api/v1.0/torrents?search=' +
-            encodeURIComponent(title) +
-            '&year=' + encodeURIComponent(year) +
+        try {
+            userId = Lampa.Storage.get('lampac_unic_id', '') || '';
+        } catch (e) {}
+
+        var apiUrl = JACRED_PROTOCOL + getJacredUrl() +
+            '/api/v1.0/torrents?search=' + encodeURIComponent(title) +
+            '&year=' + year +
             '&exact=true' +
             (userId ? '&uid=' + encodeURIComponent(userId) : '') +
             (key ? '&apikey=' + encodeURIComponent(key) : '');
 
-        fetchJsonWithFallback(url, cardId, function (error, torrents) {
+        fetchJsonWithFallback(apiUrl, cardId, function (error, torrents) {
             if (error || !Array.isArray(torrents)) {
-                callback(null, true);
+                callback(null, true); // ошибка сети/429 — не кешируем
                 return;
             }
 
             if (!torrents.length) {
-                callback(null, false);
+                callback(null, false); // ничего не найдено
                 return;
             }
 
@@ -821,11 +672,11 @@ function addSettings() {
                 var torrent = torrents[i];
                 if (!torrent) continue;
 
-                var quality = Number(torrent.quality);
-                if (!isFinite(quality) || quality <= 0) continue;
+                var quality = torrent.quality;
+                if (typeof quality !== 'number' || quality === 0) continue;
 
-                var titleText = String(torrent.title || '');
-                if (/\b(ts|telesync|camrip|cam)\b/i.test(titleText) && quality < 720) {
+                if (/\b(ts|telesync|camrip|cam)\b/i.test(String(torrent.title || '')) &&
+                    quality < 720) {
                     continue;
                 }
 
@@ -837,34 +688,27 @@ function addSettings() {
     }
 
     function getQuality(card, cardId, callback) {
-        var date = String(card.release_date || '');
+        var date = card.release_date || '';
         var year = date.substring(0, 4);
 
-        if (!/^\d{4}$/.test(year)) {
+        if (!year || isNaN(year)) {
             callback(null, false);
             return;
         }
 
         var titles = [];
-        var seen = {};
 
-        function addTitle(value) {
-            if (!value) return;
-
-            value = String(value).trim();
-            if (!value || !/[a-zа-яё0-9]/i.test(value)) return;
-
-            var normalized = value.toLowerCase();
-            if (seen[normalized]) return;
-
-            seen[normalized] = true;
-            titles.push(value);
+        if (card.original_title && /[a-zа-яё0-9]/i.test(card.original_title)) {
+            titles.push(card.original_title.trim());
         }
 
-        addTitle(card.original_title);
-        addTitle(card.title);
+        if (card.title &&
+            /[a-zа-яё0-9]/i.test(card.title) &&
+            card.title !== card.original_title) {
+            titles.push(card.title.trim());
+        }
 
-        function searchNext(index) {
+        function next(index) {
             if (index >= titles.length) {
                 callback(null, false);
                 return;
@@ -876,186 +720,97 @@ function addSettings() {
                 } else if (quality) {
                     callback(quality, false);
                 } else {
-                    searchNext(index + 1);
+                    next(index + 1);
                 }
             });
         }
 
-        searchNext(0);
+        next(0);
     }
 
-    // ===================== кеш =====================
-
-    function hasOwn(object, key) {
-        return Object.prototype.hasOwnProperty.call(object, key);
-    }
-
-    function readStorageObject(key) {
-        var value = storageGet(key, {});
-
-        if (typeof value === 'string') {
-            try {
-                value = JSON.parse(value);
-            } catch (e) {
-                value = {};
-            }
-        }
-
-        if (!value || typeof value !== 'object' || Array.isArray(value)) {
-            return {};
-        }
-
-        return value;
-    }
-
-    function trimQualityCache(cache, now) {
-        var entries = [];
-
-        for (var key in cache) {
-            if (!hasOwn(cache, key)) continue;
-
-            var item = cache[key];
-            var timestamp = item && Number(item.timestamp);
-            var ttl = normalizeQuality(item && item.quality)
-                ? Q_CACHE_TIME
-                : Q_CACHE_TIME_EMPTY;
-            var age = now - timestamp;
-
-            if (!timestamp || age < 0 || age >= ttl) {
-                delete cache[key];
-                continue;
-            }
-
-            entries.push({ key: key, timestamp: timestamp });
-        }
-
-        if (entries.length <= MAX_QUALITY_CACHE) return;
-
-        entries.sort(function (a, b) {
-            return a.timestamp - b.timestamp;
-        });
-
-        for (var i = 0; i < entries.length - MAX_QUALITY_CACHE; i++) {
-            delete cache[entries[i].key];
-        }
-    }
+    // ===================== кеш качества =====================
 
     function readCache(key) {
-        var cache = readStorageObject(QUALITY_CACHE);
+        var cache = Lampa.Storage.get(QUALITY_CACHE) || {};
         var item = cache[key];
 
-        if (!item || typeof item !== 'object') return null;
+        if (!item) return null;
 
-        var timestamp = Number(item.timestamp);
-        var age = Date.now() - timestamp;
-        var quality = normalizeQuality(item.quality);
-        var ttl = quality ? Q_CACHE_TIME : Q_CACHE_TIME_EMPTY;
-
-        if (!timestamp || age < 0 || age >= ttl) return null;
-
-        return {
-            quality: quality,
-            timestamp: timestamp
-        };
+        var ttl = item.quality ? Q_CACHE_TIME : Q_CACHE_TIME_EMPTY;
+        return Date.now() - item.timestamp < ttl ? item : null;
     }
 
     function writeCache(key, quality) {
-        var cache = readStorageObject(QUALITY_CACHE);
-        var now = Date.now();
+        var cache = Lampa.Storage.get(QUALITY_CACHE) || {};
 
         cache[key] = {
-            quality: normalizeQuality(quality),
-            timestamp: now
+            quality: quality || null,
+            timestamp: Date.now()
         };
 
-        trimQualityCache(cache, now);
-        storageSet(QUALITY_CACHE, cache);
-    }
-
-    function trimEpisodeCache(cache, now) {
-        var entries = [];
-
-        for (var key in cache) {
-            if (!hasOwn(cache, key)) continue;
-
-            var item = cache[key];
-            var timestamp = item && Number(item.t);
-            var age = now - timestamp;
-
-            if (!timestamp || age < 0 || age >= EP_TTL) {
-                delete cache[key];
-                continue;
-            }
-
-            entries.push({ key: key, timestamp: timestamp });
-        }
-
-        if (entries.length <= MAX_EPISODE_CACHE) return;
-
-        entries.sort(function (a, b) {
-            return a.timestamp - b.timestamp;
-        });
-
-        for (var i = 0; i < entries.length - MAX_EPISODE_CACHE; i++) {
-            delete cache[entries[i].key];
-        }
-    }
-
-    function readEpisodeCache(id) {
-        var cache = readStorageObject(EP_CACHE);
-        var item = cache[String(id)];
-
-        if (!item || typeof item !== 'object') return null;
-
-        var timestamp = Number(item.t);
-        var age = Date.now() - timestamp;
-
-        if (!timestamp || age < 0 || age >= EP_TTL) return null;
-
-        return {
-            episode: normalizeEpisode({
-                season_number: item.s,
-                episode_number: item.e
-            })
-        };
-    }
-
-    function writeEpisodeCache(id, episode) {
-        var cache = readStorageObject(EP_CACHE);
-        var now = Date.now();
-
-        cache[String(id)] = {
-            s: episode ? episode.s : 0,
-            e: episode ? episode.e : 0,
-            t: now
-        };
-
-        trimEpisodeCache(cache, now);
-        storageSet(EP_CACHE, cache);
+        Lampa.Storage.set(QUALITY_CACHE, cache);
     }
 
     // ===================== жанры =====================
 
     var GENRES_RU = {
-        28: 'Боевик', 12: 'Приключения', 16: 'Мультфильм', 35: 'Комедия',
-        80: 'Криминал', 99: 'Документальный', 18: 'Драма', 10751: 'Семейный',
-        14: 'Фэнтези', 36: 'История', 27: 'Ужасы', 10402: 'Музыка',
-        9648: 'Детектив', 10749: 'Мелодрама', 878: 'Фантастика',
-        10770: 'Телефильм', 53: 'Триллер', 10752: 'Военный', 37: 'Вестерн',
-        10759: 'Боевик и Приключения', 10762: 'Детский', 10763: 'Новости',
-        10764: 'Реалити-шоу', 10765: 'Фантастика и Фэнтези',
-        10766: 'Мыльная опера', 10767: 'Ток-шоу', 10768: 'Война и политика'
+        28: 'Боевик',
+        12: 'Приключения',
+        16: 'Мультфильм',
+        35: 'Комедия',
+        80: 'Криминал',
+        99: 'Документальный',
+        18: 'Драма',
+        10751: 'Семейный',
+        14: 'Фэнтези',
+        36: 'История',
+        27: 'Ужасы',
+        10402: 'Музыка',
+        9648: 'Детектив',
+        10749: 'Мелодрама',
+        878: 'Фантастика',
+        10770: 'Телефильм',
+        53: 'Триллер',
+        10752: 'Военный',
+        37: 'Вестерн',
+        10759: 'Боевик и Приключения',
+        10762: 'Детский',
+        10763: 'Новости',
+        10764: 'Реалити-шоу',
+        10765: 'Фантастика и Фэнтези',
+        10766: 'Мыльная опера',
+        10767: 'Ток-шоу',
+        10768: 'Война и политика'
     };
 
     var GENRES_EN = {
-        28: 'Action', 12: 'Adventure', 16: 'Animation', 35: 'Comedy',
-        80: 'Crime', 99: 'Documentary', 18: 'Drama', 10751: 'Family',
-        14: 'Fantasy', 36: 'History', 27: 'Horror', 10402: 'Music',
-        9648: 'Mystery', 10749: 'Romance', 878: 'Science Fiction',
-        10770: 'TV Movie', 53: 'Thriller', 10752: 'War', 37: 'Western',
-        10759: 'Action & Adventure', 10762: 'Kids', 10763: 'News',
-        10764: 'Reality', 10765: 'Sci-Fi & Fantasy', 10766: 'Soap',
-        10767: 'Talk', 10768: 'War & Politics'
+        28: 'Action',
+        12: 'Adventure',
+        16: 'Animation',
+        35: 'Comedy',
+        80: 'Crime',
+        99: 'Documentary',
+        18: 'Drama',
+        10751: 'Family',
+        14: 'Fantasy',
+        36: 'History',
+        27: 'Horror',
+        10402: 'Music',
+        9648: 'Mystery',
+        10749: 'Romance',
+        878: 'Science Fiction',
+        10770: 'TV Movie',
+        53: 'Thriller',
+        10752: 'War',
+        37: 'Western',
+        10759: 'Action & Adventure',
+        10762: 'Kids',
+        10763: 'News',
+        10764: 'Reality',
+        10765: 'Sci-Fi & Fantasy',
+        10766: 'Soap',
+        10767: 'Talk',
+        10768: 'War & Politics'
     };
 
     function getGenres(data) {
@@ -1063,15 +818,13 @@ function addSettings() {
         var map = isEn() ? GENRES_EN : GENRES_RU;
         var i;
 
-        if (Array.isArray(data.genres)) {
+        if (data.genres && data.genres.length) {
             for (i = 0; i < data.genres.length && names.length < 2; i++) {
                 if (data.genres[i] && data.genres[i].name) {
-                    names.push(String(data.genres[i].name));
+                    names.push(data.genres[i].name);
                 }
             }
-        }
-
-        if (names.length < 2 && Array.isArray(data.genre_ids)) {
+        } else if (data.genre_ids && data.genre_ids.length) {
             for (i = 0; i < data.genre_ids.length && names.length < 2; i++) {
                 if (map[data.genre_ids[i]]) {
                     names.push(map[data.genre_ids[i]]);
@@ -1097,14 +850,6 @@ function addSettings() {
         '<path d="M12 14l3.2-4.2"/>' +
         '</svg>';
 
-    var ICON_EP =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
-        'stroke-linecap="round" stroke-linejoin="round">' +
-        '<path d="M7 4h12"/><path d="M5 7.5h14"/>' +
-        '<rect x="3.5" y="11" width="17" height="9.5" rx="2"/>' +
-        '<path d="M10.5 13.8v4l3.3-2z"/>' +
-        '</svg>';
-
     function getCardType(card) {
         var type = card.media_type || card.type;
 
@@ -1113,12 +858,12 @@ function addSettings() {
     }
 
     function getCardData(element) {
-        if (element.card_data && typeof element.card_data === 'object') {
-            return element.card_data;
-        }
+        if (element.card_data) return element.card_data;
 
         try {
-            if (window.$) return window.$(element).data('card_data') || null;
+            if (window.$) {
+                return window.$(element).data('card_data') || null;
+            }
         } catch (e) {}
 
         return null;
@@ -1126,100 +871,96 @@ function addSettings() {
 
     function buildOverlay(element, data) {
         var view = element.querySelector('.card__view');
-        if (!view) return;
+        if (!view || view.querySelector('.mq-meta')) return;
 
-        var meta = view.querySelector('.mq-meta');
+        var title = data.title || data.name || '';
+        var date = data.release_date || data.first_air_date || '';
+        var year = date.substring(0, 4);
+        var vote = parseFloat(data.vote_average);
+        var genres = getGenres(data);
 
-        if (!meta) {
-            var title = data.title || data.name ||
-                data.original_title || data.original_name || '';
-            var date = String(data.release_date || data.first_air_date || '');
-            var year = date.substring(0, 4);
-            var vote = parseFloat(data.vote_average);
-            var genres = getGenres(data);
+        var meta = document.createElement('div');
+        meta.className = 'mq-meta';
 
-            meta = document.createElement('div');
-            meta.className = 'mq-meta';
+        var genreNode = document.createElement('div');
+        genreNode.className = 'mq-genres';
+        genreNode.textContent = genres;
 
-            var genreNode = document.createElement('div');
-            genreNode.className = 'mq-genres';
-            genreNode.textContent = genres;
-            if (!genres) genreNode.style.display = 'none';
-            meta.appendChild(genreNode);
+        if (!genres) genreNode.style.display = 'none';
 
-            var titleNode = document.createElement('div');
-            titleNode.className = 'mq-title';
-            titleNode.textContent = title;
-            meta.appendChild(titleNode);
+        meta.appendChild(genreNode);
 
-            var bottom = document.createElement('div');
-            bottom.className = 'mq-bottom';
+        var titleNode = document.createElement('div');
+        titleNode.className = 'mq-title';
+        titleNode.textContent = title;
+        meta.appendChild(titleNode);
 
-            var left = document.createElement('div');
-            left.className = 'mq-left';
+        var bottom = document.createElement('div');
+        bottom.className = 'mq-bottom';
 
-            if (isFinite(vote) && vote > 0) {
-                var rating = document.createElement('span');
-                rating.className = 'mq-rating ' +
-                    (vote >= 6.5 ? '' : (vote >= 5 ? 'r-mid' : 'r-low'));
-                rating.innerHTML = ICON_STAR;
+        var left = document.createElement('div');
+        left.className = 'mq-left';
 
-                var ratingText = document.createElement('span');
-                ratingText.textContent = vote.toFixed(1);
-                rating.appendChild(ratingText);
-                left.appendChild(rating);
-            }
+        if (vote > 0) {
+            var rating = document.createElement('span');
+            rating.className = 'mq-rating ' +
+                (vote >= 6.5 ? '' : (vote >= 5 ? 'r-mid' : 'r-low'));
+            rating.innerHTML = ICON_STAR;
 
-            var quality = document.createElement('span');
-            quality.className = 'mq-q';
-            left.appendChild(quality);
-
-            bottom.appendChild(left);
-
-            var yearNode = document.createElement('span');
-            yearNode.className = 'mq-year';
-            yearNode.textContent = year;
-            bottom.appendChild(yearNode);
-
-            meta.appendChild(bottom);
-            view.appendChild(meta);
+            var ratingText = document.createElement('span');
+            ratingText.textContent = vote.toFixed(1);
+            rating.appendChild(ratingText);
+            left.appendChild(rating);
         }
 
-        if (!view.querySelector('.mq-ep')) {
-            var episode = document.createElement('div');
-            episode.className = 'mq-ep';
-            view.appendChild(episode);
-        }
+        var quality = document.createElement('span');
+        quality.className = 'mq-q';
+        left.appendChild(quality);
+
+        bottom.appendChild(left);
+
+        var yearNode = document.createElement('span');
+        yearNode.className = 'mq-year';
+        yearNode.textContent = year;
+        bottom.appendChild(yearNode);
+
+        meta.appendChild(bottom);
+        view.appendChild(meta);
+
+        var episodeNode = document.createElement('div');
+        episodeNode.className = 'mq-ep';
+        view.appendChild(episodeNode);
 
         element.classList.add('card--mq');
     }
 
-    // ===================== сезон и серия =====================
+    // ===================== сезон / серия (сериалы) =====================
 
-    var episodeQueue = [];
-    var episodePending = {};
-    var episodeRunning = 0;
-    var episodeLastStart = 0;
-    var episodePumpTimer = null;
+    var EP_CACHE = 'maxsm_ratings_episode_cache';
+    var EP_TTL = 6 * 60 * 60 * 1000;
+    var EP_GAP = 250;
+    var epQueue = [];
+    var epTimer = null;
 
-    function normalizeEpisode(episode) {
-        if (!episode) return null;
-
-        var season = parseInt(episode.season_number, 10);
-        var number = parseInt(episode.episode_number, 10);
-
-        if (isNaN(season) || season < 0 || isNaN(number) || number <= 0) {
-            return null;
-        }
-
-        return { s: season, e: number };
-    }
+    var ICON_EP =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M7 4h12"/><path d="M5 7.5h14"/>' +
+        '<rect x="3.5" y="11" width="17" height="9.5" rx="2"/>' +
+        '<path d="M10.5 13.8v4l3.3-2z"/>' +
+        '</svg>';
 
     function getEpisodeFromData(data) {
-        if (!data) return null;
+        var episode = data && (data.last_episode_to_air || data.next_episode_to_air);
 
-        return normalizeEpisode(data.last_episode_to_air) ||
-            normalizeEpisode(data.next_episode_to_air);
+        if (episode && episode.episode_number > 0 && episode.season_number >= 0) {
+            return {
+                s: episode.season_number,
+                e: episode.episode_number
+            };
+        }
+
+        return null;
     }
 
     function setEpisode(element, episode) {
@@ -1240,212 +981,90 @@ function addSettings() {
         node.appendChild(text);
     }
 
-    function clearEpisodeRetry(element) {
-        element.removeAttribute('data-mq-ep-retry');
-        element.removeAttribute('data-mq-ep-retry-token');
-    }
+    function epPump() {
+        if (epTimer || !epQueue.length) return;
 
-    function isElementAttached(element) {
-        var root = document.body || document.documentElement;
-        return !!(root && root.contains && root.contains(element));
-    }
+        var job = epQueue.shift();
+        job();
 
-    function scheduleEpisodeRetry(element, id) {
-        var retries = parseInt(element.getAttribute('data-mq-ep-retry') || '0', 10);
-        if (isNaN(retries)) retries = 0;
-        if (retries >= EP_RETRY_LIMIT) return;
-
-        retries++;
-
-        var token = String(Date.now()) + '-' + String(Math.random());
-        element.setAttribute('data-mq-ep-retry', String(retries));
-        element.setAttribute('data-mq-ep-retry-token', token);
-
-        setTimeout(function () {
-            if (element.getAttribute('data-mq-ep-retry-token') !== token) return;
-            if (!isElementAttached(element)) return;
-            if (element.getAttribute('data-mq-ep-key') !== id) return;
-
-            element.removeAttribute('data-mq-ep');
-            processCard(element, 0);
-        }, EP_RETRY_DELAY);
-    }
-
-    function pumpEpisodeQueue() {
-        if (
-            episodeRunning >= EP_MAX_PARALLEL ||
-            !episodeQueue.length ||
-            episodePumpTimer
-        ) {
-            return;
-        }
-
-        var wait = Math.max(episodeLastStart + EP_GAP - Date.now(), 0);
-
-        if (wait > 0) {
-            episodePumpTimer = setTimeout(function () {
-                episodePumpTimer = null;
-                pumpEpisodeQueue();
-            }, wait);
-            return;
-        }
-
-        var job = episodeQueue.shift();
-        episodeRunning++;
-        episodeLastStart = Date.now();
-
-        var finished = false;
-
-        function complete() {
-            if (finished) return;
-            finished = true;
-            episodeRunning--;
-            pumpEpisodeQueue();
-        }
-
-        try {
-            job(complete);
-        } catch (e) {
-            logError('episode queue error', e);
-            complete();
-        }
-
-        pumpEpisodeQueue();
+        epTimer = setTimeout(function () {
+            epTimer = null;
+            epPump();
+        }, EP_GAP);
     }
 
     function ensureEpisode(element, data) {
         if (!opt('maxsm_mq_episode')) return;
         if (getCardType(data) !== 'tv') return;
+        if (element.getAttribute('data-mq-ep')) return;
 
-        var id = data.id;
-        var idKey = id === undefined || id === null ? '' : String(id);
-        var previousKey = element.getAttribute('data-mq-ep-key');
-
-        if (previousKey !== idKey) {
-            element.removeAttribute('data-mq-ep');
-            clearEpisodeRetry(element);
-            setEpisode(element, null);
-        }
-
-        if (element.getAttribute('data-mq-ep') && previousKey === idKey) {
-            return;
-        }
-
-        element.setAttribute('data-mq-ep-key', idKey);
         element.setAttribute('data-mq-ep', '1');
 
-        var fromCard = getEpisodeFromData(data);
-        if (fromCard) {
-            clearEpisodeRetry(element);
-            setEpisode(element, fromCard);
+        // 1) данные уже есть в карточке
+        var episode = getEpisodeFromData(data);
+
+        if (episode) {
+            setEpisode(element, episode);
             return;
         }
 
-        if (!idKey) {
-            setEpisode(element, null);
+        var id = data.id;
+        if (!id) return;
+
+        // 2) кеш
+        var cache = Lampa.Storage.get(EP_CACHE) || {};
+        var cached = cache[id];
+
+        if (cached && Date.now() - cached.t < EP_TTL) {
+            setEpisode(element, cached.e ? { s: cached.s, e: cached.e } : null);
             return;
         }
 
-        var cached = readEpisodeCache(idKey);
-        if (cached) {
-            clearEpisodeRetry(element);
-            setEpisode(element, cached.episode);
-            return;
-        }
-
-        if (hasOwn(episodePending, idKey)) {
-            addUniqueElement(episodePending[idKey], element);
-            return;
-        }
-
+        // 3) запрос деталей сериала в TMDB
         var url;
 
         try {
-            var tmdb = window.Lampa && window.Lampa.TMDB;
-            if (!tmdb || !tmdb.api || !tmdb.key) {
-                element.removeAttribute('data-mq-ep');
-                return;
-            }
-
-            var language = storageGet('tmdb_lang', '') ||
-                storageGet('language', 'ru') ||
+            var language =
+                Lampa.Storage.get('tmdb_lang') ||
+                Lampa.Storage.get('language', 'ru') ||
                 'ru';
 
-            url = tmdb.api(
-                'tv/' + encodeURIComponent(idKey) +
-                '?api_key=' + encodeURIComponent(tmdb.key()) +
-                '&language=' + encodeURIComponent(language)
+            url = Lampa.TMDB.api(
+                'tv/' + id +
+                '?api_key=' + Lampa.TMDB.key() +
+                '&language=' + language
             );
         } catch (e) {
-            element.removeAttribute('data-mq-ep');
             return;
         }
 
-        if (!url) {
-            element.removeAttribute('data-mq-ep');
-            return;
-        }
-
-        episodePending[idKey] = [element];
-
-        episodeQueue.push(function (done) {
+        epQueue.push(function () {
             httpGetJson(url, function (error, response) {
-                var targets = episodePending[idKey] || [];
-                delete episodePending[idKey];
-
-                try {
-                    if (error || !response) {
-                        for (var i = 0; i < targets.length; i++) {
-                            var failedElement = targets[i];
-
-                            if (failedElement.getAttribute('data-mq-ep-key') === idKey) {
-                                failedElement.removeAttribute('data-mq-ep');
-                                scheduleEpisodeRetry(failedElement, idKey);
-                            }
-                        }
-
-                        return;
-                    }
-
-                    var result = getEpisodeFromData(response);
-                    writeEpisodeCache(idKey, result);
-
-                    for (var j = 0; j < targets.length; j++) {
-                        var target = targets[j];
-
-                        if (target.getAttribute('data-mq-ep-key') !== idKey) continue;
-
-                        clearEpisodeRetry(target);
-                        setEpisode(target, result);
-                    }
-                } catch (e) {
-                    logError('episode response error', e);
-                } finally {
-                    done();
+                if (error || !response) {
+                    element.removeAttribute('data-mq-ep');
+                    return;
                 }
+
+                var result = getEpisodeFromData(response);
+                var episodeCache = Lampa.Storage.get(EP_CACHE) || {};
+
+                episodeCache[id] = {
+                    s: result ? result.s : 0,
+                    e: result ? result.e : 0,
+                    t: Date.now()
+                };
+
+                Lampa.Storage.set(EP_CACHE, episodeCache);
+                setEpisode(element, result);
             });
         });
 
-        pumpEpisodeQueue();
-    }
-
-    // ===================== качество на карточке =====================
-
-    var qualityPending = {};
-
-    function addUniqueElement(list, element) {
-        for (var i = 0; i < list.length; i++) {
-            if (list[i] === element) return;
-        }
-
-        list.push(element);
+        epPump();
     }
 
     function setQuality(element, quality) {
         var node = element.querySelector('.mq-q');
         if (!node) return;
-
-        quality = normalizeQuality(quality);
 
         if (!quality) {
             node.className = 'mq-q';
@@ -1453,7 +1072,7 @@ function addSettings() {
             return;
         }
 
-        node.className = 'mq-q mq-q-on q-' + quality.toLowerCase();
+        node.className = 'mq-q mq-q-on q-' + String(quality).toLowerCase();
         node.innerHTML = ICON_GAUGE;
 
         var text = document.createElement('span');
@@ -1461,129 +1080,11 @@ function addSettings() {
         node.appendChild(text);
     }
 
-    function clearQualityRetry(element) {
-        element.removeAttribute('data-quality-retry');
-        element.removeAttribute('data-quality-retry-token');
-    }
-
-    function isQualityEnabled(type) {
-        return opt('maxsm_mq_quality') &&
-            (type !== 'tv' || opt('maxsm_mq_quality_tv'));
-    }
-
-    function buildQualityCacheKey(type, card) {
-        if (
-            card.id !== undefined &&
-            card.id !== null &&
-            String(card.id) !== ''
-        ) {
-            return type + '_' + String(card.id);
-        }
-
-        var fallback = [
-            card.original_title || '',
-            card.title || '',
-            card.release_date || ''
-        ].join('|').toLowerCase();
-
-        return type + '_title_' + encodeURIComponent(fallback);
-    }
-
-    function scheduleQualityRetry(element, cacheKey) {
-        var retries = parseInt(element.getAttribute('data-quality-retry') || '0', 10);
-        if (isNaN(retries)) retries = 0;
-        if (retries >= QUALITY_RETRY_LIMIT) return;
-
-        retries++;
-
-        var token = String(Date.now()) + '-' + String(Math.random());
-        element.setAttribute('data-quality-retry', String(retries));
-        element.setAttribute('data-quality-retry-token', token);
-
-        setTimeout(function () {
-            if (element.getAttribute('data-quality-retry-token') !== token) return;
-            if (!isElementAttached(element)) return;
-            if (element.getAttribute('data-quality-key') !== cacheKey) return;
-
-            element.removeAttribute('data-quality-added');
-            processCard(element, 0);
-        }, QUALITY_RETRY_DELAY);
-    }
-
-    function failQualityElement(element, cacheKey) {
-        if (element.getAttribute('data-quality-key') !== cacheKey) return;
-
-        element.removeAttribute('data-quality-added');
-        scheduleQualityRetry(element, cacheKey);
-    }
-
-    function completeQualityLookup(cacheKey, type, quality, failed, done) {
-        var targets = qualityPending[cacheKey] || [];
-        delete qualityPending[cacheKey];
-
-        try {
-            if (failed) {
-                for (var i = 0; i < targets.length; i++) {
-                    failQualityElement(targets[i], cacheKey);
-                }
-
-                return;
-            }
-
-            writeCache(cacheKey, quality);
-
-            for (var j = 0; j < targets.length; j++) {
-                var element = targets[j];
-
-                if (element.getAttribute('data-quality-key') !== cacheKey) continue;
-
-                clearQualityRetry(element);
-
-                if (isQualityEnabled(type)) {
-                    setQuality(element, quality);
-                } else {
-                    setQuality(element, null);
-                }
-            }
-        } catch (e) {
-            logError('quality response error', e);
-
-            for (var k = 0; k < targets.length; k++) {
-                failQualityElement(targets[k], cacheKey);
-            }
-
-            failed = true;
-        } finally {
-            done(!!failed);
-        }
-    }
-
-    function requestQuality(element, type, card, cacheKey) {
-        if (hasOwn(qualityPending, cacheKey)) {
-            addUniqueElement(qualityPending[cacheKey], element);
-            return;
-        }
-
-        qualityPending[cacheKey] = [element];
-
-        enqueueQualityTask(function (done) {
-            try {
-                getQuality(card, card.id, function (quality, failed) {
-                    completeQualityLookup(cacheKey, type, quality, failed, done);
-                });
-            } catch (e) {
-                logError('quality lookup error', e);
-                completeQualityLookup(cacheKey, type, null, true, done);
-            }
-        });
-    }
-
     function processCard(element, attempt) {
-        if (!element || !element.querySelector) return;
-
         var data = getCardData(element);
 
         if (!data) {
+            // card_data ещё не проставлен — пробуем позже
             if ((attempt || 0) < 8) {
                 setTimeout(function () {
                     processCard(element, (attempt || 0) + 1);
@@ -1593,72 +1094,67 @@ function addSettings() {
             return;
         }
 
-        var type = getCardType(data);
+        // оверлей строим один раз
+        if (!element.classList.contains('card--mq')) {
+            buildOverlay(element, data);
+        }
 
-        buildOverlay(element, data);
+        var type = getCardType(data);
 
         if (type === 'tv') {
             element.classList.add('mq-tv');
-            ensureEpisode(element, data);
         } else {
             element.classList.remove('mq-tv');
-            element.removeAttribute('data-mq-ep');
-            element.removeAttribute('data-mq-ep-key');
-            clearEpisodeRetry(element);
-            setEpisode(element, null);
         }
 
+        // сезон/серия для сериалов
+        ensureEpisode(element, data);
+
+        // качество
+        if (!opt('maxsm_mq_quality')) return;
+        if (type === 'tv' && !opt('maxsm_mq_quality_tv')) return;
+        if (element.getAttribute('data-quality-added')) return;
+
+        element.setAttribute('data-quality-added', 'true');
+
         var card = {
-            id: data.id === undefined || data.id === null ? '' : String(data.id),
+            id: data.id || '',
             title: data.title || data.name || '',
             original_title: data.original_title || data.original_name || '',
             release_date: data.release_date || data.first_air_date || ''
         };
 
-        var cacheKey = buildQualityCacheKey(type, card);
-        var previousKey = element.getAttribute('data-quality-key');
-
-        if (previousKey !== cacheKey) {
-            element.removeAttribute('data-quality-added');
-            clearQualityRetry(element);
-            setQuality(element, null);
-        }
-
-        element.setAttribute('data-quality-key', cacheKey);
-
-        if (!isQualityEnabled(type)) {
-            element.removeAttribute('data-quality-added');
-            clearQualityRetry(element);
-            setQuality(element, null);
-            return;
-        }
-
-        if (element.getAttribute('data-quality-added')) return;
-
-        element.setAttribute('data-quality-added', 'true');
-
+        var cacheKey = type + '_' + card.id;
         var cached = readCache(cacheKey);
 
         if (cached) {
-            clearQualityRetry(element);
             setQuality(element, cached.quality);
             return;
         }
 
-        requestQuality(element, type, card, cacheKey);
+        enqueue(function (done) {
+            getQuality(card, card.id, function (quality, failed) {
+                if (failed) {
+                    // Ошибка сети/429 — не кешируем «пусто», оставляем шанс на повтор.
+                    element.removeAttribute('data-quality-added');
+                    done(true);
+                    return;
+                }
+
+                writeCache(cacheKey, quality);
+                setQuality(element, quality);
+                done(false);
+            });
+        });
     }
 
     function updateCards(list) {
         for (var i = 0; i < list.length; i++) {
-            try {
-                processCard(list[i], 0);
-            } catch (e) {
-                logError('card processing error', e);
-            }
+            processCard(list[i], 0);
         }
     }
 
-    function collectAddedCards(mutations) {
+    var observer = new MutationObserver(function (mutations) {
         var found = [];
 
         for (var i = 0; i < mutations.length; i++) {
@@ -1667,13 +1163,9 @@ function addSettings() {
 
             for (var j = 0; j < added.length; j++) {
                 var node = added[j];
-                if (!node) continue;
+                if (node.nodeType !== 1) continue;
 
-                if (
-                    node.nodeType === 1 &&
-                    node.classList &&
-                    node.classList.contains('card')
-                ) {
+                if (node.classList && node.classList.contains('card')) {
                     found.push(node);
                 }
 
@@ -1688,75 +1180,39 @@ function addSettings() {
         }
 
         if (found.length) updateCards(found);
-    }
-
-    // ===================== запуск =====================
+    });
 
     function startPlugin() {
-        if (started) return;
-        started = true;
+        if (window.maxsmRatingsQualityPlugin) return;
+        window.maxsmRatingsQualityPlugin = true;
 
-        try {
-            addStyle();
-        } catch (e) {
-            logError('style error', e);
-        }
+        addStyle();
 
         try {
             addSettings();
         } catch (e) {
-            logError('settings error', e);
+            console.error('MAXSM-RATINGS settings error', e);
         }
 
         applyBodyClasses();
 
-        try {
-            if (window.MutationObserver && document.body) {
-                observer = new window.MutationObserver(collectAddedCards);
-                observer.observe(document.body, {
-                    childList: true,
-                    subtree: true
-                });
-            }
-        } catch (e) {
-            logError('observer error', e);
-        }
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
 
         updateCards(document.querySelectorAll('.card'));
         log('plugin started');
     }
 
-    function waitForReady() {
-        if (started) return;
-
-        if (window.appready) {
-            startPlugin();
-            return;
-        }
-
-        var app = window.Lampa;
-
-        if (
-            !readyListenerAdded &&
-            app &&
-            app.Listener &&
-            app.Listener.follow
-        ) {
-            try {
-                readyListenerAdded = true;
-
-                app.Listener.follow('app', function (event) {
-                    if (event && event.type === 'ready') {
-                        startPlugin();
-                    }
-                });
-            } catch (e) {
-                readyListenerAdded = false;
+    // Ждём готовности Lampa
+    if (window.appready) {
+        startPlugin();
+    } else if (window.Lampa && Lampa.Listener) {
+        Lampa.Listener.follow('app', function (event) {
+            if (event.type === 'ready') {
+                startPlugin();
             }
-        }
-
-        setTimeout(waitForReady, 500);
+        });
     }
-
-    waitForReady();
 })();
