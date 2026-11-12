@@ -32,7 +32,8 @@
         maxsm_mq_year: true,           // год
         maxsm_mq_rating: true,         // рейтинг
         maxsm_mq_quality: true,        // качество (JacRed)
-        maxsm_mq_quality_tv: false,    // качество для сериалов
+        maxsm_mq_quality_tv: true,     // качество для сериалов
+        maxsm_mq_episode: true,        // номер сезона/серии у сериалов
         maxsm_mq_quality_icon: true,   // иконка у качества
         maxsm_mq_quality_color: true   // цветное качество
     };
@@ -71,6 +72,7 @@
         toggle('mq-hide-genres', !opt('maxsm_mq_genres'));
         toggle('mq-hide-year', !opt('maxsm_mq_year'));
         toggle('mq-hide-rating', !opt('maxsm_mq_rating'));
+        toggle('mq-hide-episode', !opt('maxsm_mq_episode'));
         toggle('mq-hide-quality', !opt('maxsm_mq_quality'));
         toggle('mq-no-icon', !opt('maxsm_mq_quality_icon'));
         toggle('mq-no-color', !opt('maxsm_mq_quality_color'));
@@ -114,12 +116,20 @@
             updateCards(cards);
         }
 
+        function refetchEpisodes() {
+            var cards = document.querySelectorAll('.card');
+            for (var i = 0; i < cards.length; i++) cards[i].removeAttribute('data-mq-ep');
+            updateCards(cards);
+        }
+
         title('Оформление', 'Appearance');
         trigger('maxsm_mq_overlay', 'Оверлей на карточках', 'Card overlay',
             'Жанры, название, рейтинг и год поверх постера', 'Genres, title, rating and year over the poster');
         trigger('maxsm_mq_genres', 'Жанры', 'Genres', 'Показывать первые два жанра', 'Show the first two genres');
         trigger('maxsm_mq_year', 'Год выхода', 'Release year', '', '');
         trigger('maxsm_mq_rating', 'Рейтинг', 'Rating', 'Оценка TMDB со звездой', 'TMDB score with a star');
+        trigger('maxsm_mq_episode', 'Сезон и серия', 'Season and episode',
+            'Бейдж S1:E8 у сериалов (последняя вышедшая серия)', 'S1:E8 badge on TV shows (latest aired episode)', refetchEpisodes);
 
         title('Качество', 'Quality');
         trigger('maxsm_mq_quality', 'Показывать качество', 'Show quality', 'Ищется через JacRed', 'Looked up via JacRed', refetchQuality);
@@ -134,6 +144,7 @@
             field: { name: tr('Очистить кеш качества', 'Clear quality cache') },
             onChange: function () {
                 Lampa.Storage.set(QUALITY_CACHE, {});
+                Lampa.Storage.set(EP_CACHE, {});
                 if (Lampa.Noty) Lampa.Noty.show(tr('Кеш качества очищен', 'Quality cache cleared'));
             }
         });
@@ -163,6 +174,7 @@
             'body:not(.mq-overlay-off) .card--mq .card__title,' +
             'body:not(.mq-overlay-off) .card--mq .card__age,' +
             'body:not(.mq-overlay-off) .card--mq .card__vote,' +
+            'body:not(.mq-overlay-off) .card--mq .card__type,' +
             'body:not(.mq-overlay-off) .card--mq .card__quality{display:none !important;}' +
 
             '.card--mq .card__view{position:relative;}' +
@@ -199,7 +211,15 @@
             '.mq-q.q-sd{color:#e6a23c;}' +
             'body.mq-no-color .mq-q{color:#fff;}' +
             'body.mq-no-icon .mq-q svg{display:none;}' +
-            'body.mq-hide-quality .mq-q{display:none;}';
+            'body.mq-hide-quality .mq-q{display:none;}' +
+
+            // бейдж серии вверху слева
+            '.mq-ep{display:none;position:absolute;top:0;left:0;z-index:6;pointer-events:none;' +
+            'align-items:center;gap:0.5em;padding:0.55em 0.9em 0.55em 0.8em;color:#fff;font-size:1.05em;' +
+            'line-height:1;white-space:nowrap;background:rgba(0,0,0,0.85);border-radius:1em 0 1em 0;}' +
+            '.mq-ep.mq-ep-on{display:inline-flex;}' +
+            '.mq-ep svg{width:1.35em;height:1.35em;flex:none;}' +
+            'body.mq-overlay-off .mq-ep,body.mq-hide-episode .mq-ep{display:none;}';
         document.head.appendChild(st);
     }
 
@@ -475,7 +495,92 @@
 
         meta.appendChild(bottom);
         view.appendChild(meta);
+
+        var ep = document.createElement('div');
+        ep.className = 'mq-ep';
+        view.appendChild(ep);
+
         el.classList.add('card--mq');
+    }
+
+    // ===================== сезон / серия (сериалы) =====================
+
+    var EP_CACHE = 'maxsm_ratings_episode_cache';
+    var EP_TTL = 6 * 60 * 60 * 1000;
+    var EP_GAP = 250;
+    var epQueue = [];
+    var epTimer = null;
+
+    var ICON_EP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h12"/><path d="M5 7.5h14"/>' +
+        '<rect x="3.5" y="11" width="17" height="9.5" rx="2"/><path d="M10.5 13.8v4l3.3-2z"/></svg>';
+
+    function getEpisodeFromData(d) {
+        var e = d && (d.last_episode_to_air || d.next_episode_to_air);
+        if (e && e.episode_number > 0 && e.season_number >= 0) {
+            return { s: e.season_number, e: e.episode_number };
+        }
+        return null;
+    }
+
+    function setEpisode(el, ep) {
+        var n = el.querySelector('.mq-ep');
+        if (!n) return;
+        if (!ep || !ep.e) {
+            n.className = 'mq-ep';
+            n.innerHTML = '';
+            return;
+        }
+        n.className = 'mq-ep mq-ep-on';
+        n.innerHTML = ICON_EP;
+        var t = document.createElement('span');
+        t.textContent = 'S' + ep.s + ':E' + ep.e;
+        n.appendChild(t);
+    }
+
+    function epPump() {
+        if (epTimer || !epQueue.length) return;
+        var job = epQueue.shift();
+        job();
+        epTimer = setTimeout(function () { epTimer = null; epPump(); }, EP_GAP);
+    }
+
+    function ensureEpisode(el, data) {
+        if (!opt('maxsm_mq_episode')) return;
+        if (getCardType(data) !== 'tv') return;
+        if (el.getAttribute('data-mq-ep')) return;
+        el.setAttribute('data-mq-ep', '1');
+
+        // 1) данные уже есть в карточке
+        var ep = getEpisodeFromData(data);
+        if (ep) { setEpisode(el, ep); return; }
+
+        var id = data.id;
+        if (!id) return;
+
+        // 2) кеш
+        var cache = Lampa.Storage.get(EP_CACHE) || {};
+        var c = cache[id];
+        if (c && Date.now() - c.t < EP_TTL) { setEpisode(el, c.e ? { s: c.s, e: c.e } : null); return; }
+
+        // 3) запрос деталей сериала в TMDB
+        var url;
+        try {
+            var lang = Lampa.Storage.get('tmdb_lang') || Lampa.Storage.get('language', 'ru') || 'ru';
+            url = Lampa.TMDB.api('tv/' + id + '?api_key=' + Lampa.TMDB.key() + '&language=' + lang);
+        } catch (e) { return; }
+
+        epQueue.push(function () {
+            httpGetJson(url, function (err, res) {
+                if (err || !res) { el.removeAttribute('data-mq-ep'); return; }
+                var x = getEpisodeFromData(res);
+                var cc = Lampa.Storage.get(EP_CACHE) || {};
+                cc[id] = { s: x ? x.s : 0, e: x ? x.e : 0, t: Date.now() };
+                Lampa.Storage.set(EP_CACHE, cc);
+                setEpisode(el, x);
+            });
+        });
+        epPump();
     }
 
     function setQuality(el, quality) {
@@ -505,6 +610,9 @@
 
         // оверлей строим один раз
         if (!el.classList.contains('card--mq')) buildOverlay(el, data);
+
+        // сезон/серия для сериалов
+        ensureEpisode(el, data);
 
         // качество
         if (!opt('maxsm_mq_quality')) return;
