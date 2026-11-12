@@ -6,7 +6,10 @@
     var Q_CACHE_TIME_EMPTY = 60 * 60 * 1000;      // кеш "ничего не найдено"
     var QUALITY_CACHE = 'maxsm_ratings_quality_cache';
     var REQUEST_TIMEOUT = 6000;                   // таймаут одного запроса
-    var MAX_PARALLEL = 3;                         // одновременных запросов (важно для слабых ТВ)
+    var MAX_PARALLEL = 1;                         // одновременных запросов (jac.red отвечает 429 при частых)
+    var REQUEST_GAP = 800;                        // пауза между запросами, мс
+    var FAIL_PAUSE = 60 * 1000;                   // пауза после 3 ошибок подряд
+    var USE_PROXY = false;                        // прокси бьют в тот же jac.red и множат 429; включай только если прямой запрос режет CORS
 
     // Протокол берём от страницы, иначе на https-Lampa запрос на http блокируется (mixed content)
     var JACRED_PROTOCOL = location.protocol === 'https:' ? 'https://' : 'http://';
@@ -85,7 +88,7 @@
 
     function fetchJsonWithFallback(url, cardId, cb) {
         var sources = [url];
-        for (var i = 0; i < PROXY_LIST.length; i++) {
+        for (var i = 0; USE_PROXY && i < PROXY_LIST.length; i++) {
             sources.push(PROXY_LIST[i].prefix + (PROXY_LIST[i].encode ? encodeURIComponent(url) : url));
         }
         var idx = 0;
@@ -110,19 +113,37 @@
         pump();
     }
 
+    var lastStart = 0;
+    var pausedUntil = 0;
+    var failStreak = 0;
+    var pumpTimer = null;
+
     function pump() {
-        while (running < MAX_PARALLEL && queue.length) {
-            (function (task) {
-                running++;
-                var finished = false;
-                task(function () {
-                    if (finished) return;
-                    finished = true;
-                    running--;
-                    pump();
-                });
-            })(queue.shift());
+        if (running >= MAX_PARALLEL || !queue.length || pumpTimer) return;
+
+        var now = Date.now();
+        var wait = Math.max(pausedUntil - now, lastStart + REQUEST_GAP - now, 0);
+        if (wait > 0) {
+            pumpTimer = setTimeout(function () { pumpTimer = null; pump(); }, wait);
+            return;
         }
+
+        var task = queue.shift();
+        running++;
+        lastStart = Date.now();
+        var finished = false;
+        task(function (failed) {
+            if (finished) return;
+            finished = true;
+            running--;
+            if (failed) {
+                failStreak++;
+                if (failStreak >= 3) { pausedUntil = Date.now() + FAIL_PAUSE; failStreak = 0; log('too many errors, pause'); }
+            } else {
+                failStreak = 0;
+            }
+            pump();
+        });
     }
 
     // ---------- JacRed ----------
@@ -147,7 +168,8 @@
             (key ? '&apikey=' + encodeURIComponent(key) : '');
 
         fetchJsonWithFallback(apiUrl, cardId, function (err, torrents) {
-            if (err || !Array.isArray(torrents) || !torrents.length) { cb(null); return; }
+            if (err || !Array.isArray(torrents)) { cb(null, true); return; }   // ошибка сети/429 — не кешируем
+            if (!torrents.length) { cb(null, false); return; }                 // реально ничего нет
 
             var best = -1;
             for (var i = 0; i < torrents.length; i++) {
@@ -158,23 +180,25 @@
                 if (/\b(ts|telesync|camrip|cam)\b/i.test(String(t.title || '')) && q < 720) continue;
                 if (q > best) best = q;
             }
-            cb(best > 0 ? translateQuality(best) : null);
+            cb(best > 0 ? translateQuality(best) : null, false);
         });
     }
 
     function getQuality(card, cardId, cb) {
         var date = card.release_date || '';
         var year = date.substring(0, 4);
-        if (!year || isNaN(year)) { cb(null); return; }
+        if (!year || isNaN(year)) { cb(null, false); return; }
 
         var titles = [];
         if (card.original_title && /[a-zа-яё0-9]/i.test(card.original_title)) titles.push(card.original_title.trim());
         if (card.title && /[a-zа-яё0-9]/i.test(card.title) && card.title !== card.original_title) titles.push(card.title.trim());
 
         (function next(i) {
-            if (i >= titles.length) { cb(null); return; }
-            searchJacred(titles[i], year, cardId, function (q) {
-                if (q) cb(q); else next(i + 1);
+            if (i >= titles.length) { cb(null, false); return; }
+            searchJacred(titles[i], year, cardId, function (q, failed) {
+                if (failed) cb(null, true);
+                else if (q) cb(q, false);
+                else next(i + 1);
             });
         })(0);
     }
@@ -260,10 +284,16 @@
         }
 
         enqueue(function (done) {
-            getQuality(card, card.id, function (quality) {
+            getQuality(card, card.id, function (quality, failed) {
+                if (failed) {
+                    // сеть/429: не кешируем "пусто", даём карточке шанс повторить позже
+                    el.removeAttribute('data-quality-added');
+                    done(true);
+                    return;
+                }
                 writeCache(cacheKey, quality);
                 renderQuality(el, quality);
-                done();
+                done(false);
             });
         });
     }
