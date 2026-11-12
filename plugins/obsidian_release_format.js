@@ -43,13 +43,17 @@
         st.id = 'maxsm_ratings_quality';
         st.textContent =
             '.card__view{position:relative !important;}' +
-            '.card__quality{position:absolute !important;bottom:0.5em !important;left:-0.8em !important;' +
-            'background-color:transparent !important;z-index:10;width:fit-content !important;' +
-            'max-width:calc(100% - 1em) !important;}' +
-            '.card__quality div{text-transform:none !important;border:1px solid #FFFFFF !important;' +
-            'background-color:rgba(0,0,0,0.7) !important;color:#FFFFFF !important;font-weight:bold !important;' +
-            'font-style:normal !important;font-size:1.2em !important;border-radius:3px !important;' +
-            'padding:0.2em 0.4em !important;}';
+            // запасной вариант: плавающий бейдж внизу слева, если строку рейтинга найти не удалось
+            '.card__quality{position:absolute !important;bottom:0.6em !important;left:0.8em !important;' +
+            'z-index:10;width:fit-content !important;}' +
+            '.card__quality-inline{display:inline-flex !important;align-items:center;gap:0.3em;' +
+            'margin-left:0.9em;font-weight:bold !important;font-style:normal !important;' +
+            'text-transform:none !important;white-space:nowrap;line-height:1;}' +
+            '.card__quality-inline svg{width:1.1em;height:1.1em;flex:none;}' +
+            '.card__quality-inline.q-4k{color:#5fb760;}' +
+            '.card__quality-inline.q-fhd{color:#3fb8c9;}' +
+            '.card__quality-inline.q-hd{color:#4a9eed;}' +
+            '.card__quality-inline.q-sd{color:#e6a23c;}';
         document.head.appendChild(st);
     }
 
@@ -238,16 +242,37 @@
         var view = el.querySelector('.card__view');
         if (!view) return;
 
-        var old = view.querySelectorAll('.card__quality');
+        var old = el.querySelectorAll('.card__quality, .card__quality-inline');
         for (var i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
 
         if (!quality) return;
-        var wrap = document.createElement('div');
-        wrap.className = 'card__quality';
-        var inner = document.createElement('div');
-        inner.textContent = quality;
-        wrap.appendChild(inner);
-        view.appendChild(wrap);
+
+        // иконка-спидометр + текст, цвет по качеству
+        var badge = document.createElement('span');
+        badge.className = 'card__quality-inline q-' + String(quality).toLowerCase();
+        badge.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+            'stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 18.5a8.5 8.5 0 1 1 14.8 0"/>' +
+            '<path d="M12 14l3.2-4.2"/></svg>';
+        var txt = document.createElement('span');
+        txt.textContent = quality;
+        badge.appendChild(txt);
+
+        // ставим в строку рядом с рейтингом, если он не плавающий
+        var vote = el.querySelector('.card__vote');
+        var inline = false;
+        if (vote && vote.parentNode) {
+            try { inline = window.getComputedStyle(vote).position !== 'absolute'; } catch (e) {}
+        }
+
+        if (inline) {
+            vote.parentNode.insertBefore(badge, vote.nextSibling);
+        } else {
+            var wrap = document.createElement('div');
+            wrap.className = 'card__quality';
+            wrap.appendChild(badge);
+            view.appendChild(wrap);
+        }
     }
 
     function processCard(el, attempt) {
