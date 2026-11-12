@@ -107,7 +107,7 @@
         toggle('mq-hide-year', !opt('maxsm_mq_year'));
         toggle('mq-hide-rating', !opt('maxsm_mq_rating'));
         toggle('mq-hide-episode', !opt('maxsm_mq_episode'));
-        toggle('mq-hide-quality', !opt('maxsm_mq_quality));
+        toggle('mq-hide-quality', !opt('maxsm_mq_quality'));
         toggle('mq-hide-quality-tv', !opt('maxsm_mq_quality_tv'));
         toggle('mq-no-icon', !opt('maxsm_mq_quality_icon'));
         toggle('mq-no-color', !opt('maxsm_mq_quality_color'));
